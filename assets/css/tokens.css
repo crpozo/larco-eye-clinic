@@ -69,11 +69,18 @@
      que el design system dejaba como sustituto. */
   --font-serif-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
 
-  --text-display-xl: clamp(64px, 9vw, 120px);
-  --text-display: clamp(48px, 6vw, 88px);
-  --text-h2: clamp(36px, 4.5vw, 64px);
-  --text-h3: 32px;
-  --text-h4: 24px;
+  /* Escalera de titulares. A 1440px queda 64 / 46 / 34 / 25 / 19, con un paso
+     constante de ~1,35x: cada nivel se lee claramente distinto del anterior
+     sin que ninguno grite. Los tamaños salen de aquí y no de valores sueltos
+     en cada componente, que era lo que había antes —seis títulos de tarjeta
+     entre 20 y 34px sin criterio— y lo que hacía que el h2 compitiera con el
+     hero y que la portada de las interiores fuera más grande que la de la
+     home. */
+  --text-display-xl: clamp(40px, 5vw, 64px);    /* hero de la portada */
+  --text-display: clamp(30px, 3.4vw, 46px);     /* portada de páginas interiores */
+  --text-h2: clamp(24px, 2.5vw, 34px);          /* títulos de sección */
+  --text-h3: clamp(19px, 1.8vw, 25px);          /* títulos de tarjeta grande */
+  --text-h4: clamp(17px, 1.3vw, 19px);          /* títulos de tarjeta y ficha */
 
   --text-lead: 20px;
   --text-body-lg: 18px;

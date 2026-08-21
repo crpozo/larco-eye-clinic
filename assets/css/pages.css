@@ -49,14 +49,6 @@
   margin: 0 auto;
 }
 
-.page-hero__eyebrow {
-  margin: 0 0 18px;
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: lowercase;
-  color: rgba(247, 246, 243, .6);
-}
 
 .page-hero__title {
   margin: 0;
@@ -173,7 +165,7 @@
 .card__title {
   margin: 0;
   font-family: var(--font-serif-display);
-  font-size: 21px;
+  font-size: var(--text-h4);
   font-weight: var(--weight-medium);
   line-height: 1.25;
   color: var(--text-body);
@@ -225,7 +217,7 @@
 .person__name {
   margin: 0;
   font-family: var(--font-serif-display);
-  font-size: 20px;
+  font-size: var(--text-h4);
   font-weight: var(--weight-medium);
   color: var(--text-body);
 }

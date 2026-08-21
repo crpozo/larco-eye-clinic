@@ -102,6 +102,24 @@ ritmo sin romper la lectura de blanco.
 
 El tema oscuro es el del mockup: `#13142E` de fondo, `#1B1C40` en tarjetas.
 
+### Escalera de titulares
+
+Los tamaños salen de los tokens, no de valores sueltos en cada componente. A
+1440px: **64 / 46 / 34 / 25 / 19**, con un paso constante de ~1,35x.
+
+| Token | Uso |
+| --- | --- |
+| `--text-display-xl` | Hero de la portada |
+| `--text-display` | Portada de las páginas interiores |
+| `--text-h2` | Títulos de sección |
+| `--text-h3` | Títulos de tarjeta grande (servicio, CTA) |
+| `--text-h4` | Títulos de tarjeta y ficha (doctor, caso, testimonio, equipo) |
+
+Un título nuevo se cuelga de uno de esos cinco. No se declaran píxeles sueltos:
+así fue como se llegó a tener seis títulos de tarjeta entre 20 y 34px sin
+criterio, un h2 que competía con el hero y portadas interiores más grandes que
+la de la home.
+
 Tipografía: **Montserrat** en todo, incluido el display — así lo fija el mockup,
 que sobreescribe la Playfair Display del design system. Está self-hosted en
 `assets/fonts/`: el sitio no hace ninguna petición a terceros en runtime.
