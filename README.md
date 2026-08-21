@@ -21,7 +21,15 @@ fuentes se cargan con rutas relativas y `file://` las bloquea por CORS.
 ## Estructura
 
 ```
-index.html                  Página de Inicio, completa
+index.html                  \
+sobre-nosotros.html          |
+consultas-examenes.html      |  las seis páginas, generadas
+especialidades.html          |  por tools/build.py
+casos-clinicos.html          |
+contactanos.html            /
+_partials/                  Cabecera y pie, compartidos por las seis
+pages/                      El <main> de cada página, uno por archivo
+tools/build.py              Arma las páginas a partir de lo anterior
 assets/
   css/
     fonts.css               @font-face de Montserrat (self-hosted)
@@ -29,12 +37,30 @@ assets/
     components.css          Botón, PillTag, SectionLabel, StatCounter,
                             ServiceCard, DoctorCard, TestimonialCard
     site.css                Layout de la página, responsive, motion, print
+    pages.css               Páginas interiores: portada compacta, tarjetas,
+                            fichas de equipo, acordeón, formulario, mapa
   js/site.js                Header, menús, modo oscuro, zoom de texto,
-                            reveals y contadores
+                            reveals, contadores y acordeones
   fonts/                    Montserrat woff2 (variable, latin + latin-ext)
   img/                      Logos + fotografía (ver photos/CREDITS.md)
 _design/                    Fuente importada de Claude Design (no se sirve)
 ```
+
+### Editar una página
+
+El sitio publicado es HTML plano y **no hace falta ningún build para servirlo**.
+El script existe sólo para que la cabecera y el pie —idénticos en las seis
+páginas— vivan en un archivo y no se desincronicen.
+
+```bash
+python3 tools/build.py           # regenera las seis páginas
+python3 tools/build.py --check   # falla si alguna quedó vieja
+```
+
+Tocás `pages/<slug>.content.html` (o `_partials/`) y corrés el script. El título,
+la descripción y qué ítem del menú va activo se declaran en `PAGES`, dentro de
+`tools/build.py`. Ahí también está `ASSET_VERSION`: subirlo invalida la caché de
+todos los CSS y del JS a la vez.
 
 Los `<link>` y `<script>` llevan `?v=N`. **Al cambiar un CSS o el JS, súbele el
 número** o los navegadores servirán la versión vieja en caché.
@@ -123,13 +149,20 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
       retratos, que **no son los doctores reales**
       (ver `assets/img/photos/CREDITS.md`)
 
-## Páginas que faltan
+## Las seis páginas
 
-La navegación y el pie ya enlazan a las cinco páginas restantes del proyecto de
-diseño, que **todavía no están implementadas** — esos enlaces dan 404:
+Todas implementadas, con el contenido del sitemap del cliente
+(`_design/contenido-sitemap.md`):
 
-`sobre-nosotros.html` · `consultas-examenes.html` · `especialidades.html` ·
-`casos-clinicos.html` · `contactanos.html`
+| Página | Qué tiene |
+| --- | --- |
+| `index.html` | Portada, cifras, doctores, servicios, casos, equipos, testimonios |
+| `sobre-nosotros.html` | Historia, misión y visión, equipo, instalaciones y equipos |
+| `consultas-examenes.html` | La consulta y los doce exámenes, en acordeón |
+| `especialidades.html` | Córnea, catarata, retina y vítreo, glaucoma, refractiva |
+| `casos-clinicos.html` | Casos de ejemplo y testimonios |
+| `contactanos.html` | Formulario, datos de la clínica, mapa y redes |
 
-Sus artboards existen en el proyecto de Claude Design; ver `_design/README.md`
-para cómo leerlos.
+**El formulario de contacto todavía no envía a ningún lado.** Va con
+`action="#"` y lo dice en la propia página. Cuando haya a dónde mandarlo hay que
+conectarlo; hasta entonces el canal real es WhatsApp.

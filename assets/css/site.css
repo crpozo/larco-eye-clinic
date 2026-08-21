@@ -670,6 +670,11 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   color: var(--text-faint);
 }
 
+.footer__place {
+  flex: 1 1 auto;
+  min-width: 240px;
+}
+
 .footer__address {
   margin: 0;
   font-size: 13px;

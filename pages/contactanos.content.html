@@ -1,0 +1,162 @@
+<main id="contenido">
+
+  <!-- ====================================================================
+       Portada
+       ==================================================================== -->
+  <section class="page-hero">
+    <div class="page-hero__media">
+      <img src="assets/img/photos/hero-contacto.webp" alt="" fetchpriority="high" decoding="async">
+    </div>
+    <div class="page-hero__inner">
+      <p class="page-hero__eyebrow">contáctanos</p>
+      <h1 class="page-hero__title">Estamos para atenderte</h1>
+      <p class="page-hero__lede">Agenda tu cita con nuestro equipo.</p>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Formulario y datos de la clínica
+       ==================================================================== -->
+  <section id="formulario" class="section section--page">
+    <div class="u-shell">
+      <div class="section-head" data-rev>
+        <h2 class="section__title">
+          <span class="dots" aria-hidden="true"></span>Cuéntanos qué <span class="u-accent-phrase">necesitas</span>
+        </h2>
+      </div>
+
+      <div class="split" data-rev>
+        <form class="form" action="#" method="post" novalidate>
+          <div class="field">
+            <label class="field__label" for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="given-name" required>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="apellido">Apellido</label>
+            <input id="apellido" name="apellido" type="text" autocomplete="family-name" required>
+          </div>
+
+          <div class="field field--wide">
+            <label class="field__label" for="motivo">Motivo de contacto</label>
+            <select id="motivo" name="motivo" required>
+              <option value="">Selecciona una opción</option>
+              <option value="agendar-cita">Agendar cita</option>
+              <option value="consulta-general">Consulta general</option>
+              <option value="informacion-servicio">Información sobre un servicio</option>
+              <option value="estudiante">Estudiante</option>
+              <option value="medico-colega">Médico colega</option>
+              <option value="empresa-privada">Empresa privada</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="telefono">Teléfono <span class="field__opt">(opcional)</span></label>
+            <input id="telefono" name="telefono" type="tel" autocomplete="tel">
+          </div>
+
+          <div class="field field--wide">
+            <label class="field__label" for="mensaje">Mensaje <span class="field__opt">(opcional)</span></label>
+            <textarea id="mensaje" name="mensaje" rows="6"></textarea>
+          </div>
+
+          <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Enviar mensaje</button>
+            <p class="form__note">El envío de este formulario todavía no está conectado; mientras tanto puedes escribirnos por <a href="contactanos.html" data-whatsapp rel="noopener">WhatsApp</a>.</p>
+          </div>
+        </form>
+
+        <div class="card">
+          <h3 class="card__title">Datos de la clínica</h3>
+          <dl class="info-list">
+            <div>
+              <dt>Dirección</dt>
+              <dd>Cumbayá · Quito, Ecuador — dirección exacta por confirmar</dd>
+            </div>
+            <div>
+              <dt>Teléfono</dt>
+              <dd>Por confirmar</dd>
+            </div>
+            <div>
+              <dt>WhatsApp</dt>
+              <dd><a href="contactanos.html" data-whatsapp rel="noopener">Escríbenos por WhatsApp</a></dd>
+            </div>
+            <div>
+              <dt>Correo</dt>
+              <dd>Por confirmar</dd>
+            </div>
+            <div>
+              <dt>Horarios</dt>
+              <dd>Por confirmar</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Ubicación
+       ==================================================================== -->
+  <section id="ubicacion" class="section section--sunken">
+    <div class="u-shell">
+      <div class="section-head" data-rev>
+        <h2 class="section__title">
+          <span class="dots" aria-hidden="true"></span>Cómo <span class="u-accent-phrase">llegar</span>
+        </h2>
+      </div>
+
+      <div data-rev>
+        <div class="map-wide">
+          <img src="assets/img/mapa-cumbaya.webp" alt="Mapa de Cumbayá, Quito" loading="lazy" decoding="async">
+          <span class="footer__pin" aria-hidden="true"></span>
+        </div>
+        <p class="map-note">Mapa referencial de la zona · © colaboradores de OpenStreetMap. La ubicación exacta se marcará cuando la clínica confirme la dirección.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Redes sociales
+       ==================================================================== -->
+  <section id="redes" class="section section--page">
+    <div class="u-shell">
+      <div class="head-split" data-rev>
+        <h2 class="section__title">
+          <span class="dots" aria-hidden="true"></span>Redes <span class="u-accent-phrase">sociales</span>
+        </h2>
+        <div class="head-split__aside">
+          <p>También publicamos novedades de la clínica en Facebook e Instagram. <span class="u-muted">Los perfiles oficiales están por confirmar, así que estos enlaces todavía no apuntan a ninguna cuenta.</span></p>
+          <div class="cta-band__actions">
+            <a class="btn btn--outline" href="#">Facebook</a>
+            <a class="btn btn--outline" href="#">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Cierre
+       ==================================================================== -->
+  <section id="agenda" class="section section--sunken">
+    <div class="u-shell">
+      <div class="cta-band" data-rev>
+        <div>
+          <h2 class="cta-band__title">Agenda tu cita</h2>
+          <p class="cta-band__text">Completa el formulario o escríbenos por WhatsApp y coordinamos el horario que mejor te acomode.</p>
+        </div>
+        <div class="cta-band__actions">
+          <a class="btn btn--primary" data-ondark="theme" href="contactanos.html#formulario">Agendar cita</a>
+          <a class="btn btn--outline" data-ondark="theme" href="contactanos.html" data-whatsapp rel="noopener">Escríbenos por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
