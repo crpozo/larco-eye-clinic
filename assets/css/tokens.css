@@ -1,0 +1,312 @@
+/* ==========================================================================
+   Larco Visión — design tokens
+
+   Structure and scale come from the Claude Design system
+   ("Larco Visión Design System", _design/_ds/tokens/*.css).
+
+   The palette follows the reference board the client approved: warm
+   off-white paper, neutral charcoal surfaces, a slate blue-grey for
+   clinical imagery, and one terracotta accent.
+   ========================================================================== */
+
+:root {
+  /* ---- base palette ---------------------------------------------------- */
+  --bone: #F1EFEC;          /* warm paper */
+  --bone-2: #E7E4DF;        /* sunken paper */
+  --ink: #1C1E20;           /* near-black */
+
+  --brand-deep: #2A2D30;    /* primary fills, dark cards */
+  --brand-deep-2: #1C1E20;  /* deepest card */
+
+  --slate: #8FA0AC;         /* clinical blue-grey */
+  --slate-deep: #6E8290;
+  --slate-soft: #B9C5CD;
+
+  --terracotta: #D2703C;
+  --terracotta-deep: #BE6134;
+  --terracotta-ink: #A9512A; /* passes contrast as small text on paper */
+  --terracotta-light: #E89A6E;
+
+  /* ---- neutrals (warm) -------------------------------------------------- */
+  --gray-1: #FBFAF8;
+  --gray-2: #E5E2DE;
+  --gray-3: #C9C5C0;
+  --gray-4: #8E8B86;
+  --gray-5: #55565A;
+  --gray-6: #2A2D30;
+
+  /* ---- accent ----------------------------------------------------------- */
+  --accent: var(--terracotta);        /* fills, display type, markers */
+  --accent-strong: var(--terracotta-ink); /* accent used as small text */
+  --accent-hover: var(--terracotta-deep);
+  --accent-ink: #FDFAF7;              /* text sitting on an accent fill */
+
+  /* Two-dot section marker */
+  --mark: var(--terracotta);
+  --mark-soft: rgba(210, 112, 60, .45);
+
+  /* ---- dark-section semantics (fixed; used over photos and dark fills) --- */
+  --dark-surface: var(--brand-deep);
+  --dark-surface-deep: var(--brand-deep-2);
+  --dark-text: rgba(241, 239, 236, .95);
+  --dark-text-muted: rgba(241, 239, 236, .62);
+  --dark-border: rgba(241, 239, 236, .16);
+
+  /* ---- states ----------------------------------------------------------- */
+  --success: #4F9C6F;
+  --warning: #C7973F;
+  --danger: #B0533F;
+
+  /* ---- type ------------------------------------------------------------- */
+  --font-sans: 'Montserrat', -apple-system, 'Helvetica Neue', sans-serif;
+  /* inicio.dc.html points the display face at Montserrat rather than the
+     design system's Playfair Display placeholder. */
+  --font-serif-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-xl: clamp(64px, 9vw, 120px);
+  --text-display: clamp(48px, 6vw, 88px);
+  --text-h2: clamp(36px, 4.5vw, 64px);
+  --text-h3: 32px;
+  --text-h4: 24px;
+
+  --text-lead: 20px;
+  --text-body-lg: 18px;
+  --text-body-size: 16px;
+  --text-small: 14px;
+  --text-label: 12px;
+  --text-micro: 11px;
+
+  /* The reference sets its display type light and open. */
+  --weight-display: 300;
+  --weight-heading: 400;
+  --weight-body: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-display: 1.02;
+  --leading-heading: 1.12;
+  --leading-body: 1.6;
+  --tracking-display: -0.02em;
+  --tracking-label: 0.14em;
+
+  /* ---- space, grid, radii, motion --------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-section: clamp(96px, 12vw, 160px);
+
+  --grid-max: 1360px;
+  --grid-gutter: 32px;
+  --grid-margin: clamp(24px, 5vw, 72px);
+
+  /* The reference rounds every tile generously. */
+  --radius-none: 0;
+  --radius-sm: 6px;
+  --radius-tile: 18px;
+  --radius-card: 20px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur-fast: .25s;
+  --dur-med: .5s;
+  --dur-reveal: .9s;
+
+  /* ---- light theme ------------------------------------------------------ */
+  --surface-page: #F1EFEC;
+  --surface-raised: #FAF9F7;
+  --surface-sunken: #E7E4DF;
+  --text-body: #1C1E20;
+  --text-muted: rgba(28, 30, 32, .62);
+  --text-faint: rgba(28, 30, 32, .40);
+  --text-dim: rgba(28, 30, 32, .38);
+  --border-hairline: rgba(28, 30, 32, .12);
+  --border-strong: rgba(28, 30, 32, .35);
+  --photo-tint: rgba(54, 62, 69, .10);
+  --shadow-card: 0 12px 36px rgba(28, 30, 32, .08);
+  --shadow-float: 0 18px 48px rgba(28, 30, 32, .14);
+
+  --page-bg: linear-gradient(160deg, #F5F3F0 0%, #F1EFEC 45%, #E9E6E1 100%) fixed;
+
+  /* Placeholder tiles (map, equipment fallback) */
+  --tile-empty: linear-gradient(160deg, var(--slate-soft), var(--slate));
+
+  /* Scrim painted over photography inside dark cards */
+  --photo-scrim: linear-gradient(180deg, rgba(28, 30, 32, .25), rgba(20, 22, 24, .88));
+
+  /* Header chrome, resolved per state in site.css */
+  --nav-scrolled-bg: rgba(241, 239, 236, .85);
+  --nav-scrolled-border: rgba(28, 30, 32, .14);
+  --btn-outline-hover: rgba(28, 30, 32, .05);
+}
+
+/* ---- dark theme --------------------------------------------------------- */
+body.lv-dark {
+  --surface-page: #18191B;
+  --surface-raised: #212326;
+  --surface-sunken: #141517;
+  --text-body: rgba(241, 239, 236, .95);
+  --text-muted: rgba(241, 239, 236, .62);
+  --text-faint: rgba(241, 239, 236, .40);
+  --text-dim: rgba(241, 239, 236, .38);
+  --border-hairline: rgba(241, 239, 236, .16);
+  --border-strong: rgba(241, 239, 236, .40);
+  --photo-tint: rgba(20, 22, 24, .35);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, .45);
+
+  --accent-strong: var(--terracotta-light);
+
+  --page-bg: #18191B;
+
+  --nav-scrolled-bg: rgba(24, 25, 27, .85);
+  --nav-scrolled-border: rgba(241, 239, 236, .16);
+  --btn-outline-hover: rgba(241, 239, 236, .08);
+}
+
+/* ==========================================================================
+   Base element styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
+  color: var(--text-body);
+  background: var(--page-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-family: var(--font-serif-display);
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.06;
+}
+
+h2 {
+  font-family: var(--font-serif-display);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.12;
+}
+
+h3 { font-weight: var(--weight-medium); }
+
+img { max-width: 100%; }
+
+a {
+  color: var(--text-body);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease;
+}
+
+a:hover { color: var(--accent-strong); }
+
+/* ---- utilities ---------------------------------------------------------- */
+
+.u-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: lowercase;
+}
+
+.u-accent-phrase { color: var(--accent); }
+
+.u-dim { color: var(--text-dim); }
+
+.u-muted { color: var(--text-muted); }
+
+.u-shell {
+  max-width: var(--grid-max);
+  margin: 0 auto;
+}
+
+/* Two-dot marker that opens every section heading. */
+.dots {
+  display: inline-block;
+  vertical-align: .14em;
+  white-space: nowrap;
+  margin-right: 16px;
+}
+
+.dots::before,
+.dots::after {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  vertical-align: baseline;
+}
+
+.dots::before { background: var(--mark-soft); }
+.dots::after { background: var(--mark); margin-left: -7px; }
+
+/* Stacked variant used inside the stat cards. */
+.dots--sm {
+  display: flex;
+  margin: 0 0 14px;
+}
+
+.dots--sm::before,
+.dots--sm::after { width: 11px; height: 11px; }
+
+.dots--sm::after { margin-left: -6px; }
+
+/* Visually hidden, still read by assistive tech. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--grid-margin);
+  z-index: 100;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  color: var(--text-body);
+  box-shadow: var(--shadow-float);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skip-link:focus { top: 16px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
