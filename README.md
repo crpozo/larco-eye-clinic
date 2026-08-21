@@ -109,8 +109,12 @@ que sobreescribe la Playfair Display del design system. Está self-hosted en
 Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 (`lv-dark`, `lv-zoom`).
 
-**Video de portada.** `assets/video/hero.mp4` (H.264, sin audio, 9,8 s en bucle,
-0,87 MB). No lleva `autoplay` en el HTML: `site.js` le pone la fuente y lo
+**Video de portada.** `assets/video/hero.mp4` — macro de iris, H.264, sin
+audio, 9,4 s en bucle, 729 KB. El original venía a 640×360; se reescaló a
+1280×720 con lanczos, que no inventa detalle pero le da al navegador un punto
+de partida limpio en vez de un escalado ingenuo. Aguanta el tamaño completo
+porque es un motivo orgánico, sin bordes duros ni texto, y encima lleva
+`grayscale(1)` y el velo del hero. No lleva `autoplay` en el HTML: `site.js` le pone la fuente y lo
 arranca sólo si el visitante no pidió menos movimiento ni ahorro de datos. El
 `poster` es un fotograma del propio video, así que el estado sin reproducir y
 el primer cuadro son la misma imagen.

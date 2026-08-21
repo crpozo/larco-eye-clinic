@@ -34,3 +34,9 @@ deben sustituirse antes de cualquier publicación.
 
     curl -sSL -o /tmp/src.jpg "https://unsplash.com/photos/<ID>/download?w=1080"
     cwebp -quiet -q 78 /tmp/src.jpg -o <nombre>.webp
+
+## Video de portada
+
+`../../video/hero.mp4` es material que aportó el cliente (macro de iris), no de
+Unsplash. `hero-poster.webp` es un fotograma extraído de ese mismo video, para
+que el estado previo a la carga y el primer cuadro coincidan.
