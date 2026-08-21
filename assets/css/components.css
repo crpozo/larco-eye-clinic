@@ -170,7 +170,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   font-size: var(--text-label);
   font-weight: 600;
   letter-spacing: var(--tracking-label);
-  text-transform: lowercase;
+  text-transform: uppercase;
   color: var(--text-muted);
 }
 
@@ -340,10 +340,10 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   font-weight: 600;
   letter-spacing: .1em;
   border-radius: var(--radius-pill);
-  background: rgba(247, 246, 243, .85);
+  background: rgba(27, 28, 64, .82);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
-  color: var(--ink);
+  color: var(--dark-text);
 }
 
 .doctor-card__text {
