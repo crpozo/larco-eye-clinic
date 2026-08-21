@@ -1097,55 +1097,56 @@ body.js [data-rev].is-pending {
    Referencia: Vyra Capital, que el sitemap del cliente ya citaba.
    ========================================================================== */
 
-/* ---- cifras sobre petróleo, en filas con filete ------------------------- */
+/* ---- cifras: sección clara con cuatro tarjetas ------------------------- */
 
 .stats-band {
   position: relative;
   padding: var(--space-section) var(--grid-margin);
-  background: var(--petrol);
-  color: var(--dark-text);
+  background: #E9F1FA;
+  color: var(--text-body);
 }
+
+body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 .stats-band__head { margin-bottom: var(--space-7); }
 
-.stats-band__title {
-  max-width: 12em;
-  color: var(--dark-text);
-}
-
-.stats-band .u-accent-phrase { color: var(--accent-light); }
+.stats-band__title { color: var(--text-body); }
 
 .stats-band__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: var(--space-9);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gutter);
 }
 
 .figure {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(20px, 3vw, 40px);
-  padding: 22px 0;
-  border-top: 1px solid rgba(247, 246, 243, .18);
+  display: block;
+  padding: 26px 28px 30px;
+  background: var(--surface-raised);
+  border-radius: var(--radius-card);
 }
 
+/* El filete abre la tarjeta por encima del numeral. */
 .figure__num {
-  flex: 0 0 auto;
-  min-width: 2.4ch;
+  display: block;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-hairline);
   font-family: var(--font-serif-display);
-  font-size: clamp(48px, 5.4vw, 88px);
+  font-size: clamp(44px, 4.4vw, 68px);
   font-weight: var(--weight-display);
   line-height: 1;
   letter-spacing: var(--tracking-display);
+  color: var(--text-body);
   font-variant-numeric: tabular-nums;
 }
 
-.figure__suffix { color: var(--accent-light); }
+.figure__suffix { color: var(--accent-display); }
 
 .figure__label {
-  font-size: 15px;
+  display: block;
+  margin-top: 20px;
+  font-size: 14px;
   line-height: 1.5;
-  color: var(--dark-text-muted);
+  color: var(--text-muted);
 }
 
 /* ---- banda de fotografía a sangre --------------------------------------- */
@@ -1172,9 +1173,12 @@ body.js [data-rev].is-pending {
   background: linear-gradient(180deg, rgba(27, 28, 64, .30), rgba(27, 28, 64, .52));
 }
 
-@media (max-width: 860px) {
-  .stats-band__grid { grid-template-columns: 1fr; column-gap: 0; }
-  .figure { padding: 18px 0; }
+@media (max-width: 1100px) {
+  .stats-band__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .stats-band__grid { grid-template-columns: 1fr; }
 }
 
 /* El pie: la columna de texto necesita cuerpo, si no la fila queda hueca. */
