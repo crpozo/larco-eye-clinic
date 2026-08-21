@@ -109,6 +109,14 @@ que sobreescribe la Playfair Display del design system. Está self-hosted en
 Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 (`lv-dark`, `lv-zoom`).
 
+**Ritmo de secciones.** La página alterna a propósito para no leerse plana, según
+la referencia de Vyra Capital que el propio sitemap del cliente citaba: cada
+titular lleva una etiqueta de margen (`.section-eyebrow`), las cifras van en una
+banda petróleo con filas de filete en vez de cuatro tarjetas, y entre Doctores y
+Casos hay una banda de fotografía a sangre. `--space-section` bajó de
+`clamp(96px,12vw,160px)` a `clamp(64px,7vw,104px)`: 320px de aire entre secciones
+contiguas eran demasiados.
+
 **Menú móvil** (≤1024px): hoja a pantalla completa bajo el header. Las dos
 secciones con hijos —Sobre Nosotros y Servicios— son acordeones cerrados por
 defecto, cada uno con su propio botón de despliegue, así que el menú abre en
@@ -137,12 +145,14 @@ cuanto pongas el número real (mínimo 8 dígitos), pasan a abrir WhatsApp.
 
 Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 
-- [ ] **Video del hero** — hoy es una foto con el aviso “video pendiente — foto provisional”
-- [ ] **Casos clínicos 01–03** — “[ pendiente de información del cliente ]”
+- [ ] **Video del hero** — hoy hay una foto de archivo en su lugar
+- [ ] **Casos clínicos** — los tres dicen “ejemplo”: son redacción de muestra,
+      no casos de la clínica
 - [ ] **Dirección y teléfono** — “Cumbayá · Quito, Ecuador — dirección por confirmar”
 - [ ] **Número de WhatsApp** — `CONFIG.whatsapp` está vacío; hasta que se llene,
       los enlaces de WhatsApp llevan a `contactanos.html`
-- [ ] **Mapa** — el pie tiene un recuadro “[ mapa — Google Maps ]”
+- [ ] **Mapa** — hoy es un recorte de OpenStreetMap centrado en Cumbayá, sin la
+      dirección exacta; se reemplaza por el embed cuando esté confirmada
 - [ ] **Facebook e Instagram** — los enlaces apuntan a `#`
 - [ ] **Testimonios** — los tres dicen “testimonio de ejemplo”
 - [ ] **Fotografía propia** — todo es placeholder de Unsplash, incluidos los
