@@ -45,9 +45,11 @@
   --accent-light: var(--teal-bright); /* acento como texto en tema oscuro */
   --accent-ink: #10122E;            /* etiqueta sobre un relleno de acento */
 
-  /* Marcador de dos puntos que abre cada titular */
-  --mark: var(--teal);
-  --mark-soft: rgba(79, 143, 204, .45);
+  /* Marcador de dos puntos que abre cada titular. Es el único ámbar de la
+     página: un punto de 12px contra titulares azules, como en la referencia
+     y como lo tenía el mockup original. */
+  --mark: #E8802F;
+  --mark-soft: rgba(232, 128, 47, .45);
 
   /* ---- semántica de secciones oscuras (fija, sobre foto) ---------------- */
   --dark-surface: var(--petrol);
@@ -122,31 +124,38 @@
   --dur-med: .5s;
   --dur-reveal: .9s;
 
-  /* ---- tema claro ------------------------------------------------------- */
-  --surface-page: #F1F6FC;
-  --surface-raised: #FFFFFF;
-  --surface-sunken: #E4EEF8;
+  /* ---- tema claro -------------------------------------------------------
+     Es una clínica: el blanco es el mensaje. La sección alterna lleva apenas
+     un 6% de azul, suficiente para dar ritmo sin dejar de leerse blanca.
+     --------------------------------------------------------------------- */
+  --surface-page: #FFFFFF;
+  --surface-raised: #FFFFFF;   /* paneles y superposiciones */
+  --surface-card: #EEF4FB;     /* tarjetas de contenido, con tinte azul */
+  --surface-sunken: #F7FAFD;   /* secciones alternas, apenas perceptible */
   --text-body: #27285A;
   --text-muted: rgba(39, 40, 90, .68);
   --text-faint: rgba(39, 40, 90, .56);
   --text-dim: rgba(39, 40, 90, .54);
   --border-hairline: rgba(39, 40, 90, .12);
+  --border-card: #D2E0F0;      /* filo de las tarjetas con tinte */
   --border-strong: rgba(39, 40, 90, .56);
   --photo-tint: rgba(79, 143, 204, .10);
-  --shadow-card: 0 12px 36px rgba(39, 40, 90, .10);
-  --shadow-float: 0 18px 48px rgba(39, 40, 90, .16);
+  /* Sobre blanco la sombra tiene que insinuar, no pesar; el filo lo da la
+     hairline. */
+  --shadow-card: 0 10px 30px rgba(39, 40, 90, .06);
+  --shadow-float: 0 18px 44px rgba(39, 40, 90, .12);
 
-  --page-bg: linear-gradient(160deg, #F5F9FD 0%, #EAF2FA 45%, #DEEBF7 100%) fixed;
+  --page-bg: #FFFFFF;
 
   /* Tiles de marcador de posición (mapa, respaldo de equipos) */
-  --tile-empty: linear-gradient(160deg, #D7E5F3, #C6DAEE);
+  --tile-empty: linear-gradient(160deg, #E8F0F8, #D5E3F1);
   --tile-empty-ink: rgba(39, 40, 90, .78);
 
   /* Velo sobre la fotografía dentro de tarjetas oscuras */
   --photo-scrim: linear-gradient(180deg, rgba(27, 28, 64, .25), rgba(16, 18, 46, .88));
 
   /* Cromo del header, resuelto por estado en site.css */
-  --nav-scrolled-bg: rgba(241, 246, 252, .85);
+  --nav-scrolled-bg: rgba(255, 255, 255, .88);
   --nav-scrolled-border: rgba(39, 40, 90, .16);
   --btn-outline-hover: rgba(39, 40, 90, .06);
 }
@@ -155,12 +164,14 @@
 body.lv-dark {
   --surface-page: #13142E;
   --surface-raised: #1B1C40;
+  --surface-card: #1B1C40;
   --surface-sunken: #101127;
   --text-body: rgba(247, 246, 243, .95);
   --text-muted: rgba(247, 246, 243, .68);
   --text-faint: rgba(247, 246, 243, .56);
   --text-dim: rgba(247, 246, 243, .54);
   --border-hairline: rgba(247, 246, 243, .16);
+  --border-card: rgba(247, 246, 243, .16);
   --border-strong: rgba(247, 246, 243, .55);
   --photo-tint: rgba(19, 20, 46, .35);
   --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);

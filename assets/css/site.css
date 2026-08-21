@@ -452,7 +452,8 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   flex-direction: column;
   gap: 6px;
   padding: 32px 32px 24px;
-  background: var(--surface-raised);
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }

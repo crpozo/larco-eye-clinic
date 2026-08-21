@@ -372,7 +372,8 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   max-width: 420px;
   padding: 32px;
   font-family: var(--font-sans);
-  background: var(--surface-raised);
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
 }

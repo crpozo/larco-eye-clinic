@@ -51,20 +51,28 @@ Paleta en `assets/css/tokens.css`:
 
 | Token | Valor | Uso |
 | --- | --- | --- |
-| `--surface-page` | `#F1F6FC` | Fondo general (degradado `#F5F9FD → #DEEBF7`) |
-| `--surface-raised` | `#FFFFFF` | Tarjetas |
-| `--surface-sunken` | `#E4EEF8` | Secciones alternas |
+| `--surface-page` | `#FFFFFF` | Fondo general, blanco puro |
+| `--surface-raised` | `#FFFFFF` | Paneles y superposiciones (menús, skip link) |
+| `--surface-card` | `#EEF4FB` | Tarjetas de contenido, con tinte azul |
+| `--border-card` | `#D2E0F0` | Filo de esas tarjetas |
+| `--surface-sunken` | `#F7FAFD` | Secciones alternas, apenas perceptible |
 | `--text-body` / `--petrol` | `#27285A` | Tinta petróleo |
 | `--brand-deep` | `#27285A` | Botón primario, tarjetas sobre foto |
 | `--accent` / `--teal` | `#4F8FCC` | Rellenos, botón flotante, marcador de dos puntos |
 | `--accent-display` | `#4581BC` | El acento como texto grande (titulares) y anillo de foco |
 | `--accent-strong` | `#35659B` | El acento como texto chico (enlaces, hover) |
 | `--accent-light` | `#6FA6DB` | El acento como texto en tema oscuro |
+| `--mark` | `#E8802F` | Punto de 12px que abre cada titular — el único ámbar |
 
 El acento tiene varios pasos porque el mismo teal no puede ser relleno y texto
 legible de 13px a la vez: `--accent` se queda en 3,15:1 sobre el fondo, así que
 los titulares usan `--accent-display` y el texto chico `--accent-strong`. Los 42
 pares de color de la página pasan WCAG AA en ambos temas.
+
+Es una clínica, así que el fondo es blanco puro y el color lo llevan las
+tarjetas: relleno `#EEF4FB` con filo `#D2E0F0`, como en la referencia que
+aprobó el cliente. Las secciones alternas van a `#F7FAFD`, lo justo para dar
+ritmo sin romper la lectura de blanco.
 
 El tema oscuro es el del mockup: `#13142E` de fondo, `#1B1C40` en tarjetas.
 
