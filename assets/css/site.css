@@ -478,30 +478,33 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--text-muted);
 }
 
+/* El bloque de fotos se mide contra la altura del viewport y las dos fotos
+   se dimensionan en porcentaje de él: así la sección entra completa en
+   pantalla en vez de crecer con el ancho de la columna. */
 .intro__media {
   position: relative;
-  padding-bottom: 22%;   /* hueco para la foto que sobresale */
+  height: min(62vh, 540px);
 }
 
 .intro__photo {
   display: block;
+  position: absolute;
   object-fit: cover;
   border-radius: var(--radius-card);
 }
 
 .intro__photo--main {
-  width: 72%;
-  height: auto;
-  aspect-ratio: 9 / 10;
+  top: 0;
+  left: 0;
+  width: 74%;
+  height: 82%;
 }
 
 .intro__photo--over {
-  position: absolute;
   right: 0;
   bottom: 0;
-  width: 56%;
-  height: auto;
-  aspect-ratio: 8 / 7;
+  width: 54%;
+  height: 46%;
   box-shadow: var(--shadow-float);
 }
 
@@ -606,7 +609,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .case .btn--link { margin-top: 4px; }
 
 /* --------------------------------------------------------------------------
-   Horizontal rails (equipment, testimonials)
+   Rail horizontal
    -------------------------------------------------------------------------- */
 
 .rail {
@@ -651,7 +654,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   left: 14px;
 }
 
-.testimonial--rail { flex: 0 0 400px; }
 
 /* --------------------------------------------------------------------------
    Footer
@@ -1021,9 +1023,10 @@ body.js [data-rev].is-pending {
 
   /* Apiladas, las dos fotos pierden la superposición: en una columna estrecha
      la pequeña taparía media foto grande. */
-  .intro__media { padding-bottom: 0; display: grid; gap: var(--space-4); }
-  .intro__photo--main { width: 100%; aspect-ratio: 4 / 3; }
-  .intro__photo--over { position: static; width: 100%; aspect-ratio: 16 / 10; box-shadow: none; }
+  .intro__media { height: auto; display: grid; gap: var(--space-4); }
+  .intro__photo { position: static; }
+  .intro__photo--main { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+  .intro__photo--over { width: 100%; height: auto; aspect-ratio: 16 / 10; box-shadow: none; }
 
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .cases__grid { grid-template-columns: 1fr; }
@@ -1076,8 +1079,6 @@ body.js [data-rev].is-pending {
 @media (max-width: 560px) {
   .footer__top { grid-template-columns: 1fr; }
   .equip { flex: 0 0 280px; }
-  .testimonial--rail { flex: 0 0 300px; }
-  .testimonial { --card-pad: 24px; }
   .wa-fab { bottom: 18px; right: 18px; }
 }
 
@@ -1281,4 +1282,47 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 @media (max-width: 560px) {
   .equipos__thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* ==========================================================================
+   Testimonios — columnas abiertas por un filete de color
+   ========================================================================== */
+
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8) clamp(32px, 4.5vw, 72px);
+}
+
+.quote {
+  margin: 0;
+  padding-top: 26px;
+  border-top: 2px solid var(--petrol);
+}
+
+/* Un filete distinto por columna, en los tres colores de la marca. */
+.quote:nth-child(3n + 2) { border-top-color: var(--accent); }
+.quote:nth-child(3n)     { border-top-color: var(--mark); }
+
+.quote__text {
+  margin: 0 0 22px;
+  font-family: var(--font-serif-display);
+  font-size: var(--text-h4);
+  line-height: 1.55;
+  color: var(--text-body);
+}
+
+.quote__by {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.quote__by strong {
+  color: var(--text-body);
+  font-weight: var(--weight-semibold);
+}
+
+@media (max-width: 860px) {
+  .quotes { grid-template-columns: 1fr; gap: var(--space-6); }
 }
