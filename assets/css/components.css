@@ -374,21 +374,25 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
    -------------------------------------------------------------------------- */
 
 .testimonial {
+  --card-pad: 32px;
   margin: 0;
   max-width: 420px;
-  padding: 32px;
+  padding: var(--card-pad);
   font-family: var(--font-sans);
   background: var(--surface-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card);
+  /* Recorta la foto contra el radio de la tarjeta cuando sale a sangre. */
+  overflow: hidden;
 }
 
+/* La foto ocupa el ancho de la tarjeta: los márgenes negativos cancelan el
+   padding y el overflow de la tarjeta se encarga de las esquinas. */
 .testimonial__media {
   position: relative;
-  height: 160px;
-  margin-bottom: 24px;
-  border-radius: 14px;
+  height: 210px;
+  margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 24px;
   overflow: hidden;
   background: linear-gradient(160deg, var(--gray-6), var(--gray-4));
 }

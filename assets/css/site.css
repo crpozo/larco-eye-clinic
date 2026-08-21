@@ -431,9 +431,9 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Intro — foto vertical a la izquierda, titular y texto a la derecha.
-   La sección tiene que entrar completa en pantalla, así que la foto se mide
-   contra la altura del viewport y no contra su propio ancho.
+   Intro — texto a la izquierda, dos fotos superpuestas a la derecha.
+   La pequeña se sale del bloque por abajo y por la derecha, así que el
+   contenedor reserva ese espacio en lugar de dejarla desbordar la sección.
    -------------------------------------------------------------------------- */
 
 .intro {
@@ -443,22 +443,12 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .intro__grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
 
-.intro__photo {
-  display: block;
-  width: 100%;
-  height: min(62vh, 560px);
-  object-fit: cover;
-  border-radius: var(--radius-card);
-}
-
-.intro__copy {
-  max-width: 620px;
-}
+.intro__copy { max-width: 620px; }
 
 .intro__copy .section__title { margin-bottom: var(--space-5); }
 
@@ -472,6 +462,33 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .intro__copy p:last-of-type {
   margin-bottom: 0;
   color: var(--text-muted);
+}
+
+.intro__media {
+  position: relative;
+  padding-bottom: 22%;   /* hueco para la foto que sobresale */
+}
+
+.intro__photo {
+  display: block;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+.intro__photo--main {
+  width: 72%;
+  height: auto;
+  aspect-ratio: 9 / 10;
+}
+
+.intro__photo--over {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 56%;
+  height: auto;
+  aspect-ratio: 8 / 7;
+  box-shadow: var(--shadow-float);
 }
 
 /* --------------------------------------------------------------------------
@@ -740,14 +757,6 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
 
 .footer__mid .btn { margin-left: auto; }
 
-.footer__bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  padding-top: 24px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
 
 /* --------------------------------------------------------------------------
    WhatsApp floating action
@@ -996,9 +1005,11 @@ body.js [data-rev].is-pending {
     max-width: 640px;
   }
 
-  /* Apilada, la foto pasa a ancho completo: sin bajarle el alto queda una
-     franja larguísima antes de llegar al texto. */
-  .intro__photo { height: min(44vh, 360px); }
+  /* Apiladas, las dos fotos pierden la superposición: en una columna estrecha
+     la pequeña taparía media foto grande. */
+  .intro__media { padding-bottom: 0; display: grid; gap: var(--space-4); }
+  .intro__photo--main { width: 100%; aspect-ratio: 4 / 3; }
+  .intro__photo--over { position: static; width: 100%; aspect-ratio: 16 / 10; box-shadow: none; }
 
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .cases__grid { grid-template-columns: 1fr; }
@@ -1046,17 +1057,13 @@ body.js [data-rev].is-pending {
 
   .footer__mid .btn { margin-left: 0; }
 
-  .footer__bottom {
-    flex-direction: column;
-    gap: 8px;
-  }
 }
 
 @media (max-width: 560px) {
   .footer__top { grid-template-columns: 1fr; }
   .equip { flex: 0 0 280px; }
   .testimonial--rail { flex: 0 0 300px; }
-  .testimonial { padding: 24px; }
+  .testimonial { --card-pad: 24px; }
   .wa-fab { bottom: 18px; right: 18px; }
 }
 
@@ -1176,4 +1183,88 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 @media (max-width: 860px) {
   .footer__mid { grid-template-columns: 1fr; gap: var(--space-5); }
+}
+
+/* ==========================================================================
+   Equipos — foto grande con miniaturas que la cambian
+   ========================================================================== */
+
+.equipos__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.equipos__stage {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--tile-empty);
+}
+
+.equipos__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.equipos__label {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+}
+
+.equipos__aside .section__title { margin-bottom: var(--space-5); }
+
+.equipos__aside p {
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-body-lg);
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.equipos__thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: var(--space-5);
+}
+
+.equipos__thumb {
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: var(--tile-empty);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              opacity var(--dur-fast) var(--ease-out);
+  opacity: .62;
+}
+
+.equipos__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.equipos__thumb:hover { opacity: 1; }
+
+.equipos__thumb.is-active {
+  border-color: var(--petrol);
+  opacity: 1;
+}
+
+@media (max-width: 960px) {
+  .equipos__grid { grid-template-columns: 1fr; }
+  .equipos__stage { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 560px) {
+  .equipos__thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
