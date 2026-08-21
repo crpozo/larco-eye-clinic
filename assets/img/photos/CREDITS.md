@@ -14,14 +14,15 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
 | `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
 | `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
-| `dr-marcelo-larco.webp` | `XuB10o8080c` | Retrato Dr. Marcelo Larco |
-| `dr-roberto-larco.webp` | `-3HE32KRqJs` | Retrato Dr. Roberto Larco |
+| `dr-marcelo-larco.webp` | `VAvkPtF4HJI` | Retrato Dr. Marcelo Larco |
+| `dr-roberto-larco.webp` | `XSPFs82j_v0` | Retrato Dr. Roberto Larco |
 | `equipo-optica.webp` | `C6sxSzPUjss` | Carrusel · Óptica ZEISS |
 | `equipo-iol-master.webp` | `Zl5tI3kjSms` | Carrusel · IOL Master 700 |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Carrusel · Pentacam OCT |
 | `equipo-oct-triton.webp` | `mDCuzdHh_bw` | Carrusel · OCT Triton Plus |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Carrusel · Humphrey FA3 |
 | `equipo-laser-pascal.webp` | `XrW_dhI8_BU` | Carrusel · Láser Pascal 577 |
+| `banda-quirofano.webp` | `j55TmqkzQ4k` | Banda de fotografía a sangre entre Doctores y Casos |
 | `testimonio-ojo.webp` | `_mzSK1mUnRE` | Testimonial con video (placeholder del thumbnail) |
 
 Página de origen: `https://unsplash.com/photos/<ID>`

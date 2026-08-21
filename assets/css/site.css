@@ -65,7 +65,7 @@ body.nav-open { overflow: hidden; }
 
 .brand img {
   display: block;
-  height: 54px;
+  height: 64px;
   width: auto;
 }
 
@@ -88,10 +88,22 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
   color: inherit;
 }
 
+/* El subrayado va en un ::after posicionado y no como border: si engorda la
+   caja del enlace, el nav —que centra verticalmente— sube ese texto respecto
+   de sus hermanos. Así el texto no se mueve y la línea baja donde queramos. */
 .nav__link--current {
+  position: relative;
   font-weight: 600;
-  border-bottom: 2px solid currentColor;
-  padding-bottom: 2px;
+}
+
+.nav__link--current::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 2px;
+  background: currentColor;
 }
 
 body.is-solid .nav__link--current { color: var(--accent-strong); }
@@ -132,7 +144,15 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 /* ---- dropdown menus ------------------------------------------------------ */
 
-.menu { position: relative; }
+/* Los ítems sueltos del nav son hijos directos del flex y quedan
+   "blockificados"; los que tienen desplegable van dentro de .menu y seguían
+   siendo inline, 1.6px más abajo. Con esto las cinco etiquetas comparten
+   línea base. */
+.menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
 .menu__panel {
   position: absolute;
@@ -631,17 +651,18 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
 .footer__links a:hover { color: var(--accent-strong); }
 
 .footer__mid {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--space-7);
   align-items: center;
-  gap: 28px;
-  padding: 20px 0;
+  padding: 32px 0;
   border-bottom: 1px solid var(--border-hairline);
 }
 
 .footer__map {
   position: relative;
-  flex: 0 0 320px;
-  height: 140px;
+  width: 100%;
+  height: clamp(180px, 18vw, 240px);
   overflow: hidden;
   border: 1px solid var(--border-card);
   border-radius: var(--radius-tile);
@@ -808,9 +829,9 @@ body.js [data-rev].is-pending {
   .nav__link--current {
     color: var(--accent-strong);
     font-weight: 600;
-    border-bottom: 0;
-    padding-bottom: 0;
   }
+
+  .nav__link--current::after { display: none; }
 
   .nav__caret { display: none; }
   .nav__divider { display: none; }
@@ -1132,4 +1153,13 @@ body.js [data-rev].is-pending {
 @media (max-width: 860px) {
   .stats-band__grid { grid-template-columns: 1fr; column-gap: 0; }
   .figure { padding: 18px 0; }
+}
+
+/* El pie: la columna de texto necesita cuerpo, si no la fila queda hueca. */
+.footer__place .footer__col-title { margin-bottom: 12px; }
+.footer__place .footer__address + .footer__address { margin-top: 6px; }
+.footer__address--muted { color: var(--text-faint); }
+
+@media (max-width: 860px) {
+  .footer__mid { grid-template-columns: 1fr; gap: var(--space-5); }
 }
