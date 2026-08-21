@@ -1,61 +1,60 @@
 /* ==========================================================================
    Larco Visión — design tokens
 
-   Structure and scale come from the Claude Design system
-   ("Larco Visión Design System", _design/_ds/tokens/*.css).
+   Paleta del design system de Larco Visión ("Larco Visión Design System",
+   _design/_ds/tokens/*.css) más el override que inicio.dc.html declara sobre
+   <body>: superficies azul frío, tinta petróleo y un único acento teal.
 
-   The palette follows the reference board the client approved — warm
-   off-white paper, neutral charcoal surfaces, a slate blue-grey for clinical
-   imagery — with the accent taken from the blue of the Larco Visión mark
-   rather than the board's terracotta.
+   Del board de referencia se conserva la composición —esquinas redondeadas,
+   display en peso ligero, tiles separados—, no sus colores cálidos.
    ========================================================================== */
 
 :root {
   /* ---- base palette ---------------------------------------------------- */
-  --bone: #F1EFEC;          /* warm paper */
-  --bone-2: #E7E4DF;        /* sunken paper */
-  --ink: #1C1E20;           /* near-black */
+  --bone: #F7F6F3;
+  --bone-2: #EFEDE7;
+  --ink: #1D1D1B;
 
-  --brand-deep: #2A2D30;    /* primary fills, dark cards */
-  --brand-deep-2: #1C1E20;  /* deepest card */
+  --petrol: #27285A;
+  --petrol-deep: #1B1C40;
 
-  --slate: #8FA0AC;         /* clinical blue-grey */
-  --slate-deep: #6E8290;
-  --slate-soft: #B9C5CD;
+  --teal: #4F8FCC;
+  --teal-bright: #6FA6DB;
+  --teal-dim: #3A6EA8;
 
-  /* The accent is the blue of the mark itself. One hue, five steps, because
-     the same blue cannot be a fill and a legible 13px label at once. */
-  --blue: #4F8FCC;          /* fills and markers */
-  --blue-display: #4581BC;  /* accent as large display text (>=3:1 on every surface) */
-  --blue-deep: #3A6EA8;     /* hover fill; carries a white label at 5.2:1 */
-  --blue-ink: #35659B;      /* accent as small text (>=4.5:1 on every surface) */
-  --blue-light: #6FA6DB;    /* accent as text on the dark theme */
+  /* Superficies oscuras: rellenos primarios y tarjetas sobre foto. */
+  --brand-deep: var(--petrol);
+  --brand-deep-2: var(--petrol-deep);
 
-  /* ---- neutrals (warm) -------------------------------------------------- */
+  /* ---- neutrals --------------------------------------------------------- */
   --gray-1: #FBFAF8;
-  --gray-2: #E5E2DE;
-  --gray-3: #C9C5C0;
-  --gray-4: #8E8B86;
-  --gray-5: #55565A;
-  --gray-6: #2A2D30;
+  --gray-2: #E2E2E6;
+  --gray-3: #C6C6CE;
+  --gray-4: #8B8B95;
+  --gray-5: #57575F;
+  --gray-6: #2B2B36;
 
-  /* ---- accent ----------------------------------------------------------- */
-  --accent: var(--blue);                 /* fills and markers */
-  --accent-display: var(--blue-display); /* accent as large text, focus ring */
-  --accent-strong: var(--blue-ink);      /* accent as small text */
-  --accent-hover: var(--blue-deep);
-  --accent-ink: #FBFDFF;                 /* label on an accent fill */
+  /* ---- accent -----------------------------------------------------------
+     Un solo tono en cinco pasos: el teal de relleno no llega a 3:1 sobre las
+     superficies claras, así que no puede ser también texto.
+     --------------------------------------------------------------------- */
+  --accent: var(--teal);            /* rellenos y marcadores */
+  --accent-display: #4581BC;        /* acento como texto grande y anillo de foco */
+  --accent-strong: #35659B;         /* acento como texto chico */
+  --accent-hover: var(--teal-dim);  /* relleno en hover; etiqueta blanca a 5.3:1 */
+  --accent-light: var(--teal-bright); /* acento como texto en tema oscuro */
+  --accent-ink: #10122E;            /* etiqueta sobre un relleno de acento */
 
-  /* Two-dot section marker */
-  --mark: var(--blue);
+  /* Marcador de dos puntos que abre cada titular */
+  --mark: var(--teal);
   --mark-soft: rgba(79, 143, 204, .45);
 
-  /* ---- dark-section semantics (fixed; used over photos and dark fills) --- */
-  --dark-surface: var(--brand-deep);
-  --dark-surface-deep: var(--brand-deep-2);
-  --dark-text: rgba(241, 239, 236, .95);
-  --dark-text-muted: rgba(241, 239, 236, .62);
-  --dark-border: rgba(241, 239, 236, .48); /* outline-button edge over photography */
+  /* ---- semántica de secciones oscuras (fija, sobre foto) ---------------- */
+  --dark-surface: var(--petrol);
+  --dark-surface-deep: var(--petrol-deep);
+  --dark-text: rgba(247, 246, 243, .95);
+  --dark-text-muted: rgba(247, 246, 243, .66);
+  --dark-border: rgba(247, 246, 243, .48); /* borde de botón outline sobre foto */
 
   /* ---- states ----------------------------------------------------------- */
   --success: #4F9C6F;
@@ -64,8 +63,8 @@
 
   /* ---- type ------------------------------------------------------------- */
   --font-sans: 'Montserrat', -apple-system, 'Helvetica Neue', sans-serif;
-  /* inicio.dc.html points the display face at Montserrat rather than the
-     design system's Playfair Display placeholder. */
+  /* inicio.dc.html apunta el display a Montserrat, no a la Playfair Display
+     que el design system dejaba como sustituto. */
   --font-serif-display: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
 
   --text-display-xl: clamp(64px, 9vw, 120px);
@@ -81,7 +80,7 @@
   --text-label: 12px;
   --text-micro: 11px;
 
-  /* The reference sets its display type light and open. */
+  /* El display va ligero y abierto. */
   --weight-display: 300;
   --weight-heading: 400;
   --weight-body: 400;
@@ -95,7 +94,7 @@
   --tracking-display: -0.02em;
   --tracking-label: 0.14em;
 
-  /* ---- space, grid, radii, motion --------------------------------------- */
+  /* ---- espacio, grid, radios, movimiento -------------------------------- */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -112,7 +111,6 @@
   --grid-gutter: 32px;
   --grid-margin: clamp(24px, 5vw, 72px);
 
-  /* The reference rounds every tile generously. */
   --radius-none: 0;
   --radius-sm: 6px;
   --radius-tile: 18px;
@@ -124,57 +122,58 @@
   --dur-med: .5s;
   --dur-reveal: .9s;
 
-  /* ---- light theme ------------------------------------------------------ */
-  --surface-page: #F1EFEC;
-  --surface-raised: #FAF9F7;
-  --surface-sunken: #E7E4DF;
-  --text-body: #1C1E20;
-  --text-muted: rgba(28, 30, 32, .66);
-  --text-faint: rgba(28, 30, 32, .54);
-  --text-dim: rgba(28, 30, 32, .52);
-  --border-hairline: rgba(28, 30, 32, .12);
-  --border-strong: rgba(28, 30, 32, .50);
-  --photo-tint: rgba(54, 62, 69, .10);
-  --shadow-card: 0 12px 36px rgba(28, 30, 32, .08);
-  --shadow-float: 0 18px 48px rgba(28, 30, 32, .14);
+  /* ---- tema claro ------------------------------------------------------- */
+  --surface-page: #F1F6FC;
+  --surface-raised: #FFFFFF;
+  --surface-sunken: #E4EEF8;
+  --text-body: #27285A;
+  --text-muted: rgba(39, 40, 90, .68);
+  --text-faint: rgba(39, 40, 90, .56);
+  --text-dim: rgba(39, 40, 90, .54);
+  --border-hairline: rgba(39, 40, 90, .12);
+  --border-strong: rgba(39, 40, 90, .56);
+  --photo-tint: rgba(79, 143, 204, .10);
+  --shadow-card: 0 12px 36px rgba(39, 40, 90, .10);
+  --shadow-float: 0 18px 48px rgba(39, 40, 90, .16);
 
-  --page-bg: linear-gradient(160deg, #F5F3F0 0%, #F1EFEC 45%, #E9E6E1 100%) fixed;
+  --page-bg: linear-gradient(160deg, #F5F9FD 0%, #EAF2FA 45%, #DEEBF7 100%) fixed;
 
-  /* Placeholder tiles (map, equipment fallback) */
-  --tile-empty: linear-gradient(160deg, var(--slate-soft), var(--slate));
+  /* Tiles de marcador de posición (mapa, respaldo de equipos) */
+  --tile-empty: linear-gradient(160deg, #D7E5F3, #C6DAEE);
+  --tile-empty-ink: rgba(39, 40, 90, .78);
 
-  /* Scrim painted over photography inside dark cards */
-  --photo-scrim: linear-gradient(180deg, rgba(28, 30, 32, .25), rgba(20, 22, 24, .88));
+  /* Velo sobre la fotografía dentro de tarjetas oscuras */
+  --photo-scrim: linear-gradient(180deg, rgba(27, 28, 64, .25), rgba(16, 18, 46, .88));
 
-  /* Header chrome, resolved per state in site.css */
-  --nav-scrolled-bg: rgba(241, 239, 236, .85);
-  --nav-scrolled-border: rgba(28, 30, 32, .14);
-  --btn-outline-hover: rgba(28, 30, 32, .05);
+  /* Cromo del header, resuelto por estado en site.css */
+  --nav-scrolled-bg: rgba(241, 246, 252, .85);
+  --nav-scrolled-border: rgba(39, 40, 90, .16);
+  --btn-outline-hover: rgba(39, 40, 90, .06);
 }
 
-/* ---- dark theme --------------------------------------------------------- */
+/* ---- tema oscuro -------------------------------------------------------- */
 body.lv-dark {
-  --surface-page: #18191B;
-  --surface-raised: #212326;
-  --surface-sunken: #141517;
-  --text-body: rgba(241, 239, 236, .95);
-  --text-muted: rgba(241, 239, 236, .66);
-  --text-faint: rgba(241, 239, 236, .54);
-  --text-dim: rgba(241, 239, 236, .52);
-  --border-hairline: rgba(241, 239, 236, .16);
-  --border-strong: rgba(241, 239, 236, .55);
-  --photo-tint: rgba(20, 22, 24, .35);
+  --surface-page: #13142E;
+  --surface-raised: #1B1C40;
+  --surface-sunken: #101127;
+  --text-body: rgba(247, 246, 243, .95);
+  --text-muted: rgba(247, 246, 243, .68);
+  --text-faint: rgba(247, 246, 243, .56);
+  --text-dim: rgba(247, 246, 243, .54);
+  --border-hairline: rgba(247, 246, 243, .16);
+  --border-strong: rgba(247, 246, 243, .55);
+  --photo-tint: rgba(19, 20, 46, .35);
   --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);
   --shadow-float: 0 20px 60px rgba(0, 0, 0, .45);
 
-  --accent-display: var(--blue-light);
-  --accent-strong: var(--blue-light);
+  --accent-display: var(--accent-light);
+  --accent-strong: var(--accent-light);
 
-  --page-bg: #18191B;
+  --page-bg: #13142E;
 
-  --nav-scrolled-bg: rgba(24, 25, 27, .85);
-  --nav-scrolled-border: rgba(241, 239, 236, .16);
-  --btn-outline-hover: rgba(241, 239, 236, .08);
+  --nav-scrolled-bg: rgba(19, 20, 46, .85);
+  --nav-scrolled-border: rgba(247, 246, 243, .16);
+  --btn-outline-hover: rgba(247, 246, 243, .08);
 }
 
 /* ==========================================================================

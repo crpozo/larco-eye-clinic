@@ -5,8 +5,9 @@ dependencias ni build. Se abre `index.html` y funciona.
 
 Implementa el artboard **Inicio** del proyecto de Claude Design
 [“Website mockup creation”](https://claude.ai/design/p/f77e51cf-320f-4e19-8f78-36ab6697be1a),
-con la estructura del mockup, la composición y la fotografía del board de
-referencia que aprobó el cliente, y el azul de la marca como acento.
+con la paleta del design system de Larco Visión. Del board de referencia que
+mandó el cliente se toma la composición —esquinas redondeadas, display ligero,
+tiles separados— y el tipo de fotografía, no sus colores cálidos.
 
 ## Correr en local
 
@@ -46,25 +47,26 @@ para `/assets/img/` y `/assets/fonts/`.
 
 ## Diseño
 
-Paleta del board aprobado, en `assets/css/tokens.css`:
+Paleta en `assets/css/tokens.css`:
 
 | Token | Valor | Uso |
 | --- | --- | --- |
-| `--surface-page` | `#F1EFEC` | Papel cálido, fondo general |
-| `--surface-raised` | `#FAF9F7` | Tarjetas |
-| `--surface-sunken` | `#E7E4DF` | Secciones alternas |
-| `--ink` / `--text-body` | `#1C1E20` | Texto |
-| `--brand-deep` | `#2A2D30` | Botón primario, tarjetas oscuras |
-| `--slate` | `#8FA0AC` | Gris azulado clínico, placeholders |
-| `--accent` | `#4F8FCC` | Azul de la marca: rellenos, botón flotante, marcador de dos puntos |
+| `--surface-page` | `#F1F6FC` | Fondo general (degradado `#F5F9FD → #DEEBF7`) |
+| `--surface-raised` | `#FFFFFF` | Tarjetas |
+| `--surface-sunken` | `#E4EEF8` | Secciones alternas |
+| `--text-body` / `--petrol` | `#27285A` | Tinta petróleo |
+| `--brand-deep` | `#27285A` | Botón primario, tarjetas sobre foto |
+| `--accent` / `--teal` | `#4F8FCC` | Rellenos, botón flotante, marcador de dos puntos |
 | `--accent-display` | `#4581BC` | El acento como texto grande (titulares) y anillo de foco |
 | `--accent-strong` | `#35659B` | El acento como texto chico (enlaces, hover) |
+| `--accent-light` | `#6FA6DB` | El acento como texto en tema oscuro |
 
-El acento es el azul del logo. Existen tres tonos porque el mismo azul no puede
-ser relleno y texto legible de 13px a la vez: `--accent` no llega a 3:1 sobre el
-papel, así que los titulares usan `--accent-display` y el texto chico
-`--accent-strong`. Los 41 pares de color de la página pasan WCAG AA en ambos
-temas.
+El acento tiene varios pasos porque el mismo teal no puede ser relleno y texto
+legible de 13px a la vez: `--accent` se queda en 3,15:1 sobre el fondo, así que
+los titulares usan `--accent-display` y el texto chico `--accent-strong`. Los 42
+pares de color de la página pasan WCAG AA en ambos temas.
+
+El tema oscuro es el del mockup: `#13142E` de fondo, `#1B1C40` en tarjetas.
 
 Tipografía: **Montserrat** en todo, incluido el display — así lo fija el mockup,
 que sobreescribe la Playfair Display del design system. Está self-hosted en
