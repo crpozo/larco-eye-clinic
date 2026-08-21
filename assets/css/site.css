@@ -337,7 +337,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 120px var(--grid-margin) 56px;
+  /* El header transparente mide ~109px; con 120 el titular le quedaba a
+     once píxeles. Se separa contra la altura del viewport para que el aire
+     no desaparezca en pantallas bajas. */
+  padding: clamp(150px, 20vh, 200px) var(--grid-margin) 56px;
 }
 
 .hero__title,
@@ -1047,7 +1050,7 @@ body.js [data-rev].is-pending {
 
   /* The desktop artboard sizes the display line off viewport height; at phone
      widths that overflows, so cap it against the width instead. */
-  .hero__inner { padding-top: 128px; }
+  .hero__inner { padding-top: clamp(140px, 21vh, 180px); }
 
   .hero__title,
   .hero__title-alt { font-size: clamp(36px, 10.5vw, 56px); }
