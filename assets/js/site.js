@@ -207,6 +207,25 @@
   }
 
   /* ------------------------------------------------------------------
+     Acordeones de las páginas interiores
+     Una lista de doce exámenes no cabe abierta; cada ítem se despliega solo.
+     ------------------------------------------------------------------ */
+
+  function wireAccordions() {
+    var triggers = document.querySelectorAll('.accordion__trigger');
+    for (var i = 0; i < triggers.length; i++) {
+      triggers[i].addEventListener('click', function (event) {
+        var trigger = event.currentTarget;
+        var item = trigger.closest('.accordion__item');
+        if (!item) return;
+        var open = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', open);
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------
      Dark mode
      ------------------------------------------------------------------ */
 
@@ -384,6 +403,7 @@
   measureHeader();
   wireMenus();
   wireSections();
+  wireAccordions();
   wireReveals();
   wireCounters();
   sweepReveals();

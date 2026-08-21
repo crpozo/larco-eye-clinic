@@ -303,6 +303,11 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   overflow: hidden;
   border-radius: var(--radius-tile);
   background: linear-gradient(160deg, var(--gray-3), var(--gray-5));
+  /* Un 3:4 sobre una columna de 630px son 840px de alto: la sección ocupaba
+     dos pantallas. Se acota el alto y se encuadra sobre el tercio superior,
+     que es donde está la cara. */
+  aspect-ratio: auto;
+  height: clamp(280px, 26vw, 380px);
 }
 
 .doctor-card__media img {
@@ -310,6 +315,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 22%;
   filter: grayscale(1);
   transition: transform var(--dur-med) var(--ease-out);
 }
@@ -378,7 +384,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   box-shadow: var(--shadow-card);
 }
 
-.testimonial__video {
+.testimonial__media {
   position: relative;
   height: 160px;
   margin-bottom: 24px;
@@ -387,7 +393,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   background: linear-gradient(160deg, var(--gray-6), var(--gray-4));
 }
 
-.testimonial__video img {
+.testimonial__media img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -395,7 +401,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   object-fit: cover;
 }
 
-.testimonial__video::after {
+.testimonial__media::after {
   content: "";
   position: absolute;
   inset: 0;

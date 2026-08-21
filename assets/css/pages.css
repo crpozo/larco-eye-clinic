@@ -1,0 +1,541 @@
+/* ==========================================================================
+   Larco Visión — páginas interiores
+
+   Vocabulario compartido por sobre-nosotros, consultas-examenes,
+   especialidades, casos-clinicos y contactanos. La portada no usa nada de
+   aquí: su composición es propia y vive en site.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Portada de página interior
+   Compacta a propósito: no compite con el hero de 100vh de la home.
+   -------------------------------------------------------------------------- */
+
+.page-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 62vh;
+  padding: 180px var(--grid-margin) var(--space-8);
+  overflow: hidden;
+  background: #14181d;
+}
+
+.page-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.page-hero__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+.page-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 18, 26, .45) 20%, rgba(16, 18, 26, .86));
+}
+
+.page-hero__inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+}
+
+.page-hero__eyebrow {
+  margin: 0 0 18px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: lowercase;
+  color: rgba(247, 246, 243, .6);
+}
+
+.page-hero__title {
+  margin: 0;
+  max-width: 14em;
+  font-size: var(--text-display);
+  line-height: 1.06;
+  color: var(--bone);
+  text-shadow: 0 2px 28px rgba(10, 11, 26, .6);
+}
+
+.page-hero__lede {
+  margin: 22px 0 0;
+  max-width: 46em;
+  font-size: var(--text-body-lg);
+  line-height: 1.6;
+  color: rgba(247, 246, 243, .8);
+  text-shadow: 0 2px 28px rgba(10, 11, 26, .6);
+}
+
+/* --------------------------------------------------------------------------
+   Texto corrido
+   -------------------------------------------------------------------------- */
+
+.prose {
+  max-width: 62ch;
+  font-size: var(--text-body-lg);
+  line-height: 1.75;
+  color: var(--text-body);
+}
+
+.prose > p { margin: 0 0 20px; }
+.prose > p:last-child { margin-bottom: 0; }
+.prose > p.u-muted { color: var(--text-muted); }
+
+/* Texto a dos columnas junto a una foto */
+.split {
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.split--reverse .split__media { order: -1; }
+
+.split__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--tile-empty);
+}
+
+.split__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
+/* --------------------------------------------------------------------------
+   Tarjetas
+   -------------------------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  gap: var(--grid-gutter);
+}
+
+.cards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 28px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+}
+
+.card--plain {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.card__media {
+  width: calc(100% + 56px);
+  margin: -28px -28px 6px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+  filter: grayscale(1);
+}
+
+.card--plain .card__media {
+  width: 100%;
+  margin: 0 0 6px;
+  border-radius: var(--radius-tile);
+}
+
+.card__label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
+.card__title {
+  margin: 0;
+  font-family: var(--font-serif-display);
+  font-size: 21px;
+  font-weight: var(--weight-medium);
+  line-height: 1.25;
+  color: var(--text-body);
+}
+
+.card__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.card .btn--link { margin-top: 2px; }
+
+/* --------------------------------------------------------------------------
+   Fichas del equipo
+   -------------------------------------------------------------------------- */
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--grid-gutter);
+}
+
+.person {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 22px;
+  padding: 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+}
+
+.person__photo {
+  width: 132px;
+  height: 172px;
+  object-fit: cover;
+  object-position: 50% 22%;
+  border-radius: var(--radius-tile);
+  filter: grayscale(1);
+  background: linear-gradient(160deg, var(--gray-3), var(--gray-5));
+}
+
+.person__name {
+  margin: 0;
+  font-family: var(--font-serif-display);
+  font-size: 20px;
+  font-weight: var(--weight-medium);
+  color: var(--text-body);
+}
+
+.person__role {
+  margin: 4px 0 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.person__meta {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.person__meta dt {
+  margin-top: 10px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-body);
+}
+
+.person__meta dt:first-child { margin-top: 0; }
+
+.person__meta dd {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Acordeón — la lista larga de exámenes sin ocupar toda la página
+   -------------------------------------------------------------------------- */
+
+.accordion {
+  border-top: 1px solid var(--border-hairline);
+}
+
+.accordion__item { border-bottom: 1px solid var(--border-hairline); }
+
+.accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 22px 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-serif-display);
+  font-size: 20px;
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+  text-align: left;
+  color: var(--text-body);
+  transition: color var(--dur-fast);
+}
+
+.accordion__trigger:hover { color: var(--accent-strong); }
+
+.accordion__icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-pill);
+  color: var(--accent-strong);
+  transition: transform var(--dur-fast) var(--ease-out),
+              background var(--dur-fast);
+}
+
+.accordion__item.is-open .accordion__icon {
+  transform: rotate(180deg);
+  background: var(--surface-card);
+}
+
+.accordion__panel { display: none; }
+
+.accordion__item.is-open .accordion__panel { display: block; }
+
+.accordion__panel p {
+  margin: 0 0 22px;
+  max-width: 68ch;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Formulario
+   -------------------------------------------------------------------------- */
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px var(--grid-gutter);
+}
+
+.field { display: grid; gap: 8px; }
+.field--wide { grid-column: 1 / -1; }
+
+.field__label {
+  font-size: 13px;
+  font-weight: var(--weight-semibold);
+  color: var(--text-body);
+}
+
+.field__label .field__opt {
+  font-weight: var(--weight-body);
+  color: var(--text-muted);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-body);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 3px rgba(79, 143, 204, .22);
+}
+
+.form__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form__note {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Datos de contacto
+   -------------------------------------------------------------------------- */
+
+.info-list {
+  display: grid;
+  gap: 22px;
+  margin: 0;
+}
+
+.info-list dt {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: lowercase;
+  color: var(--text-muted);
+}
+
+.info-list dd {
+  margin: 6px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-body);
+}
+
+.info-list a { color: var(--text-body); }
+.info-list a:hover { color: var(--accent-strong); }
+
+/* Mapa grande de la página de contacto */
+.map-wide {
+  position: relative;
+  overflow: hidden;
+  height: 380px;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  background: var(--tile-empty);
+}
+
+.map-wide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-wide .footer__pin { width: 18px; height: 18px; margin: -9px 0 0 -9px; }
+
+.map-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Contenido que la clínica todavía no entregó
+   -------------------------------------------------------------------------- */
+
+.pending {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 32px;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-card);
+  font-size: 13px;
+  letter-spacing: .08em;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+/* --------------------------------------------------------------------------
+   Banda de cierre con la llamada a la acción
+   -------------------------------------------------------------------------- */
+
+.cta-band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-7);
+  flex-wrap: wrap;
+  padding: var(--space-8);
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+}
+
+.cta-band__title {
+  margin: 0;
+  font-size: var(--text-h3);
+  color: var(--text-body);
+}
+
+.cta-band__text {
+  margin: 10px 0 0;
+  max-width: 44ch;
+  color: var(--text-muted);
+}
+
+.cta-band__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .cards--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 960px) {
+  .page-hero {
+    min-height: 46vh;
+    padding-top: 148px;
+  }
+
+  .page-hero__title { font-size: clamp(34px, 7vw, 56px); }
+
+  .split {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .split--reverse .split__media { order: 0; }
+
+  .cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .people { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .cards--2,
+  .cards--3,
+  .cards--4 { grid-template-columns: 1fr; }
+
+  .form { grid-template-columns: 1fr; }
+
+  .person {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .person__photo {
+    width: 100%;
+    height: 220px;
+    object-position: 50% 25%;
+  }
+
+  .accordion__trigger { font-size: 17px; padding: 18px 0; }
+
+  .cta-band {
+    padding: var(--space-6);
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .map-wide { height: 260px; }
+}
