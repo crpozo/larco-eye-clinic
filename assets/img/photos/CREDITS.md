@@ -22,7 +22,6 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `equipo-oct-triton.webp` | `mDCuzdHh_bw` | Carrusel · OCT Triton Plus |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Carrusel · Humphrey FA3 |
 | `equipo-laser-pascal.webp` | `XrW_dhI8_BU` | Carrusel · Láser Pascal 577 |
-| `banda-quirofano.webp` | `j55TmqkzQ4k` | Banda de fotografía a sangre entre Doctores y Casos |
 | `testimonio-ojo.webp` | `_mzSK1mUnRE` | Testimonial con video (placeholder del thumbnail) |
 
 Página de origen: `https://unsplash.com/photos/<ID>`
