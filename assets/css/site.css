@@ -16,10 +16,6 @@
   left: 0;
   right: 0;
   z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
   padding: 22px var(--grid-margin);
   color: var(--dark-text);
   background: transparent;
@@ -41,6 +37,20 @@ body.is-solid .site-header {
 }
 
 body.is-solid.lv-dark .site-header { color: var(--dark-text); }
+
+/* Mismo mecanismo que .u-shell: la sección pone el margen y el interior pone
+   el tope. Replicarlo con max() en el padding parecía más corto, pero un
+   clamp() anidado dentro de max() no resuelve al mismo valor y el logo se
+   quedaba en 72px cuando el resto iba a 51. */
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+}
 
 /* backdrop-filter turns the header into the containing block for its
    position: fixed children, which would trap the panel inside the 79px bar.
@@ -314,11 +324,15 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   background: linear-gradient(180deg, rgba(16, 18, 26, .2) 30%, rgba(16, 18, 26, .82));
 }
 
+/* El tope y el padding van en el mismo elemento, así que el ancho máximo
+   tiene que incluir los márgenes: si no, se suman al centrado y el hero
+   arranca 40px más adentro que el logo y que todas las demás secciones,
+   donde el padding lo pone la sección y el tope lo pone .u-shell dentro. */
 .hero__inner {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  max-width: var(--grid-max);
+  max-width: calc(var(--grid-max) + var(--grid-margin) * 2);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
