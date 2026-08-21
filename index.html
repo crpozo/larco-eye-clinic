@@ -11,16 +11,29 @@
 <meta property="og:locale" content="es_EC">
 <meta property="og:title" content="Larco Visión — 70 años cuidando tu visión">
 <meta property="og:description" content="Tres generaciones de cirujanos oftalmólogos. Tradición médica familiar con diagnóstico y quirófano de última generación.">
+<!-- TODO(dominio): og:image y og:url deben ser absolutos, y el card quiere un JPEG 1200x630 propio. -->
 <meta property="og:image" content="assets/img/photos/hero-iris-1200.webp">
 
 <link rel="icon" type="image/webp" href="assets/img/logo.webp">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=7">
-<link rel="stylesheet" href="assets/css/tokens.css?v=7">
-<link rel="stylesheet" href="assets/css/components.css?v=7">
-<link rel="stylesheet" href="assets/css/site.css?v=7">
+<link rel="stylesheet" href="assets/css/fonts.css?v=12">
+<link rel="stylesheet" href="assets/css/tokens.css?v=12">
+<link rel="stylesheet" href="assets/css/components.css?v=12">
+<link rel="stylesheet" href="assets/css/site.css?v=12">
+<noscript><style>
+  /* Without JS the hamburger cannot open anything, so lay the nav out inline. */
+  @media (max-width: 1024px) {
+    .nav-toggle { display: none; }
+    .site-header { position: static; flex-wrap: wrap; padding-top: 12px; padding-bottom: 12px; }
+    .nav { position: static; display: flex; max-height: none; padding: 12px 0; box-shadow: none; }
+    .hero__inner { padding-top: 48px; }
+  }
+</style></noscript>
 </head>
 <body>
+<script>/* Paint the stored theme before first paint; site.js re-applies it idempotently. */
+try{if(localStorage.getItem('lv-dark')==='1'){document.body.classList.add('lv-dark');
+var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B';}}catch(e){}</script>
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -29,8 +42,8 @@
      ====================================================================== -->
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Larco Visión — inicio">
-    <img class="brand__logo--on-dark" src="assets/img/white-logo.webp" alt="Larco Visión" width="167" height="54">
-    <img class="brand__logo--on-light" src="assets/img/logo.webp" alt="Larco Visión" width="167" height="54">
+    <img class="brand__logo--on-dark" src="assets/img/white-logo.webp" alt="Larco Visión" width="68" height="54">
+    <img class="brand__logo--on-light" src="assets/img/logo.webp" alt="Larco Visión" width="65" height="54">
   </a>
 
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
@@ -43,7 +56,7 @@
     <a class="nav__link nav__link--current" href="index.html" aria-current="page">Inicio</a>
 
     <div class="menu">
-      <a class="nav__link" href="sobre-nosotros.html">Sobre Nosotros <span class="nav__caret" aria-hidden="true">▾</span></a>
+      <a class="nav__link" href="sobre-nosotros.html" aria-haspopup="true">Sobre Nosotros <span class="nav__caret" aria-hidden="true">▾</span></a>
       <div class="menu__panel">
         <div class="menu__inner">
           <a class="menu__item" href="sobre-nosotros.html#historia">
@@ -63,7 +76,7 @@
     </div>
 
     <div class="menu menu--wide">
-      <a class="nav__link" href="consultas-examenes.html">Servicios <span class="nav__caret" aria-hidden="true">▾</span></a>
+      <a class="nav__link" href="consultas-examenes.html" aria-haspopup="true">Servicios <span class="nav__caret" aria-hidden="true">▾</span></a>
       <div class="menu__panel">
         <div class="menu__inner">
           <div class="menu__col">
@@ -119,11 +132,11 @@
     <div class="hero__media">
       <img src="assets/img/photos/hero-iris.webp"
            srcset="assets/img/photos/hero-iris-1200.webp 1200w, assets/img/photos/hero-iris.webp 2000w"
-           sizes="100vw" alt="" fetchpriority="high" decoding="async">
+           sizes="(max-width: 760px) 250vw, 100vw" alt="" fetchpriority="high" decoding="async">
       <div class="hero__media-tint"></div>
-      <span class="hero__note">video pendiente — foto provisional</span>
     </div>
     <div class="hero__scrim"></div>
+    <span class="hero__note">video pendiente — foto provisional</span>
 
     <div class="hero__inner">
       <h1 class="hero__title">70 años cuidando tu visión</h1>
@@ -168,7 +181,7 @@
 
       <div class="services__grid" data-rev>
         <a class="service-card" href="especialidades.html">
-          <span class="service-card__photo" style="background-image:url('assets/img/photos/cirugias.webp')"></span>
+          <img class="service-card__photo" src="assets/img/photos/cirugias.webp" alt="" loading="lazy" decoding="async">
           <span class="service-card__scrim"></span>
           <span class="service-card__top">
             <span class="service-card__index">01</span>
@@ -181,7 +194,7 @@
         </a>
 
         <a class="service-card" href="consultas-examenes.html">
-          <span class="service-card__photo" style="background-image:url('assets/img/photos/examenes.webp')"></span>
+          <img class="service-card__photo" src="assets/img/photos/examenes.webp" alt="" loading="lazy" decoding="async">
           <span class="service-card__scrim"></span>
           <span class="service-card__top">
             <span class="service-card__index">02</span>
@@ -194,7 +207,7 @@
         </a>
 
         <a class="service-card" href="consultas-examenes.html">
-          <span class="service-card__photo" style="background-image:url('assets/img/photos/consultas.webp')"></span>
+          <img class="service-card__photo" src="assets/img/photos/consultas.webp" alt="" loading="lazy" decoding="async">
           <span class="service-card__scrim"></span>
           <span class="service-card__top">
             <span class="service-card__index">03</span>
@@ -263,7 +276,7 @@
         <div data-rev>
           <a class="doctor-card" href="sobre-nosotros.html#equipo">
             <span class="doctor-card__media">
-              <img src="assets/img/photos/dr-marcelo-larco.webp" alt="Dr. Marcelo Larco" loading="lazy" decoding="async">
+              <img src="assets/img/photos/dr-marcelo-larco.webp" alt="" loading="lazy" decoding="async">
               <span class="doctor-card__tint"></span>
               <span class="doctor-card__gen">2ª generación</span>
             </span>
@@ -278,7 +291,7 @@
         <div data-rev>
           <a class="doctor-card" href="sobre-nosotros.html#equipo">
             <span class="doctor-card__media">
-              <img src="assets/img/photos/dr-roberto-larco.webp" alt="Dr. Roberto Larco" loading="lazy" decoding="async">
+              <img src="assets/img/photos/dr-roberto-larco.webp" alt="" loading="lazy" decoding="async">
               <span class="doctor-card__tint"></span>
               <span class="doctor-card__gen">2ª generación</span>
             </span>
@@ -394,7 +407,7 @@
         <figure class="testimonial testimonial--rail">
           <div class="testimonial__video">
             <img src="assets/img/photos/testimonio-ojo.webp" alt="" loading="lazy" decoding="async">
-            <div class="testimonial__play"><span aria-hidden="true">▶</span></div>
+            <div class="testimonial__play" aria-hidden="true"><span>▶</span></div>
           </div>
           <blockquote class="testimonial__quote">“Volví a ver los rostros de mis nietos con una claridad que había olvidado.”</blockquote>
           <figcaption class="testimonial__caption">
@@ -432,8 +445,8 @@
     <div class="footer__top">
       <div class="footer__brand">
         <a href="index.html" aria-label="Larco Visión — inicio">
-          <img class="brand__logo--on-light" src="assets/img/logo.webp" alt="Larco Visión — Clínica y Cirugía de Ojos" width="211" height="68">
-          <img class="brand__logo--on-dark" src="assets/img/white-logo.webp" alt="Larco Visión — Clínica y Cirugía de Ojos" width="211" height="68">
+          <img class="brand__logo--on-light" src="assets/img/logo.webp" alt="Larco Visión — Clínica y Cirugía de Ojos" width="82" height="68">
+          <img class="brand__logo--on-dark" src="assets/img/white-logo.webp" alt="Larco Visión — Clínica y Cirugía de Ojos" width="85" height="68">
         </a>
         <p class="footer__tag">70 años cuidando la visión de las familias ecuatorianas.</p>
       </div>
@@ -462,7 +475,7 @@
         <div class="u-label footer__col-title">contacto</div>
         <div class="footer__links">
           <a href="contactanos.html">Agendar cita</a>
-          <a href="#" data-whatsapp rel="noopener">WhatsApp</a>
+          <a href="contactanos.html" data-whatsapp rel="noopener">WhatsApp</a>
           <a href="#">Facebook</a>
           <a href="#">Instagram</a>
         </div>
@@ -482,10 +495,10 @@
   </div>
 </footer>
 
-<a class="wa-fab" href="#" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
+<a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
 
-<script src="assets/js/site.js?v=7" defer></script>
+<script src="assets/js/site.js?v=12" defer></script>
 </body>
 </html>

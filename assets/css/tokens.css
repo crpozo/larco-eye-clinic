@@ -22,10 +22,11 @@
   --slate-deep: #6E8290;
   --slate-soft: #B9C5CD;
 
-  --terracotta: #D2703C;
-  --terracotta-deep: #BE6134;
-  --terracotta-ink: #A9512A; /* passes contrast as small text on paper */
-  --terracotta-light: #E89A6E;
+  --terracotta: #D2703C;         /* fills */
+  --terracotta-display: #C46231; /* accent as large display text (>=3:1 on paper) */
+  --terracotta-deep: #B45B30;    /* hover fill; carries a white label at 4.5:1 */
+  --terracotta-ink: #9F4B26;     /* accent as small text (>=4.5:1 on every surface) */
+  --terracotta-light: #E89A6E;   /* accent as text on the dark theme */
 
   /* ---- neutrals (warm) -------------------------------------------------- */
   --gray-1: #FBFAF8;
@@ -36,10 +37,11 @@
   --gray-6: #2A2D30;
 
   /* ---- accent ----------------------------------------------------------- */
-  --accent: var(--terracotta);        /* fills, display type, markers */
-  --accent-strong: var(--terracotta-ink); /* accent used as small text */
+  --accent: var(--terracotta);              /* fills and markers */
+  --accent-display: var(--terracotta-display); /* accent as large text, focus ring */
+  --accent-strong: var(--terracotta-ink);   /* accent as small text */
   --accent-hover: var(--terracotta-deep);
-  --accent-ink: #FDFAF7;              /* text sitting on an accent fill */
+  --accent-ink: #FDFAF7;                    /* label on an accent fill */
 
   /* Two-dot section marker */
   --mark: var(--terracotta);
@@ -50,7 +52,7 @@
   --dark-surface-deep: var(--brand-deep-2);
   --dark-text: rgba(241, 239, 236, .95);
   --dark-text-muted: rgba(241, 239, 236, .62);
-  --dark-border: rgba(241, 239, 236, .16);
+  --dark-border: rgba(241, 239, 236, .48); /* outline-button edge over photography */
 
   /* ---- states ----------------------------------------------------------- */
   --success: #4F9C6F;
@@ -124,11 +126,11 @@
   --surface-raised: #FAF9F7;
   --surface-sunken: #E7E4DF;
   --text-body: #1C1E20;
-  --text-muted: rgba(28, 30, 32, .62);
-  --text-faint: rgba(28, 30, 32, .40);
-  --text-dim: rgba(28, 30, 32, .38);
+  --text-muted: rgba(28, 30, 32, .66);
+  --text-faint: rgba(28, 30, 32, .54);
+  --text-dim: rgba(28, 30, 32, .52);
   --border-hairline: rgba(28, 30, 32, .12);
-  --border-strong: rgba(28, 30, 32, .35);
+  --border-strong: rgba(28, 30, 32, .50);
   --photo-tint: rgba(54, 62, 69, .10);
   --shadow-card: 0 12px 36px rgba(28, 30, 32, .08);
   --shadow-float: 0 18px 48px rgba(28, 30, 32, .14);
@@ -153,15 +155,16 @@ body.lv-dark {
   --surface-raised: #212326;
   --surface-sunken: #141517;
   --text-body: rgba(241, 239, 236, .95);
-  --text-muted: rgba(241, 239, 236, .62);
-  --text-faint: rgba(241, 239, 236, .40);
-  --text-dim: rgba(241, 239, 236, .38);
+  --text-muted: rgba(241, 239, 236, .66);
+  --text-faint: rgba(241, 239, 236, .54);
+  --text-dim: rgba(241, 239, 236, .52);
   --border-hairline: rgba(241, 239, 236, .16);
-  --border-strong: rgba(241, 239, 236, .40);
+  --border-strong: rgba(241, 239, 236, .55);
   --photo-tint: rgba(20, 22, 24, .35);
   --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);
   --shadow-float: 0 20px 60px rgba(0, 0, 0, .45);
 
+  --accent-display: var(--terracotta-light);
   --accent-strong: var(--terracotta-light);
 
   --page-bg: #18191B;
@@ -196,6 +199,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+h1, h2, h3 { overflow-wrap: break-word; }
+
 h1 {
   font-family: var(--font-serif-display);
   font-weight: var(--weight-display);
@@ -213,6 +218,9 @@ h2 {
 h3 { font-weight: var(--weight-medium); }
 
 img { max-width: 100%; }
+
+/* The UA's [hidden] rule does not apply to SVG, so state it explicitly. */
+svg[hidden] { display: none; }
 
 a {
   color: var(--text-body);
@@ -232,7 +240,7 @@ a:hover { color: var(--accent-strong); }
   text-transform: lowercase;
 }
 
-.u-accent-phrase { color: var(--accent); }
+.u-accent-phrase { color: var(--accent-display); }
 
 .u-dim { color: var(--text-dim); }
 
@@ -306,7 +314,6 @@ a:hover { color: var(--accent-strong); }
 .skip-link:focus { top: 16px; }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-display);
   outline-offset: 3px;
-  border-radius: 2px;
 }

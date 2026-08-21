@@ -42,6 +42,19 @@ body.is-solid .site-header {
 
 body.is-solid.lv-dark .site-header { color: var(--dark-text); }
 
+/* backdrop-filter turns the header into the containing block for its
+   position: fixed children, which would trap the panel inside the 79px bar.
+   The open panel is opaque anyway, so drop the blur and paint the bar solid. */
+body.nav-open .site-header {
+  transition: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: var(--surface-raised);
+}
+
+/* The panel is the scroll surface while it is open. */
+body.nav-open { overflow: hidden; }
+
 /* ---- brand -------------------------------------------------------------- */
 
 .brand {
@@ -77,8 +90,11 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
 
 .nav__link--current {
   font-weight: 600;
-  color: var(--accent-strong);
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 2px;
 }
+
+body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .nav__caret {
   font-size: 9px;
@@ -90,6 +106,12 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
   height: 20px;
   background: currentColor;
   opacity: .25;
+}
+
+.nav__tools {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .nav__tool {
@@ -191,6 +213,8 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
   color: var(--text-muted);
 }
 
+.menu__sublinks a:hover { color: var(--accent-strong); }
+
 /* ---- mobile menu button -------------------------------------------------- */
 
 .nav-toggle {
@@ -236,14 +260,14 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
 .hero__media-tint {
   position: absolute;
   inset: 0;
-  background: rgba(28, 30, 32, .35);
+  background: rgba(28, 30, 32, .45);
 }
 
 .hero__note {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 1;
+  top: 96px;
+  right: var(--grid-margin);
+  z-index: 2;
   font-size: 11px;
   letter-spacing: .12em;
   color: rgba(241, 239, 236, .55);
@@ -266,6 +290,10 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
   justify-content: space-between;
   padding: 120px var(--grid-margin) 56px;
 }
+
+.hero__title,
+.hero__title-alt,
+.hero__lede { text-shadow: 0 2px 28px rgba(10, 11, 12, .65); }
 
 .hero__title {
   margin: 0;
@@ -574,6 +602,8 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   color: var(--text-body);
 }
 
+.footer__links a:hover { color: var(--accent-strong); }
+
 .footer__mid {
   display: flex;
   align-items: center;
@@ -594,7 +624,7 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   background: var(--tile-empty);
   font-size: 11px;
   letter-spacing: .12em;
-  color: rgba(28, 30, 32, .55);
+  color: var(--ink);
   text-align: center;
 }
 
@@ -637,6 +667,8 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   transition: background var(--dur-fast) var(--ease-out),
               transform var(--dur-fast) var(--ease-out);
 }
+
+body.nav-open .wa-fab { display: none; }
 
 .wa-fab:hover {
   background: var(--accent-hover);
@@ -682,8 +714,10 @@ body.js [data-rev].is-pending {
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
-    max-height: calc(100vh - var(--header-h, 78px));
+    bottom: 0;
+    max-height: none;
     overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 20px var(--grid-margin) 32px;
     background: var(--surface-raised);
     border-bottom: 1px solid var(--border-hairline);
@@ -738,12 +772,7 @@ body.js [data-rev].is-pending {
 
   .menu__col > a { display: block; padding-left: 16px; }
 
-  .nav__tools {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding-top: 18px;
-  }
+  .nav__tools { padding-top: 18px; }
 
   .nav .btn { margin-top: 18px; }
 }
@@ -857,7 +886,14 @@ body.js [data-rev].is-pending {
   .wa-fab,
   .hero__note { display: none; }
 
-  .hero { min-height: auto; }
+  .hero { min-height: auto; background: #fff; }
   .hero__inner { min-height: auto; padding: 40px 0; }
+  .hero__media, .hero__scrim { display: none; }
   body { background: #fff; }
+
+  .hero__title,
+  .hero__lede,
+  .hero__lede span { color: #1C1E20; text-shadow: none; }
+
+  .hero__title-alt { color: #A9512A; text-shadow: none; }
 }

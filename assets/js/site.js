@@ -14,7 +14,10 @@
      clinic's real number and every WhatsApp link on the page follows.
      ------------------------------------------------------------------ */
   var CONFIG = {
-    whatsapp: '593 99 999 9999',
+    // Leave empty until the clinic's real number is known. While it is empty
+    // every WhatsApp link keeps its HTML fallback (the contact page) rather
+    // than dialling a number that belongs to somebody else.
+    whatsapp: '',
     animations: true
   };
 
@@ -41,9 +44,15 @@
      ------------------------------------------------------------------ */
 
   function applyWhatsApp() {
-    var href = 'https://wa.me/' + String(CONFIG.whatsapp).replace(/[^0-9]/g, '');
+    var digits = String(CONFIG.whatsapp || '').replace(/[^0-9]/g, '');
+    if (digits.length < 8) return; // not configured — keep the HTML fallback
+
+    var href = 'https://wa.me/' + digits;
     var links = document.querySelectorAll('[data-whatsapp]');
-    for (var i = 0; i < links.length; i++) links[i].setAttribute('href', href);
+    for (var i = 0; i < links.length; i++) {
+      links[i].setAttribute('href', href);
+      links[i].setAttribute('target', '_blank');
+    }
   }
 
   /* ------------------------------------------------------------------
@@ -71,16 +80,27 @@
   var navToggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.nav');
 
+  var outsideNav = [document.querySelector('main'), document.querySelector('.site-footer')];
+
   function setNav(open) {
     navOpen = open;
     body.classList.toggle('nav-open', open);
     if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    // Keep Tab inside the panel: it covers the viewport, so anything behind it
+    // is focusable but invisible.
+    for (var i = 0; i < outsideNav.length; i++) {
+      if (outsideNav[i]) outsideNav[i].inert = open;
+    }
+
+    // Opening also makes the header solid, which shrinks it. Flip the class
+    // first, then measure, or --header-h freezes at the taller value.
     syncHeader();
+    measureHeader();
   }
 
   if (navToggle && nav) {
     navToggle.addEventListener('click', function () {
-      measureHeader();
       setNav(!navOpen);
     });
 
@@ -107,6 +127,13 @@
      explicit tap-to-open on the parent link.
      ------------------------------------------------------------------ */
 
+  function closeMenus(except) {
+    var open = document.querySelectorAll('.menu.is-open');
+    for (var i = 0; i < open.length; i++) {
+      if (open[i] !== except) open[i].classList.remove('is-open');
+    }
+  }
+
   function wireMenus() {
     if (!window.matchMedia('(hover: none)').matches) return;
 
@@ -119,11 +146,21 @@
           if (window.matchMedia(MOBILE_NAV_QUERY).matches) return; // panel is inline
           if (!menu.classList.contains('is-open')) {
             event.preventDefault();
+            closeMenus(menu);
             menu.classList.add('is-open');
           }
         });
       })(menus[i]);
     }
+
+    // Without this a tapped panel stays open for the rest of the session.
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.menu')) closeMenus();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMenus();
+    });
   }
 
   /* ------------------------------------------------------------------
@@ -131,11 +168,13 @@
      ------------------------------------------------------------------ */
 
   var darkToggle = document.querySelector('[data-toggle-dark]');
+  var themeColor = document.querySelector('meta[name="theme-color"]');
   var isDark = false;
 
-  function applyDark(next) {
+  function applyDark(next, persist) {
     isDark = next;
     body.classList.toggle('lv-dark', next);
+
     if (darkToggle) {
       darkToggle.setAttribute('aria-pressed', next ? 'true' : 'false');
       var sun = darkToggle.querySelector('[data-icon="sun"]');
@@ -143,7 +182,11 @@
       if (sun) sun.hidden = !next;
       if (moon) moon.hidden = next;
     }
-    store(STORAGE_DARK, next ? '1' : '0');
+
+    // Otherwise the mobile address bar stays paper-white around a dark page.
+    if (themeColor) themeColor.setAttribute('content', next ? '#18191B' : '#F1EFEC');
+
+    if (persist) store(STORAGE_DARK, next ? '1' : '0');
   }
 
   /* ------------------------------------------------------------------
@@ -153,7 +196,7 @@
   var zoomToggle = document.querySelector('[data-cycle-zoom]');
   var zoomIndex = 0;
 
-  function applyZoom(next) {
+  function applyZoom(next, persist) {
     zoomIndex = ((next % ZOOM_STEPS.length) + ZOOM_STEPS.length) % ZOOM_STEPS.length;
 
     // Writing `zoom` reflows the document and drops the scroll position, which
@@ -173,7 +216,7 @@
         'Tamaño de texto: ' + Math.round(ZOOM_STEPS[zoomIndex] * 100) + '%. Cambiar.'
       );
     }
-    store(STORAGE_ZOOM, String(zoomIndex));
+    if (persist) store(STORAGE_ZOOM, String(zoomIndex));
     measureHeader();
   }
 
@@ -248,11 +291,17 @@
           return r.top < window.innerHeight && r.bottom > 0;
         }
 
+        if (!CONFIG.animations || reduceMotion || !('IntersectionObserver' in window)) {
+          el.textContent = String(target);
+          return;
+        }
+
+        if (inView()) { el.textContent = '0'; run(); return; }
+
+        // Only blank it once we know an observer will fill it back in.
         el.textContent = '0';
 
-        if (inView()) { run(); return; }
-
-        if ('IntersectionObserver' in window) {
+        {
           var observer = new IntersectionObserver(function (entries) {
             if (entries[0].isIntersecting) {
               run();
@@ -260,8 +309,6 @@
             }
           }, { threshold: .4 });
           observer.observe(el);
-        } else {
-          el.textContent = String(target);
         }
       })(counters[i]);
     }
@@ -274,15 +321,15 @@
   body.classList.add('js');
 
   applyWhatsApp();
-  applyDark(read(STORAGE_DARK) === '1');
-  applyZoom(parseInt(read(STORAGE_ZOOM) || '0', 10) || 0);
+  applyDark(read(STORAGE_DARK) === '1', false);
+  applyZoom(parseInt(read(STORAGE_ZOOM) || '0', 10) || 0, false);
 
   if (darkToggle) {
-    darkToggle.addEventListener('click', function () { applyDark(!isDark); });
+    darkToggle.addEventListener('click', function () { applyDark(!isDark, true); });
   }
 
   if (zoomToggle) {
-    zoomToggle.addEventListener('click', function () { applyZoom(zoomIndex + 1); });
+    zoomToggle.addEventListener('click', function () { applyZoom(zoomIndex + 1, true); });
   }
 
   window.addEventListener('scroll', function () {

@@ -37,6 +37,12 @@ _design/                    Fuente importada de Claude Design (no se sirve)
 Los `<link>` y `<script>` llevan `?v=N`. **Al cambiar un CSS o el JS, súbele el
 número** o los navegadores servirán la versión vieja en caché.
 
+Las imágenes y las fuentes **no** llevan `?v=N` a propósito: son demasiadas para
+mantenerlas a mano. La regla para ellas es al revés — **una foto que se
+reemplaza estrena nombre de archivo** (`dr-marcelo-larco-2.webp`), así la URL
+cambia con el contenido. Cuando haya hosting, lo definitivo es cache inmutable
+para `/assets/img/` y `/assets/fonts/`.
+
 ## Diseño
 
 Paleta del board aprobado, en `assets/css/tokens.css`:
@@ -49,8 +55,14 @@ Paleta del board aprobado, en `assets/css/tokens.css`:
 | `--ink` / `--text-body` | `#1C1E20` | Texto |
 | `--brand-deep` | `#2A2D30` | Botón primario, tarjetas oscuras |
 | `--slate` | `#8FA0AC` | Gris azulado clínico, placeholders |
-| `--accent` | `#D2703C` | Terracota: rellenos, display, marcador de dos puntos |
-| `--accent-strong` | `#A9512A` | El mismo acento cuando es texto chico (contraste) |
+| `--accent` | `#D2703C` | Terracota: rellenos, botón flotante, marcador de dos puntos |
+| `--accent-display` | `#C46231` | El acento como texto grande (titulares) y anillo de foco |
+| `--accent-strong` | `#9F4B26` | El acento como texto chico (enlaces, hover) |
+
+Los tres tonos de terracota existen porque el mismo naranja no puede servir de
+relleno y de texto: `--accent` no llega a 3:1 sobre el papel, así que los
+titulares usan `--accent-display` y el texto chico `--accent-strong`. Todos los
+pares de color de la página pasan WCAG AA en ambos temas.
 
 Tipografía: **Montserrat** en todo, incluido el display — así lo fija el mockup,
 que sobreescribe la Playfair Display del design system. Está self-hosted en
@@ -65,13 +77,17 @@ Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 
 ```js
 var CONFIG = {
-  whatsapp: '593 99 999 9999',   // ← número real de la clínica
-  animations: true               // false apaga reveals y contadores
+  whatsapp: '',      // ← número real de la clínica; vacío = sin configurar
+  animations: true   // false apaga reveals y contadores
 };
 ```
 
-`whatsapp` alimenta todos los enlaces con `data-whatsapp` (el botón flotante y el
+`whatsapp` alimenta los enlaces con `data-whatsapp` (el botón flotante y el
 enlace del pie). Se limpia a dígitos y arma `https://wa.me/<número>`.
+
+**Mientras esté vacío** esos enlaces conservan su destino del HTML —
+`contactanos.html`— en vez de apuntar a un número que no es de la clínica. En
+cuanto pongas el número real (mínimo 8 dígitos), pasan a abrir WhatsApp.
 
 ## Pendiente
 
@@ -80,7 +96,8 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 - [ ] **Video del hero** — hoy es una foto con el aviso “video pendiente — foto provisional”
 - [ ] **Casos clínicos 01–03** — “[ pendiente de información del cliente ]”
 - [ ] **Dirección y teléfono** — “Cumbayá · Quito, Ecuador — dirección por confirmar”
-- [ ] **Número de WhatsApp** — `CONFIG.whatsapp` es un placeholder
+- [ ] **Número de WhatsApp** — `CONFIG.whatsapp` está vacío; hasta que se llene,
+      los enlaces de WhatsApp llevan a `contactanos.html`
 - [ ] **Mapa** — el pie tiene un recuadro “[ mapa — Google Maps ]”
 - [ ] **Facebook e Instagram** — los enlaces apuntan a `#`
 - [ ] **Testimonios** — los tres dicen “testimonio de ejemplo”
