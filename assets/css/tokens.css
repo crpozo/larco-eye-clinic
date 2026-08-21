@@ -257,20 +257,6 @@ a:hover { color: var(--accent-strong); }
 
 .u-accent-phrase { color: var(--accent-display); }
 
-/* Etiqueta de margen que antecede a cada titular. Da el escalón de jerarquía
-   que faltaba entre la sección y su contenido. */
-.section-eyebrow {
-  display: block;
-  margin-bottom: 14px;
-  font-family: var(--font-sans);
-  font-size: 12px;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: lowercase;
-  color: var(--text-faint);
-}
-
-.section-eyebrow--on-dark { color: rgba(247, 246, 243, .55); }
 
 .u-dim { color: var(--text-dim); }
 

@@ -279,6 +279,19 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   filter: grayscale(1);
 }
 
+/* El video va encima del póster, sin transición de entrada: su atributo
+   poster es un fotograma del propio video, así que el estado previo a la
+   carga y el primer cuadro son la misma imagen y no hay salto que disimular.
+   Atarlo a una animación sólo añadía una forma más de quedarse invisible. */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
+
 .hero__media-tint {
   position: absolute;
   inset: 0;
@@ -440,9 +453,18 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--text-body);
 }
 
-.intro__copy p:last-child {
+.intro__copy p:last-of-type {
   margin-bottom: 0;
   color: var(--text-muted);
+}
+
+/* La foto cierra la columna de texto, como en la referencia de Forsa. */
+.intro__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-6);
+  border-radius: var(--radius-tile);
 }
 
 /* --------------------------------------------------------------------------
