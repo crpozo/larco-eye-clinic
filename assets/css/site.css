@@ -431,20 +431,36 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Intro
+   Intro — foto vertical a la izquierda, titular y texto a la derecha.
+   La sección tiene que entrar completa en pantalla, así que la foto se mide
+   contra la altura del viewport y no contra su propio ancho.
    -------------------------------------------------------------------------- */
+
+.intro {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
 
 .intro__grid {
   display: grid;
-  grid-template-columns: 6fr 6fr;
-  gap: var(--grid-gutter);
-  align-items: start;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+.intro__photo {
+  display: block;
+  width: 100%;
+  height: min(62vh, 560px);
+  object-fit: cover;
+  border-radius: var(--radius-card);
 }
 
 .intro__copy {
-  max-width: 520px;
-  justify-self: end;
+  max-width: 620px;
 }
+
+.intro__copy .section__title { margin-bottom: var(--space-5); }
 
 .intro__copy p {
   margin: 0 0 18px;
@@ -456,15 +472,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .intro__copy p:last-of-type {
   margin-bottom: 0;
   color: var(--text-muted);
-}
-
-/* La foto cierra la columna de texto, como en la referencia de Forsa. */
-.intro__photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-top: var(--space-6);
-  border-radius: var(--radius-tile);
 }
 
 /* --------------------------------------------------------------------------
@@ -988,6 +995,10 @@ body.js [data-rev].is-pending {
     justify-self: start;
     max-width: 640px;
   }
+
+  /* Apilada, la foto pasa a ancho completo: sin bajarle el alto queda una
+     franja larguísima antes de llegar al texto. */
+  .intro__photo { height: min(44vh, 360px); }
 
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .cases__grid { grid-template-columns: 1fr; }

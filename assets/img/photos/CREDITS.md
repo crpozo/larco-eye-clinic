@@ -17,11 +17,12 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `dr-marcelo-larco.webp` | `VAvkPtF4HJI` | Retrato Dr. Marcelo Larco |
 | `dr-roberto-larco.webp` | `XSPFs82j_v0` | Retrato Dr. Roberto Larco |
 | `equipo-optica.webp` | `C6sxSzPUjss` | Carrusel · Óptica ZEISS |
-| `equipo-iol-master.webp` | `Zl5tI3kjSms` | Carrusel · IOL Master 700 |
+| `equipo-iol-master.webp` | `D74jLvxv6yo` | Carrusel · IOL Master 700 |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Carrusel · Pentacam OCT |
 | `equipo-oct-triton.webp` | `mDCuzdHh_bw` | Carrusel · OCT Triton Plus |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Carrusel · Humphrey FA3 |
-| `equipo-laser-pascal.webp` | `XrW_dhI8_BU` | Carrusel · Láser Pascal 577 |
+| `equipo-laser-pascal.webp` | `IzvQ1R5I_Gw` | Carrusel · Láser Pascal 577 |
+| `intro-tecnologia.webp` | `Zl5tI3kjSms` | Foto vertical de la sección de introducción |
 | `testimonio-ojo.webp` | `_mzSK1mUnRE` | Testimonial con video (placeholder del thumbnail) |
 
 Página de origen: `https://unsplash.com/photos/<ID>`
