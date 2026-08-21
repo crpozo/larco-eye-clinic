@@ -23,7 +23,7 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Carrusel · Humphrey FA3 |
 | `equipo-laser-pascal.webp` | `IzvQ1R5I_Gw` | Carrusel · Láser Pascal 577 |
 | `intro-tecnologia.webp` | `aMmDIsdnUro` | Foto vertical de la sección de introducción |
-| `intro-doctor-paciente.webp` | `oQdpelfogoo` | Foto pequeña superpuesta de la introducción |
+| `intro-doctor-paciente.webp` | `ibZ2QiKkEsg` | Foto pequeña superpuesta de la introducción |
 
 Página de origen: `https://unsplash.com/photos/<ID>`
 
