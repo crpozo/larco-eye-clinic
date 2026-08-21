@@ -5,7 +5,8 @@ dependencias ni build. Se abre `index.html` y funciona.
 
 Implementa el artboard **Inicio** del proyecto de Claude Design
 [“Website mockup creation”](https://claude.ai/design/p/f77e51cf-320f-4e19-8f78-36ab6697be1a),
-con la paleta y la fotografía del board de referencia que aprobó el cliente.
+con la estructura del mockup, la composición y la fotografía del board de
+referencia que aprobó el cliente, y el azul de la marca como acento.
 
 ## Correr en local
 
@@ -55,14 +56,15 @@ Paleta del board aprobado, en `assets/css/tokens.css`:
 | `--ink` / `--text-body` | `#1C1E20` | Texto |
 | `--brand-deep` | `#2A2D30` | Botón primario, tarjetas oscuras |
 | `--slate` | `#8FA0AC` | Gris azulado clínico, placeholders |
-| `--accent` | `#D2703C` | Terracota: rellenos, botón flotante, marcador de dos puntos |
-| `--accent-display` | `#C46231` | El acento como texto grande (titulares) y anillo de foco |
-| `--accent-strong` | `#9F4B26` | El acento como texto chico (enlaces, hover) |
+| `--accent` | `#4F8FCC` | Azul de la marca: rellenos, botón flotante, marcador de dos puntos |
+| `--accent-display` | `#4581BC` | El acento como texto grande (titulares) y anillo de foco |
+| `--accent-strong` | `#35659B` | El acento como texto chico (enlaces, hover) |
 
-Los tres tonos de terracota existen porque el mismo naranja no puede servir de
-relleno y de texto: `--accent` no llega a 3:1 sobre el papel, así que los
-titulares usan `--accent-display` y el texto chico `--accent-strong`. Todos los
-pares de color de la página pasan WCAG AA en ambos temas.
+El acento es el azul del logo. Existen tres tonos porque el mismo azul no puede
+ser relleno y texto legible de 13px a la vez: `--accent` no llega a 3:1 sobre el
+papel, así que los titulares usan `--accent-display` y el texto chico
+`--accent-strong`. Los 41 pares de color de la página pasan WCAG AA en ambos
+temas.
 
 Tipografía: **Montserrat** en todo, incluido el display — así lo fija el mockup,
 que sobreescribe la Playfair Display del design system. Está self-hosted en
@@ -70,6 +72,12 @@ que sobreescribe la Playfair Display del design system. Está self-hosted en
 
 Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 (`lv-dark`, `lv-zoom`).
+
+**Menú móvil** (≤1024px): hoja a pantalla completa bajo el header. Las dos
+secciones con hijos —Sobre Nosotros y Servicios— son acordeones cerrados por
+defecto, cada uno con su propio botón de despliegue, así que el menú abre en
+cinco filas en vez de cuarenta enlaces. Tocar el texto navega; tocar el chevron
+despliega.
 
 ## Configuración
 

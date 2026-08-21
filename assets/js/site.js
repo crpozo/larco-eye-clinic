@@ -39,6 +39,15 @@
     try { return localStorage.getItem(key); } catch (e) { return null; }
   }
 
+  /* `hidden` is an HTMLElement IDL attribute: assigning el.hidden on an <svg>
+     sets a plain JS property that never reaches the content attribute, so
+     `svg[hidden]` in CSS keeps missing it. Drive the attribute directly. */
+  function setHidden(el, hidden) {
+    if (!el) return;
+    if (hidden) el.setAttribute('hidden', '');
+    else el.removeAttribute('hidden');
+  }
+
   /* ------------------------------------------------------------------
      WhatsApp links
      ------------------------------------------------------------------ */
@@ -82,10 +91,44 @@
 
   var outsideNav = [document.querySelector('main'), document.querySelector('.site-footer')];
 
+  /* The two sections with children collapse behind their own disclosure
+     button, so the sheet opens as five rows instead of forty links. */
+  function setSection(menu, open) {
+    menu.classList.toggle('is-expanded', open);
+    var toggle = menu.querySelector('.menu__toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  function collapseSections() {
+    var menus = document.querySelectorAll('.menu.is-expanded');
+    for (var i = 0; i < menus.length; i++) setSection(menus[i], false);
+  }
+
+  function wireSections() {
+    var toggles = document.querySelectorAll('.menu__toggle');
+    for (var i = 0; i < toggles.length; i++) {
+      toggles[i].addEventListener('click', function (event) {
+        var menu = event.currentTarget.closest('.menu');
+        if (!menu) return;
+        setSection(menu, !menu.classList.contains('is-expanded'));
+      });
+    }
+  }
+
   function setNav(open) {
     navOpen = open;
     body.classList.toggle('nav-open', open);
-    if (navToggle) navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      setHidden(navToggle.querySelector('[data-icon="open"]'), open);
+      setHidden(navToggle.querySelector('[data-icon="close"]'), !open);
+    }
+
+    // Reopening should start from the collapsed overview, not wherever the
+    // visitor left it last time.
+    if (!open) collapseSections();
 
     // Keep Tab inside the panel: it covers the viewport, so anything behind it
     // is focusable but invisible.
@@ -177,10 +220,8 @@
 
     if (darkToggle) {
       darkToggle.setAttribute('aria-pressed', next ? 'true' : 'false');
-      var sun = darkToggle.querySelector('[data-icon="sun"]');
-      var moon = darkToggle.querySelector('[data-icon="moon"]');
-      if (sun) sun.hidden = !next;
-      if (moon) moon.hidden = next;
+      setHidden(darkToggle.querySelector('[data-icon="sun"]'), !next);
+      setHidden(darkToggle.querySelector('[data-icon="moon"]'), next);
     }
 
     // Otherwise the mobile address bar stays paper-white around a dark page.
@@ -342,6 +383,7 @@
   syncHeader();
   measureHeader();
   wireMenus();
+  wireSections();
   wireReveals();
   wireCounters();
   sweepReveals();

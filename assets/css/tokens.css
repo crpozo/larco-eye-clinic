@@ -4,9 +4,10 @@
    Structure and scale come from the Claude Design system
    ("Larco Visión Design System", _design/_ds/tokens/*.css).
 
-   The palette follows the reference board the client approved: warm
-   off-white paper, neutral charcoal surfaces, a slate blue-grey for
-   clinical imagery, and one terracotta accent.
+   The palette follows the reference board the client approved — warm
+   off-white paper, neutral charcoal surfaces, a slate blue-grey for clinical
+   imagery — with the accent taken from the blue of the Larco Visión mark
+   rather than the board's terracotta.
    ========================================================================== */
 
 :root {
@@ -22,11 +23,13 @@
   --slate-deep: #6E8290;
   --slate-soft: #B9C5CD;
 
-  --terracotta: #D2703C;         /* fills */
-  --terracotta-display: #C46231; /* accent as large display text (>=3:1 on paper) */
-  --terracotta-deep: #B45B30;    /* hover fill; carries a white label at 4.5:1 */
-  --terracotta-ink: #9F4B26;     /* accent as small text (>=4.5:1 on every surface) */
-  --terracotta-light: #E89A6E;   /* accent as text on the dark theme */
+  /* The accent is the blue of the mark itself. One hue, five steps, because
+     the same blue cannot be a fill and a legible 13px label at once. */
+  --blue: #4F8FCC;          /* fills and markers */
+  --blue-display: #4581BC;  /* accent as large display text (>=3:1 on every surface) */
+  --blue-deep: #3A6EA8;     /* hover fill; carries a white label at 5.2:1 */
+  --blue-ink: #35659B;      /* accent as small text (>=4.5:1 on every surface) */
+  --blue-light: #6FA6DB;    /* accent as text on the dark theme */
 
   /* ---- neutrals (warm) -------------------------------------------------- */
   --gray-1: #FBFAF8;
@@ -37,15 +40,15 @@
   --gray-6: #2A2D30;
 
   /* ---- accent ----------------------------------------------------------- */
-  --accent: var(--terracotta);              /* fills and markers */
-  --accent-display: var(--terracotta-display); /* accent as large text, focus ring */
-  --accent-strong: var(--terracotta-ink);   /* accent as small text */
-  --accent-hover: var(--terracotta-deep);
-  --accent-ink: #FDFAF7;                    /* label on an accent fill */
+  --accent: var(--blue);                 /* fills and markers */
+  --accent-display: var(--blue-display); /* accent as large text, focus ring */
+  --accent-strong: var(--blue-ink);      /* accent as small text */
+  --accent-hover: var(--blue-deep);
+  --accent-ink: #FBFDFF;                 /* label on an accent fill */
 
   /* Two-dot section marker */
-  --mark: var(--terracotta);
-  --mark-soft: rgba(210, 112, 60, .45);
+  --mark: var(--blue);
+  --mark-soft: rgba(79, 143, 204, .45);
 
   /* ---- dark-section semantics (fixed; used over photos and dark fills) --- */
   --dark-surface: var(--brand-deep);
@@ -164,8 +167,8 @@ body.lv-dark {
   --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);
   --shadow-float: 0 20px 60px rgba(0, 0, 0, .45);
 
-  --accent-display: var(--terracotta-light);
-  --accent-strong: var(--terracotta-light);
+  --accent-display: var(--blue-light);
+  --accent-strong: var(--blue-light);
 
   --page-bg: #18191B;
 

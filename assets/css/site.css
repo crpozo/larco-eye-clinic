@@ -215,6 +215,8 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .menu__sublinks a:hover { color: var(--accent-strong); }
 
+.menu__toggle { display: none; }
+
 /* ---- mobile menu button -------------------------------------------------- */
 
 .nav-toggle {
@@ -705,20 +707,26 @@ body.js [data-rev].is-pending {
 @media (max-width: 1024px) {
   .nav-toggle { display: inline-flex; }
 
+  /* ---- the panel ---------------------------------------------------------
+     A full-height sheet under the header. Rows are a plain list; the two
+     sections that have children collapse behind their own disclosure button,
+     so the whole menu fits one screen instead of scrolling past forty links.
+     ---------------------------------------------------------------------- */
+
   .nav {
     position: fixed;
     top: var(--header-h, 78px);
     left: 0;
     right: 0;
+    bottom: 0;
     display: none;
     flex-direction: column;
     align-items: stretch;
-    gap: 4px;
-    bottom: 0;
+    gap: 0;
     max-height: none;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 20px var(--grid-margin) 32px;
+    padding: 8px var(--grid-margin) max(28px, env(safe-area-inset-bottom));
     background: var(--surface-raised);
     border-bottom: 1px solid var(--border-hairline);
     box-shadow: var(--shadow-float);
@@ -727,55 +735,154 @@ body.js [data-rev].is-pending {
 
   body.nav-open .nav { display: flex; }
 
-  .nav__link {
-    padding: 12px 0;
-    font-size: 16px;
-    color: var(--text-body);
+  /* ---- rows -------------------------------------------------------------- */
+
+  .nav > .nav__link,
+  .nav .menu {
     border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .nav__link {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text-body);
+    border-bottom: 0;
+  }
+
+  .nav__link--current {
+    color: var(--accent-strong);
+    font-weight: 600;
+    border-bottom: 0;
+    padding-bottom: 0;
   }
 
   .nav__caret { display: none; }
   .nav__divider { display: none; }
 
-  .menu { position: static; }
+  /* ---- disclosure -------------------------------------------------------- */
+
+  .menu {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .menu > .nav__link { flex: 1 1 auto; }
+
+  .menu__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    margin-right: -10px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast);
+  }
+
+  .menu__toggle:hover { color: var(--accent-strong); }
+
+  .menu.is-expanded > .menu__toggle {
+    transform: rotate(180deg);
+    color: var(--accent-strong);
+  }
+
+  /* ---- the expanded tray ------------------------------------------------- */
 
   .menu__panel {
     position: static;
+    flex-basis: 100%;
+    display: none;
     padding-top: 0;
     opacity: 1;
     visibility: visible;
   }
 
+  .menu.is-expanded > .menu__panel { display: block; }
+
+  /* Full-bleed so the tray reads as a layer under the row, not as indented text. */
   .menu__inner,
   .menu--wide .menu__inner {
     display: block;
     width: auto;
-    padding: 4px 0 12px;
-    background: transparent;
+    margin: 0 calc(var(--grid-margin) * -1) 12px;
+    padding: 4px var(--grid-margin) 8px;
+    background: var(--surface-sunken);
     border: none;
+    border-top: 1px solid var(--border-hairline);
     box-shadow: none;
   }
 
   .menu__col { padding: 8px 0; }
-  .menu__col + .menu__col { border-left: none; }
-  .menu__item { padding: 8px 0 8px 16px; }
-  .menu__sublinks { margin-top: 8px; }
-  .menu__sublinks a { padding-left: 16px; }
+  .menu__col + .menu__col {
+    border-left: none;
+    border-top: 1px solid var(--border-hairline);
+  }
 
-  /* Sub-headings must not outweigh the top-level item they sit under. */
+  .menu__col > a { display: block; }
+
+  .menu__item {
+    display: block;
+    padding: 10px 0;
+  }
+
+  .menu__sublinks { gap: 0; margin-top: 4px; }
+
+  .menu__sublinks a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-left: 14px;
+    font-size: 15px;
+  }
+
+  /* A sub-heading must not outweigh the row it hangs from. */
   .menu__col-title,
   .menu__item-title {
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
+    color: var(--text-body);
   }
 
-  .menu__col > a { display: block; padding-left: 16px; }
+  .menu__col-title { display: block; padding: 6px 0; }
+  .menu__item-note { font-size: 13px; }
 
-  .nav__tools { padding-top: 18px; }
+  /* ---- footer of the sheet ----------------------------------------------- */
 
-  .nav .btn { margin-top: 18px; }
+  .nav .btn {
+    order: 2;
+    width: 100%;
+    /* Pins the booking CTA to the bottom of the sheet when the sections are
+       collapsed; collapses to nothing once they are open and content fills it. */
+    margin-top: auto;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 15px;
+  }
+
+  .nav__tools {
+    order: 3;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 8px;
+    padding-top: 20px;
+  }
+
+  .nav__tool { min-width: 44px; min-height: 44px; justify-content: center; }
 }
+
 
 @media (max-width: 960px) {
   .intro__grid,
