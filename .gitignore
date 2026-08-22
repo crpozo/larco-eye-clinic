@@ -1,4 +1,4 @@
-.DS_Store
-Thumbs.db
-node_modules/
-*.log
+# Arneses de verificación: copias de una página con estilos inyectados para
+# medirla o fotografiarla en Chrome headless. Se generan y se tiran; el patrón
+# es sólo la raíz, para no tocar _partials/ ni _design/.
+/_*.html
