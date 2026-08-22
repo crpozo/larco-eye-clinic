@@ -197,16 +197,23 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
 }
 
 /* --------------------------------------------------------------------------
-   ServiceCard
+   PhotoCard  (el ServiceCard del design system, generalizado)
+
+   La foto ocupa la tarjeta entera, un velo la oscurece y el texto se apoya
+   encima. Nació para las tres tarjetas de servicio y ahora la comparten los
+   casos clínicos y la foto grande de equipos, que es lo que pidió el cliente:
+   el mismo tratamiento de imagen en las tres secciones.
    -------------------------------------------------------------------------- */
 
-.service-card {
+.photo-card {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 420px;
-  padding: 28px;
+  /* El relleno vive en __top y __body: el velo de __body tiene que llegar al
+     filo de la tarjeta y no puede hacerlo desde dentro de un padding. */
+  padding: 0;
   overflow: hidden;
   border-radius: var(--radius-card);
   background: var(--surface-raised);
@@ -216,13 +223,13 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
               box-shadow var(--dur-med) var(--ease-out);
 }
 
-.service-card:hover {
+.photo-card:hover {
   color: var(--dark-text);
   transform: translateY(-4px);
   box-shadow: var(--shadow-float);
 }
 
-.service-card__photo {
+.photo-card__photo {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -232,23 +239,24 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   transition: transform var(--dur-med) var(--ease-out);
 }
 
-.service-card:hover .service-card__photo { transform: scale(1.04); }
+.photo-card:hover .photo-card__photo { transform: scale(1.04); }
 
-.service-card__scrim {
+.photo-card__scrim {
   position: absolute;
   inset: 0;
   background: var(--photo-scrim);
 }
 
-.service-card__top {
+.photo-card__top {
   position: relative;
   z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  padding: clamp(22px, 2vw, 28px) clamp(22px, 2vw, 28px) 0;
 }
 
-.service-card__index {
+.photo-card__index {
   font-size: 13px;
   font-weight: 600;
   letter-spacing: .08em;
@@ -256,22 +264,32 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   transition: color var(--dur-fast);
 }
 
-.service-card:hover .service-card__index { color: var(--accent); }
+.photo-card:hover .photo-card__index { color: var(--accent); }
 
-.service-card__arrow {
+.photo-card__arrow {
   font-size: 18px;
   color: var(--dark-text-muted);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 
-.service-card:hover .service-card__arrow { transform: translateX(4px); }
+.photo-card:hover .photo-card__arrow { transform: translateX(4px); }
 
-.service-card__body {
+/* Mismo problema que en la ficha de doctor, y misma solución: el velo general
+   va por porcentaje de la tarjeta, así que con un párrafo largo el texto sube a
+   la zona clara. Medido sobre una bata blanca daba 3,4:1. Este segundo velo
+   cuelga del bloque de texto, no de la tarjeta: llegue donde llegue el párrafo,
+   arranca sobre .86 y da 5,7:1 contra el peor píxel posible. */
+.photo-card__body {
   position: relative;
   display: block;
+  padding: clamp(48px, 11%, 96px) clamp(22px, 2vw, 28px) clamp(22px, 2vw, 28px);
+  background: linear-gradient(180deg,
+    rgba(19, 20, 46, 0) 0%,
+    rgba(19, 20, 46, .86) 34%,
+    rgba(19, 20, 46, .96) 100%);
 }
 
-.service-card__name {
+.photo-card__name {
   display: block;
   font-family: var(--font-serif-display);
   font-size: var(--text-h3);
@@ -279,13 +297,32 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   font-weight: 500;
 }
 
-.service-card__desc {
+.photo-card__desc {
   display: block;
   margin: 12px 0 0;
   font-size: 14px;
   line-height: 1.6;
   color: var(--dark-text-muted);
 }
+
+/* Los casos traen un párrafo entero, no una línea: necesitan más foto por
+   encima para que el texto no arranque a media tarjeta. */
+.photo-card--tall { min-height: 480px; }
+
+/* La foto de equipos usa el mismo tratamiento pero no es un enlace: sin
+   levantamiento, sin flecha, y con su propia proporción en vez del alto
+   mínimo. */
+.photo-card--static {
+  justify-content: flex-end;
+  min-height: 0;
+}
+
+.photo-card--static:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.photo-card--static:hover .photo-card__photo { transform: none; }
 
 /* --------------------------------------------------------------------------
    DoctorCard
