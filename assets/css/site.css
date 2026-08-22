@@ -405,6 +405,18 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .section--page { background: var(--surface-page); }
 .section--ruled { border-top: 1px solid var(--border-hairline); }
 
+/* Dos secciones del mismo color seguidas apilan dos veces --space-section del
+   mismo fondo: 208px de blanco entre el pie de una y el título de la otra, que
+   no se leen como un corte sino como un hueco. Donde el color cambia, ese aire
+   se justifica —cada banda lleva el suyo—; donde no cambia, sobra la mitad, así
+   que la de abajo cede su margen superior. */
+.section--page + .section--page,
+.section--sunken + .section--sunken { padding-top: 0; }
+
+/* Salvo si hay filete: la línea necesita aire a los dos lados para leerse. */
+.section--page + .section--page.section--ruled,
+.section--sunken + .section--sunken.section--ruled { padding-top: var(--space-section); }
+
 /* El eyebrow y el h2 son una sola unidad: sin esto cada uno se vuelve una
    celda del flex/grid del encabezado y el titular se desalinea. */
 .head-title { min-width: 0; }
