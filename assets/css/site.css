@@ -596,12 +596,18 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   padding-left: 33px;
 }
 
+/* `top:50% + translateY(-50%)` centraba la CAJA de .dots, que es inline-block y
+   mide una línea entera del titular; los círculos se apoyan en su baseline, así
+   que quedaban 6px por debajo del centro y el punto se leía pegado a «socios».
+   Estirando la caja de arriba abajo y centrando en flex se centra la tinta. */
 .doctors__title .dots {
   position: absolute;
-  top: 50%;
+  top: 0;
+  bottom: 0;
   left: 0;
+  display: flex;
+  align-items: center;
   margin: 0;
-  transform: translateY(-50%);
 }
 
 .doctors__title .u-accent-phrase { display: block; }
@@ -682,53 +688,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 .case .btn--link { margin-top: 4px; }
-
-/* --------------------------------------------------------------------------
-   Rail horizontal
-   -------------------------------------------------------------------------- */
-
-.rail {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  overflow-x: auto;
-  padding-bottom: 16px;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-}
-
-.rail > * { scroll-snap-align: start; }
-
-.equip {
-  position: relative;
-  flex: 0 0 340px;
-  height: 230px;
-  overflow: hidden;
-  border-radius: var(--radius-tile);
-  background: var(--tile-empty);
-}
-
-.equip img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.equip__tint {
-  position: absolute;
-  inset: 0;
-  background: var(--photo-tint);
-}
-
-.equip .pill {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-}
-
 
 /* --------------------------------------------------------------------------
    Footer
@@ -1166,7 +1125,6 @@ body.js [data-rev].is-pending {
   .doctor-card { aspect-ratio: 4 / 5; }
 
   .footer__top { grid-template-columns: 1fr; }
-  .equip { flex: 0 0 280px; }
   .wa-fab { bottom: 18px; right: 18px; }
 }
 
@@ -1196,22 +1154,7 @@ body.js [data-rev].is-pending {
    Print
    -------------------------------------------------------------------------- */
 
-@media print {
-  .site-header,
-  .wa-fab,
-  .hero__note { display: none; }
 
-  .hero { min-height: auto; background: #fff; }
-  .hero__inner { min-height: auto; padding: 40px 0; }
-  .hero__media, .hero__scrim { display: none; }
-  body { background: #fff; }
-
-  .hero__title,
-  .hero__lede,
-  .hero__lede span { color: #27285A; text-shadow: none; }
-
-  .hero__title-alt { color: #35659B; text-shadow: none; }
-}
 
 /* ==========================================================================
    Bandas — cortan la sucesión de secciones claras
@@ -1392,23 +1335,21 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   margin: 0;
 }
 
-/* La comilla abre la cita y sustituye al filete de color. Va de adorno —el
-   testimonio ya se entiende sin ella— así que es aria-hidden por la vía de
-   ::before, que los lectores de pantalla no anuncian. Las comillas de Montserrat
-   son cuñas rectas, no comas: por eso se lee como marca y no como puntuación
-   suelta. */
-.quote::before {
-  /* Doble prima, no comilla de cierre: la “ ” de Montserrat es una coma y en
-     grande se lee como puntuación suelta; la ″ son dos barras inclinadas y
-     funciona como marca. Está en el subset latin que servimos, comprobado. */
-  content: "\2033";
+/* La marca abre la cita y sustituye al filete de color. Va en el markup y no en
+   un ::before porque NVDA, JAWS y VoiceOver SÍ anuncian el contenido generado:
+   como pseudo-elemento no hay forma de silenciarla y el lector recitaba «double
+   prime» antes de cada testimonio. Como <span aria-hidden> desaparece del árbol
+   de accesibilidad, que es lo que corresponde a un adorno.
+
+   El glifo es U+2033 y no la comilla de cierre: la " " de Montserrat es una coma
+   y en grande se lee como puntuación suelta; la doble prima son dos barras y
+   funciona como marca. Está en el subset latin que servimos, comprobado. La
+   inclinación la pone el skew porque la ″ de Montserrat es vertical. */
+.quote__mark {
   display: block;
   width: fit-content;
   margin-bottom: 22px;
   font-family: var(--font-serif-display);
-  /* La ″ de Montserrat es vertical y la referencia la trae inclinada, así que
-     el skew la alinea con el mockup. La caja se ajusta al glifo (fit-content)
-     para que la inclinación no arrastre toda la fila. */
   font-size: 92px;
   font-weight: var(--weight-bold);
   line-height: .42;
@@ -1438,4 +1379,111 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 @media (max-width: 860px) {
   .quotes { grid-template-columns: 1fr; gap: var(--space-6); }
+}
+
+
+/* ==========================================================================
+   Impresión
+
+   Va al final del archivo a propósito. `@media print` no aporta especificidad,
+   así que una regla normal escrita más abajo le gana: cuando este bloque estaba
+   a media altura, `.stats-band__grid { display: block }` lo pisaba el
+   `display: grid` de la banda, doscientas líneas más abajo, y el panel salía en
+   rejilla igual. Lo que anula el diseño de pantalla tiene que ir el último.
+   ========================================================================== */
+
+@media print {
+  .site-header,
+  .wa-fab,
+  .hero__note { display: none; }
+
+  .hero { min-height: auto; background: #fff; }
+  .hero__inner { min-height: auto; padding: 40px 0; }
+  .hero__media, .hero__scrim { display: none; }
+  body { background: #fff; }
+
+  .hero__title,
+  .hero__lede,
+  .hero__lede span { color: #27285A; text-shadow: none; }
+
+  .hero__title-alt { color: #35659B; text-shadow: none; }
+
+  /* En papel no hay scroll que dispare el observador de reveals, así que todo
+     lo que no llegó a entrar en pantalla antes de imprimir sigue en opacity:0
+     y la sección sale en blanco. Se ve en el PDF: #cifras y #doctores enteros
+     vacíos si se imprime sin haber bajado. */
+  body.js [data-rev].is-pending {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Las divisiones del panel de cifras son fondo (gap de 1px sobre un fondo de
+     color), y el navegador descarta los fondos al imprimir: las cuatro cifras
+     quedaban pegadas sin separación. En papel las separa un filete de verdad,
+     que sí se imprime. */
+  /* `overflow: hidden` con esquina redondeada recorta la primera letra de la
+     etiqueta en cuanto el texto se apoya en el filo de la caja, que es lo que
+     pasa al quitarle el margen lateral en papel: «años» salía «ños». Sin fondo
+     que recortar, el radio y el overflow no pintan nada. */
+  .stats-band__grid,
+  .doctor-card,
+  .service-card {
+    overflow: visible;
+    border-radius: 0;
+  }
+
+  .stats-band__grid {
+    display: block;
+    box-shadow: none;
+    background: none;
+  }
+
+  .figure {
+    padding: 12px 0;
+    border-top: 1px solid #C6C6CE;
+    break-inside: avoid;
+  }
+
+  /* Las fichas que apoyan su legibilidad en un velo —doctor y servicio— quedan
+     con texto casi blanco sobre la foto en cuanto el navegador descarta los
+     fondos, que es lo que hace por defecto al imprimir. En papel se desarman:
+     la foto arriba, el texto debajo en tinta. */
+  .doctor-card,
+  .service-card {
+    background: none;
+    aspect-ratio: auto;
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .doctor-card__photo,
+  .service-card__photo {
+    position: static;
+    width: 100%;
+    height: 150px;
+    border-radius: var(--radius-tile);
+  }
+
+  .doctor-card__scrim,
+  .service-card__scrim { display: none; }
+
+  .doctor-card__body,
+  .service-card__body,
+  .service-card__top {
+    position: static;
+    padding: 10px 0 0;
+    background: none;
+  }
+
+  .doctor-card__name,
+  .doctor-card__specialty,
+  .doctor-card__note,
+  .service-card__name,
+  .service-card__desc,
+  .service-card__index { color: #27285A; }
+
+  .doctor-card__note { border-top-color: rgba(39, 40, 90, .25); }
 }

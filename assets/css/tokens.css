@@ -45,10 +45,11 @@
   --accent-light: var(--teal-bright); /* acento como texto en tema oscuro */
   --accent-ink: #10122E;            /* etiqueta sobre un relleno de acento */
 
-  /* Marcador de dos puntos que abre cada titular, más el filete del enlace de
-     Doctores y el de la tercera cita. Era el único ámbar de la página; ahora es
-     un azul más vivo que --accent, para que la marca destaque sin salirse de la
-     paleta fría de la clínica. */
+  /* Marcador de dos puntos que abre cada titular, más el filete bajo el enlace
+     de Doctores y la marca de comillas de los testimonios (index y
+     casos-clinicos, las tres citas de cada uno). Era el único ámbar de la
+     página; ahora es un azul más vivo que --accent, para que la marca destaque
+     sin salirse de la paleta fría de la clínica. */
   --mark: #459BF8;
   --mark-soft: rgba(69, 155, 248, .45);
 
@@ -149,7 +150,6 @@
   --border-hairline: rgba(39, 40, 90, .12);
   --border-card: #D2E0F0;      /* filo de las tarjetas con tinte */
   --border-strong: rgba(39, 40, 90, .56);
-  --photo-tint: rgba(79, 143, 204, .10);
   /* Sobre blanco la sombra tiene que insinuar, no pesar; el filo lo da la
      hairline. */
   --shadow-card: 0 10px 30px rgba(39, 40, 90, .06);
@@ -183,7 +183,6 @@ body.lv-dark {
   --border-hairline: rgba(247, 246, 243, .16);
   --border-card: rgba(247, 246, 243, .16);
   --border-strong: rgba(247, 246, 243, .55);
-  --photo-tint: rgba(19, 20, 46, .35);
   --shadow-card: 0 12px 40px rgba(0, 0, 0, .35);
   --shadow-float: 0 20px 60px rgba(0, 0, 0, .45);
 

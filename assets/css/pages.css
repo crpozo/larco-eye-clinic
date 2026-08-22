@@ -506,10 +506,16 @@
     gap: 16px;
   }
 
+  /* Los retratos pasaron a ser 2:3 cuando la ficha de la portada se hizo
+     vertical. En una banda ancha de 220px, `cover` escala por el ancho y se
+     lleva por delante la coronilla: a 390px la ventana visible arrancaba por
+     debajo del pelo, y a 760px por debajo de las cejas. Apilada, la foto se
+     queda retrato y con la relación del archivo, así que no recorta nada. */
   .person__photo {
-    width: 100%;
-    height: 220px;
-    object-position: 50% 25%;
+    width: clamp(132px, 42vw, 176px);
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-position: 50% 50%;
   }
 
   .accordion__trigger { font-size: 17px; padding: 18px 0; }

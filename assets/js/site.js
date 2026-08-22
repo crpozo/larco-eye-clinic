@@ -434,6 +434,34 @@
   }
 
   /* ------------------------------------------------------------------
+     Impresión
+
+     Los contadores se vacían a '0' hasta que el observador los llena, y eso no
+     lo puede arreglar el CSS. En papel no hay scroll que dispare nada: quien
+     abra la página y mande a imprimir sin bajar hasta las cifras se las lleva
+     todas en cero. Los reveals los resuelve la hoja de impresión; esto es sólo
+     el texto de los numerales.
+     ------------------------------------------------------------------ */
+
+  function settleForPrint() {
+    var counters = document.querySelectorAll('[data-count-to]');
+    for (var i = 0; i < counters.length; i++) {
+      counters[i].textContent = counters[i].getAttribute('data-count-to');
+    }
+  }
+
+  function wirePrint() {
+    window.addEventListener('beforeprint', settleForPrint);
+
+    /* Safari no dispara beforeprint, pero sí cambia el media match. */
+    if (!window.matchMedia) return;
+    var mq = window.matchMedia('print');
+    function onChange(e) { if (e.matches) settleForPrint(); }
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else if (mq.addListener) mq.addListener(onChange);
+  }
+
+  /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
 
@@ -467,5 +495,6 @@
   wireAccordions();
   wireReveals();
   wireCounters();
+  wirePrint();
   sweepReveals();
 })();
