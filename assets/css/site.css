@@ -612,9 +612,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .doctors__title .u-accent-phrase { display: block; }
 
+.doctors__lede + .doctors__lede { margin-top: var(--space-3); }
+
 .doctors__lede {
-  margin: var(--space-5) 0 0;
-  max-width: 30ch;
+  margin: var(--space-4) 0 0;
   font-size: var(--text-body-size);
   line-height: var(--leading-body);
   color: var(--text-muted);
@@ -634,17 +635,15 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .doctors__link:hover { border-bottom-color: var(--mark); }
 
+/* El reveal vive en el envoltorio y no en la ficha: [data-rev] declara su propia
+   transition de .9s y, puesta sobre la ficha, se comía el levantamiento del
+   hover. */
 .doctors__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(16px, 2vw, 28px);
   align-items: start;
 }
-
-/* El reveal vive en el envoltorio y no en la ficha: [data-rev] declara su
-   propia transition de .9s y, puesta sobre la ficha, se comía el levantamiento
-   del hover. */
-.doctors__slot--offset { margin-top: clamp(24px, 4.5vw, 64px); }
 
 /* --------------------------------------------------------------------------
    Clinical cases
@@ -755,6 +754,11 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   align-items: center;
   padding: 32px 0 0;
 }
+
+/* contactanos.html ya dedica una sección entera a la ubicación, con el mismo
+   mapa y los mismos datos: repetirlos en el pie es decir dos veces lo mismo a
+   media pantalla de distancia. */
+body[data-page="contactanos"] .footer__mid { display: none; }
 
 .footer__map {
   position: relative;
@@ -1074,6 +1078,14 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 760px) {
+  /* Tres fichas verticales por debajo de 760px dan menos de 220px de ancho: el
+     nombre se parte y la especialidad ocupa media foto. En una columna se
+     acorta el formato y se topa el ancho, porque a 720px de contenedor una sola
+     ficha 8:15 mediría 1350px de alto. */
+  .doctors__grid { grid-template-columns: 1fr; }
+  .doctors__slot { max-width: 460px; }
+  .doctor-card { aspect-ratio: 4 / 5; }
+
   .section-head {
     flex-direction: column;
     align-items: flex-start;
@@ -1115,14 +1127,6 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 560px) {
-  /* Dos fichas 2:3 en 500px de contenedor dan 244px de ancho: el nombre empieza
-     a partirse y el apunte se come media foto. En una columna se acorta el
-     formato y se topa el ancho, porque a 630px de contenedor una sola ficha 2:3
-     mediría casi 800px de alto. */
-  .doctors__grid { grid-template-columns: 1fr; }
-  .doctors__slot { max-width: 460px; }
-  .doctors__slot--offset { margin-top: 0; }
-  .doctor-card { aspect-ratio: 4 / 5; }
 
   .footer__top { grid-template-columns: 1fr; }
   .wa-fab { bottom: 18px; right: 18px; }
@@ -1176,24 +1180,28 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 .stats-band__title { color: var(--text-body); }
 
-/* Las cuatro cifras dejan de ser cuatro tarjetas y pasan a ser un panel único
-   dividido por filetes. El truco es el gap: el fondo del grid asoma por la
-   rendija de 1px y dibuja la división sola, en cualquier número de columnas,
-   sin tener que apagar bordes por breakpoint. */
+/* Las cuatro cifras van directamente sobre la banda: sin recuadro blanco, sin
+   sombra y sin relleno propio. Sólo las separa un filete vertical.
+
+   Ese filete ya no puede salir del gap de 1px sobre un fondo de color —ese
+   truco necesitaba que las celdas taparan el fondo, y ahora no tapan nada—, así
+   que vuelve a ser un borde por celda y hay que apagarlo a mano en la primera
+   de cada fila, que es distinta en cada breakpoint. */
 .stats-band__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  background: var(--border-hairline);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+  gap: 0;
 }
 
 .figure {
   display: block;
-  padding: clamp(28px, 3vw, 44px) clamp(20px, 2.4vw, 34px);
-  background: var(--surface-raised);
+  padding: 0 clamp(20px, 2.4vw, 34px);
+  border-left: 1px solid var(--border-hairline);
+}
+
+.figure:nth-child(4n + 1) {
+  padding-left: 0;
+  border-left: 0;
 }
 
 /* El numeral manda en el panel, así que sube al escalón del StatCounter del
@@ -1221,11 +1229,22 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 
 @media (max-width: 1100px) {
-  .stats-band__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-band__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-6);
+  }
+
+  .figure:nth-child(4n + 1) { padding-left: clamp(20px, 2.4vw, 34px); border-left: 1px solid var(--border-hairline); }
+  .figure:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
 }
 
 @media (max-width: 560px) {
-  .stats-band__grid { grid-template-columns: 1fr; }
+  .stats-band__grid {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-5);
+  }
+
+  .figure { padding: 0; border-left: 0; }
 }
 
 /* El pie: la columna de texto necesita cuerpo, si no la fila queda hueca. */

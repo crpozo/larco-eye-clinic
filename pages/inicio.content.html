@@ -139,7 +139,8 @@
           <h2 class="section__title doctors__title">
             <span class="dots" aria-hidden="true"></span>Doctores <span class="u-accent-phrase">socios</span>
           </h2>
-          <p class="doctors__lede">Segunda generación de una familia dedicada a la oftalmología.</p>
+          <p class="doctors__lede">Segunda generación de una familia dedicada a la oftalmología. Los dos se formaron en São Paulo y son miembros de la Academia Americana de Oftalmología.</p>
+          <p class="doctors__lede">Entre ambos cubren las dos mitades de la especialidad: el segmento anterior —córnea, catarata y cirugía refractiva— y el posterior, retina y vítreo. Operan en la misma clínica en la que atienden, así que el diagnóstico y el quirófano no cambian de manos.</p>
           <a class="btn btn--link doctors__link" href="sobre-nosotros.html#equipo">Conócenos →</a>
         </div>
 
@@ -150,18 +151,26 @@
             <span class="doctor-card__body">
               <span class="doctor-card__name">Dr. Marcelo Larco</span>
               <span class="doctor-card__specialty">Córnea, catarata y cirugía refractiva</span>
-              <span class="doctor-card__note">Pionero de la cirugía de catarata con láser en Quito.</span>
             </span>
           </a>
         </div>
 
-        <div class="doctors__slot doctors__slot--offset" data-rev>
+        <div class="doctors__slot" data-rev>
           <a class="doctor-card" href="sobre-nosotros.html#equipo">
             <img class="doctor-card__photo" src="assets/img/photos/dr-roberto-larco-2.webp" alt="" width="800" height="1200" loading="lazy" decoding="async">
             <span class="doctor-card__body">
               <span class="doctor-card__name">Dr. Roberto Larco</span>
               <span class="doctor-card__specialty">Retina y vítreo</span>
-              <span class="doctor-card__note">Más de 30 años de experiencia.</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="doctors__slot" data-rev>
+          <a class="doctor-card doctor-card--pending" href="sobre-nosotros.html#equipo">
+            <span class="doctor-card__pending">Retrato · Dra. Ana Larco</span>
+            <span class="doctor-card__body">
+              <span class="doctor-card__name">Dra. Ana Larco</span>
+              <span class="doctor-card__specialty">Glaucoma y segmento anterior</span>
             </span>
           </a>
         </div>
@@ -215,9 +224,9 @@
   <section id="equipos" class="section section--page section--ruled">
     <div class="u-shell equipos__grid">
       <div class="equipos__stage" data-rev>
-        <img class="equipos__photo" src="assets/img/photos/equipo-optica.webp"
-             alt="Óptica ZEISS" loading="lazy" decoding="async" data-equipo-foto>
-        <span class="pill pill--over-photo equipos__label" data-equipo-label>Óptica ZEISS</span>
+        <img class="equipos__photo" src="assets/img/photos/equipo-pentacam.webp"
+             alt="Pentacam OCT" loading="lazy" decoding="async" data-equipo-foto>
+        <span class="pill pill--over-photo equipos__label" data-equipo-label>Pentacam OCT</span>
       </div>
 
       <div class="equipos__aside" data-rev>
@@ -228,6 +237,11 @@
 
         <div class="equipos__thumbs" role="group" aria-label="Elegir equipo">
           <button class="equipos__thumb is-active" type="button"
+                  data-equipo="assets/img/photos/equipo-pentacam.webp" data-label="Pentacam OCT"
+                  aria-label="Ver Pentacam OCT">
+            <img src="assets/img/photos/equipo-pentacam.webp" alt="" loading="lazy" decoding="async">
+          </button>
+          <button class="equipos__thumb" type="button"
                   data-equipo="assets/img/photos/equipo-optica.webp" data-label="Óptica ZEISS"
                   aria-label="Ver Óptica ZEISS" aria-current="true">
             <img src="assets/img/photos/equipo-optica.webp" alt="" loading="lazy" decoding="async">
@@ -236,11 +250,6 @@
                   data-equipo="assets/img/photos/equipo-iol-master.webp" data-label="IOL Master 700"
                   aria-label="Ver IOL Master 700">
             <img src="assets/img/photos/equipo-iol-master.webp" alt="" loading="lazy" decoding="async">
-          </button>
-          <button class="equipos__thumb" type="button"
-                  data-equipo="assets/img/photos/equipo-pentacam.webp" data-label="Pentacam OCT"
-                  aria-label="Ver Pentacam OCT">
-            <img src="assets/img/photos/equipo-pentacam.webp" alt="" loading="lazy" decoding="async">
           </button>
           <button class="equipos__thumb" type="button"
                   data-equipo="assets/img/photos/equipo-oct-triton.webp" data-label="OCT Triton Plus"

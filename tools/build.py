@@ -23,7 +23,7 @@ PARTIALS = ROOT / "_partials"
 CONTENT = ROOT / "pages"
 
 # Subir esto invalida la caché de los navegadores en css y js a la vez.
-ASSET_VERSION = 66
+ASSET_VERSION = 67
 
 PAGES = [
     {
@@ -173,7 +173,12 @@ def render(page: str) -> str:
 
     out = HEAD.format(v=ASSET_VERSION, **{k: page[k] for k in
                                           ("title", "description", "og_title", "og_description")})
-    out += mark_active(header, page["nav"]).rstrip("\n") + "\n\n"
+    # El pie es el mismo en las seis páginas, pero alguna necesita apagarle una
+    # fila (contactanos ya tiene su propio mapa). Sellar el slug en <body> deja
+    # que eso se resuelva en CSS, sin partir el parcial en variantes.
+    head_html = mark_active(header, page["nav"]).rstrip("\n")
+    head_html = head_html.replace("<body>", f'<body data-page="{page["slug"]}">', 1)
+    out += head_html + "\n\n"
     out += body.rstrip("\n") + "\n\n"
     out += footer.rstrip("\n") + "\n"
     out += SCRIPTS.format(v=ASSET_VERSION)
