@@ -34,6 +34,33 @@
     .page-hero { padding-top: 48px; }
   }
 </style></noscript>
+
+<script>
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    var r=document.documentElement, out={w:innerWidth, sw:r.scrollWidth, cw:r.clientWidth, over:[]};
+    var all=document.querySelectorAll('body *');
+    for (var i=0;i<all.length;i++){
+      var e=all[i], b=e.getBoundingClientRect();
+      if (b.width===0 && b.height===0) continue;
+      var cs=getComputedStyle(e);
+      if (cs.position==='fixed') continue;
+      if (b.right > r.clientWidth + 1 || b.left < -1) {
+        out.over.push((e.tagName+'.'+(e.className||'').toString().split(' ')[0]).slice(0,60)
+                      +' ['+Math.round(b.left)+','+Math.round(b.right)+']');
+      }
+    }
+    out.over = out.over.slice(0,8);
+    // legibilidad: alto del texto que se sale de su caja
+    out.clip=[];
+    document.querySelectorAll('.doctor-card__body, .doctors__head, .section__title').forEach(function(e){
+      if (e.scrollHeight > e.clientHeight + 2) out.clip.push((e.className||'')+' '+e.scrollHeight+'>'+e.clientHeight);
+    });
+    var t=document.createElement('pre'); t.id='__probe'; t.textContent=JSON.stringify(out);
+    document.body.appendChild(t);
+  }, 600);
+});
+</script>
 </head>
 <body>
 <script>/* Paint the stored theme before first paint; site.js re-applies it idempotently. */

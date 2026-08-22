@@ -45,11 +45,12 @@
   --accent-light: var(--teal-bright); /* acento como texto en tema oscuro */
   --accent-ink: #10122E;            /* etiqueta sobre un relleno de acento */
 
-  /* Marcador de dos puntos que abre cada titular. Es el único ámbar de la
-     página: un punto de 12px contra titulares azules, como en la referencia
-     y como lo tenía el mockup original. */
-  --mark: #E8802F;
-  --mark-soft: rgba(232, 128, 47, .45);
+  /* Marcador de dos puntos que abre cada titular, más el filete del enlace de
+     Doctores y el de la tercera cita. Era el único ámbar de la página; ahora es
+     un azul más vivo que --accent, para que la marca destaque sin salirse de la
+     paleta fría de la clínica. */
+  --mark: #459BF8;
+  --mark-soft: rgba(69, 155, 248, .45);
 
   /* ---- semántica de secciones oscuras (fija, sobre foto) ---------------- */
   --dark-surface: var(--petrol);

@@ -88,7 +88,7 @@ Paleta en `assets/css/tokens.css`:
 | `--accent-display` | `#4581BC` | El acento como texto grande (titulares) y anillo de foco |
 | `--accent-strong` | `#35659B` | El acento como texto chico (enlaces, hover) |
 | `--accent-light` | `#6FA6DB` | El acento como texto en tema oscuro |
-| `--mark` | `#E8802F` | Punto de 12px que abre cada titular — el único ámbar |
+| `--mark` | `#459BF8` | Punto de 12px que abre cada titular, filete del enlace de Doctores y de la tercera cita |
 
 El acento tiene varios pasos porque el mismo teal no puede ser relleno y texto
 legible de 13px a la vez: `--accent` se queda en 3,15:1 sobre el fondo, así que

@@ -14,8 +14,8 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
 | `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
 | `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
-| `dr-marcelo-larco.webp` | `VAvkPtF4HJI` | Retrato Dr. Marcelo Larco |
-| `dr-roberto-larco.webp` | `XSPFs82j_v0` | Retrato Dr. Roberto Larco |
+| `dr-marcelo-larco-2.webp` | `VAvkPtF4HJI` | Retrato Dr. Marcelo Larco. Recorte 2:3 de 800×1200 sobre el rostro (x≈50,5%, 72% del alto del original), para la ficha vertical de la portada. |
+| `dr-roberto-larco-2.webp` | `XSPFs82j_v0` | Retrato Dr. Roberto Larco. Recorte 2:3 de 800×1200 (x≈57%, alto completo), encuadrado para igualar el plano del anterior. |
 | `equipo-optica.webp` | `C6sxSzPUjss` | Carrusel · Óptica ZEISS |
 | `equipo-iol-master.webp` | `D74jLvxv6yo` | Carrusel · IOL Master 700 |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Carrusel · Pentacam OCT |
@@ -26,6 +26,11 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `intro-doctor-paciente.webp` | `ibZ2QiKkEsg` | Foto pequeña superpuesta de la introducción |
 
 Página de origen: `https://unsplash.com/photos/<ID>`
+
+Los dos retratos venían apaisados (1400×788) y la ficha nueva de la portada es
+vertical 2:3, así que se rehicieron desde el original de Unsplash a 800×1200 en
+vez de dejar que el navegador recortara el 31% central y lo escalara. El mismo
+archivo alimenta la ficha de `sobre-nosotros.html`, que ya era vertical.
 
 **Los retratos no son los doctores reales.** Son marcadores de composición y
 deben sustituirse antes de cualquier publicación.

@@ -564,21 +564,81 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 /* --------------------------------------------------------------------------
    Doctors
+   El encabezado deja de ser una barra a lo ancho y pasa a ser la columna
+   izquierda: título apilado, una línea de contexto y el enlace. Las dos fichas
+   ocupan la derecha y la segunda baja, para que el par no se lea como dos
+   celdas de una tabla.
    -------------------------------------------------------------------------- */
+
+.doctors__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
+}
+
+/* Columna en flex para que los márgenes del lede y del enlace se apilen de
+   verdad: .btn es inline-flex y en flujo inline el margen superior no abre
+   espacio fiable. */
+.doctors__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Aquí el titular va a dos líneas, así que el punto deja de ser un carácter
+   más de la primera y pasa a colgar del filo del contenedor, centrado sobre el
+   bloque entero. Las dos líneas arrancan del mismo eje. El sangrado de 33px es
+   el mismo que el punto ocupa en línea (17px de los dos círculos + 16 de
+   margen), así que el texto cae donde caía. */
+.doctors__title {
+  position: relative;
+  padding-left: 33px;
+}
+
+.doctors__title .dots {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin: 0;
+  transform: translateY(-50%);
+}
+
+.doctors__title .u-accent-phrase { display: block; }
+
+.doctors__lede {
+  margin: var(--space-5) 0 0;
+  max-width: 30ch;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
+  color: var(--text-muted);
+}
+
+/* Filete bajo el enlace, en el azul de --mark: es decorativo —el enlace ya se
+   distingue por color y posición—, así que no carga contraste, y hace eco del
+   punto que abre el titular. */
+.doctors__link {
+  margin-top: var(--space-5);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mark-soft);
+  border-radius: 0;
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+.doctors__link:hover { border-bottom-color: var(--mark); }
 
 .doctors__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--grid-gutter);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  align-items: start;
 }
 
-.doctor-note {
-  margin: 14px 0 0;
-  padding-left: 12px;
-  border-left: 2px solid var(--accent);
-  font-size: 14px;
-  color: var(--text-muted);
-}
+/* El reveal vive en el envoltorio y no en la ficha: [data-rev] declara su
+   propia transition de .9s y, puesta sobre la ficha, se comía el levantamiento
+   del hover. */
+.doctors__slot--offset { margin-top: clamp(24px, 4.5vw, 64px); }
 
 /* --------------------------------------------------------------------------
    Clinical cases
@@ -1028,7 +1088,10 @@ body.js [data-rev].is-pending {
 @media (max-width: 960px) {
   .intro__grid,
   .head-split,
-  .doctors__grid { grid-template-columns: 1fr; }
+  .doctors__layout { grid-template-columns: 1fr; }
+
+  /* Apilado, el lede ya no compite con las fichas y puede respirar a lo ancho. */
+  .doctors__lede { max-width: 46ch; }
 
   .intro__copy,
   .head-split__aside {
@@ -1092,6 +1155,15 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 560px) {
+  /* Dos fichas 2:3 en 500px de contenedor dan 244px de ancho: el nombre empieza
+     a partirse y el apunte se come media foto. En una columna se acorta el
+     formato y se topa el ancho, porque a 630px de contenedor una sola ficha 2:3
+     mediría casi 800px de alto. */
+  .doctors__grid { grid-template-columns: 1fr; }
+  .doctors__slot { max-width: 460px; }
+  .doctors__slot--offset { margin-top: 0; }
+  .doctor-card { aspect-ratio: 4 / 5; }
+
   .footer__top { grid-template-columns: 1fr; }
   .equip { flex: 0 0 280px; }
   .wa-fab { bottom: 18px; right: 18px; }
