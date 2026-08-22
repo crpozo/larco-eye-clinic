@@ -653,7 +653,58 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   gap: var(--grid-gutter);
 }
 
-/* Las fichas de caso son .photo-card; aquí sólo queda la retícula. */
+.case {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* 3:2 y no un alto fijo: el recorte es el mismo a cualquier ancho de columna. */
+.case__photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-tile);
+  margin-bottom: 10px;
+}
+
+/* En acento, no en gris: es lo que ordena la columna y merece leerse antes que
+   el cuerpo. --accent-strong y no --accent porque a 12px el relleno no llega. */
+.case__eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.case__title {
+  margin: 0;
+  font-family: var(--font-serif-display);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+  color: var(--text-body);
+}
+
+.case__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* Mismo filete que bajo «Conócenos»: marca los enlaces de continuar. */
+.case__link {
+  margin-top: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mark-soft);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.case__link:hover { border-bottom-color: var(--mark); }
 
 /* --------------------------------------------------------------------------
    Footer
@@ -1292,11 +1343,123 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
    Testimonios — columnas abiertas por un filete de color
    ========================================================================== */
 
-.quotes {
+/* --------------------------------------------------------------------------
+   Slider — carril con scroll-snap
+
+   Sin librería y sin JS obligatorio: el carril es un contenedor con scroll
+   horizontal y snap, así que ya se arrastra con el dedo y con la rueda antes
+   de que corra una línea de JS. Las flechas y los puntos son un añadido para
+   ratón y teclado, y site.js los esconde si no hay nada que deslizar.
+   -------------------------------------------------------------------------- */
+
+.slider { --slider-gap: clamp(24px, 4vw, 64px); }
+
+.slider__track {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-8) clamp(32px, 4.5vw, 72px);
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--slider-gap) * 2) / 3);
+  gap: var(--slider-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* El scroll programático de las flechas se suaviza aquí; site.js lo anula
+     cuando el visitante pidió menos movimiento. */
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
+
+/* El carril es enfocable porque tiene scroll. El anillo va por dentro: con
+   padding para dejarle sitio, el punto de reposo del scroll deja de ser 0 y
+   la flecha «anterior» nunca llegaba a apagarse. */
+.slider__track:focus-visible { outline-offset: -3px; }
+
+.slider__track::-webkit-scrollbar { display: none; }
+
+.slider__track > * { scroll-snap-align: start; }
+
+.slider__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+/* Los controles sobran cuando todo cabe: site.js marca el slider y aquí
+   desaparecen, en vez de dejar flechas que no llevan a ninguna parte. */
+.slider.is-static .slider__controls { display: none; }
+
+.slider__dots {
+  display: flex;
+  gap: 8px;
+}
+
+.slider__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  opacity: .35;
+  cursor: pointer;
+  transition: opacity var(--dur-fast), background var(--dur-fast);
+}
+
+.slider__dot.is-active {
+  background: var(--accent);
+  opacity: 1;
+}
+
+/* El punto mide 8px y el área táctil mínima son 44: el ::after la agranda sin
+   engordar el punto ni separar unos de otros. */
+.slider__dot::after {
+  content: "";
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: -18px 0 0 -18px;
+}
+
+.slider__arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.slider__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  color: var(--text-body);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast),
+              opacity var(--dur-fast);
+}
+
+.slider__arrow:hover {
+  border-color: var(--border-strong);
+  color: var(--accent-strong);
+}
+
+.slider__arrow[disabled] {
+  opacity: .3;
+  cursor: default;
+}
+
+.slider__arrow[disabled]:hover {
+  border-color: var(--border-hairline);
+  color: var(--text-body);
+}
+
+/* Las citas ya no son una retícula de tres: el ancho lo fija el carril. */
+.quotes { align-items: start; }
 
 .quote {
   margin: 0;
@@ -1344,8 +1507,12 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   font-weight: var(--weight-semibold);
 }
 
-@media (max-width: 860px) {
-  .quotes { grid-template-columns: 1fr; gap: var(--space-6); }
+@media (max-width: 1024px) {
+  .slider__track { grid-auto-columns: calc((100% - var(--slider-gap)) / 2); }
+}
+
+@media (max-width: 700px) {
+  .slider__track { grid-auto-columns: 100%; }
 }
 
 

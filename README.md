@@ -195,7 +195,8 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 - [ ] **Mapa** — hoy es un recorte de OpenStreetMap centrado en Cumbayá, sin la
       dirección exacta; se reemplaza por el embed cuando esté confirmada
 - [ ] **Facebook e Instagram** — los enlaces apuntan a `#`
-- [ ] **Testimonios** — los tres dicen “testimonio de ejemplo”
+- [ ] **Testimonios** — los seis son de ejemplo y lo dicen en la firma; el
+      slider está pensado para que crezcan sin tocar el diseño
 - [ ] **Fotografía propia** — todo es placeholder de Unsplash, incluidos los
       retratos, que **no son los doctores reales**
       (ver `assets/img/photos/CREDITS.md`). Unsplash ya rechaza las búsquedas sin

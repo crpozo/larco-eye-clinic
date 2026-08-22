@@ -434,6 +434,123 @@
   }
 
   /* ------------------------------------------------------------------
+     Slider
+
+     El carril ya desliza solo —es scroll con snap— así que esto sólo añade
+     flechas, puntos y estado. Se pagina por ancho de carril y no por ficha:
+     así el salto coincide con lo que se ve, sean tres, dos o una.
+     ------------------------------------------------------------------ */
+
+  function wireSliders() {
+    var sliders = document.querySelectorAll('[data-slider]');
+
+    for (var i = 0; i < sliders.length; i++) {
+      (function (root) {
+        var track = root.querySelector('[data-slider-track]');
+        var prev = root.querySelector('[data-slider-prev]');
+        var next = root.querySelector('[data-slider-next]');
+        var dotBox = root.querySelector('[data-slider-dots]');
+        if (!track || !track.children.length) return;
+
+        var dots = [];
+
+        /* Distancia de una ficha a la siguiente: ancho de columna más hueco.
+           Medida y no calculada, para no tener que conocer el gap del CSS. */
+        function step() {
+          var it = track.children;
+          if (it.length < 2) return track.clientWidth;
+          return it[1].offsetLeft - it[0].offsetLeft;
+        }
+
+        /* Cuántas caben a la vez. Paginar por clientWidth a secas no vale: seis
+           fichas de un tercio suman dos anchos de carril MÁS un hueco, así que
+           salía una tercera página que sólo enseñaba el hueco. */
+        function perView() {
+          var it = track.children;
+          if (it.length < 2) return 1;
+          var gap = step() - it[0].offsetWidth;
+          return Math.max(1, Math.round((track.clientWidth + gap) / step()));
+        }
+
+        function pages() {
+          return Math.max(1, Math.ceil(track.children.length / perView()));
+        }
+
+        function atEnd() {
+          return track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+        }
+
+        function page() {
+          if (atEnd()) return pages() - 1;
+          return Math.min(pages() - 1, Math.round(track.scrollLeft / (step() * perView())));
+        }
+
+        function go(n) {
+          var it = track.children;
+          var idx = Math.max(0, Math.min(it.length - 1, n * perView()));
+          track.scrollTo({
+            left: it[idx].offsetLeft - it[0].offsetLeft,
+            behavior: reduceMotion ? 'auto' : 'smooth'
+          });
+        }
+
+        function buildDots(total) {
+          if (!dotBox || dots.length === total) return;
+          dotBox.textContent = '';
+          dots = [];
+          for (var d = 0; d < total; d++) {
+            (function (n) {
+              var b = document.createElement('button');
+              b.type = 'button';
+              b.className = 'slider__dot';
+              b.setAttribute('aria-label', 'Ir al grupo ' + (n + 1) + ' de ' + total);
+              b.addEventListener('click', function () { go(n); });
+              dotBox.appendChild(b);
+              dots.push(b);
+            })(d);
+          }
+        }
+
+        function sync() {
+          /* Holgura de 2px: con anchos fraccionarios el carril puede sobrar por
+             medio pixel y saldrian flechas que no llevan a ninguna parte. */
+          var slidable = track.scrollWidth > track.clientWidth + 2;
+          root.classList.toggle('is-static', !slidable);
+          if (!slidable) return;
+
+          var total = pages();
+          buildDots(total);
+
+          var n = page();
+          for (var d = 0; d < dots.length; d++) {
+            var on = d === n;
+            dots[d].classList.toggle('is-active', on);
+            if (on) dots[d].setAttribute('aria-current', 'true');
+            else dots[d].removeAttribute('aria-current');
+          }
+          if (prev) prev.disabled = track.scrollLeft < 4;
+          if (next) next.disabled = atEnd();
+        }
+
+        if (prev) prev.addEventListener('click', function () { go(page() - 1); });
+        if (next) next.addEventListener('click', function () { go(page() + 1); });
+
+        var tick = null;
+        track.addEventListener('scroll', function () {
+          if (tick) return;
+          tick = requestAnimationFrame(function () { tick = null; sync(); });
+        });
+
+        window.addEventListener('resize', function () { dots = []; sync(); });
+        if (window.ResizeObserver) {
+          new ResizeObserver(function () { sync(); }).observe(track);
+        }
+        sync();
+      })(sliders[i]);
+    }
+  }
+
+  /* ------------------------------------------------------------------
      Impresión
 
      Los contadores se vacían a '0' hasta que el observador los llena, y eso no
@@ -495,6 +612,7 @@
   wireAccordions();
   wireReveals();
   wireCounters();
+  wireSliders();
   wirePrint();
   sweepReveals();
 })();
