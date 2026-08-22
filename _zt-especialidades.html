@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contáctanos — Larco Visión</title>
-<meta name="description" content="Agenda tu cita con nuestro equipo. Dirección, teléfono, WhatsApp, correo y horarios de atención de la clínica en Cumbayá, Quito.">
+<title>Especialidades — Larco Visión</title>
+<meta name="description" content="Córnea, catarata, retina y vítreo, glaucoma y cirugía refractiva: en qué consiste cada condición y cómo la tratamos.">
 <meta name="theme-color" content="#FFFFFF">
 <!-- Preview para el cliente: contenido y fotografía son placeholders. Quitar esta
      línea al publicar el sitio definitivo con el contenido real de la clínica. -->
@@ -12,18 +12,18 @@
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_EC">
-<meta property="og:title" content="Contáctanos — Larco Visión">
-<meta property="og:description" content="Estamos para atenderte. Agenda tu cita con nuestro equipo.">
+<meta property="og:title" content="Especialidades — Larco Visión">
+<meta property="og:description" content="Atención oftalmológica especializada en córnea, catarata, retina, glaucoma y cirugía refractiva.">
 <!-- TODO(dominio): og:image y og:url deben ser absolutos, y el card quiere un JPEG 1200x630 propio. -->
 <meta property="og:image" content="assets/img/photos/hero-poster.webp">
 
 <link rel="icon" type="image/webp" href="assets/img/logo.webp">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=59">
-<link rel="stylesheet" href="assets/css/tokens.css?v=59">
-<link rel="stylesheet" href="assets/css/components.css?v=59">
-<link rel="stylesheet" href="assets/css/site.css?v=59">
-<link rel="stylesheet" href="assets/css/pages.css?v=59">
+<link rel="stylesheet" href="assets/css/fonts.css?v=62">
+<link rel="stylesheet" href="assets/css/tokens.css?v=62">
+<link rel="stylesheet" href="assets/css/components.css?v=62">
+<link rel="stylesheet" href="assets/css/site.css?v=62">
+<link rel="stylesheet" href="assets/css/pages.css?v=62">
 <noscript><style>
   /* Sin JS la hamburguesa no puede abrir nada, así que el menú va en línea. */
   @media (max-width: 1024px) {
@@ -34,33 +34,6 @@
     .page-hero { padding-top: 48px; }
   }
 </style></noscript>
-
-<script>
-window.addEventListener('load', function(){
-  setTimeout(function(){
-    var r=document.documentElement, out={w:innerWidth, sw:r.scrollWidth, cw:r.clientWidth, over:[]};
-    var all=document.querySelectorAll('body *');
-    for (var i=0;i<all.length;i++){
-      var e=all[i], b=e.getBoundingClientRect();
-      if (b.width===0 && b.height===0) continue;
-      var cs=getComputedStyle(e);
-      if (cs.position==='fixed') continue;
-      if (b.right > r.clientWidth + 1 || b.left < -1) {
-        out.over.push((e.tagName+'.'+(e.className||'').toString().split(' ')[0]).slice(0,60)
-                      +' ['+Math.round(b.left)+','+Math.round(b.right)+']');
-      }
-    }
-    out.over = out.over.slice(0,8);
-    // legibilidad: alto del texto que se sale de su caja
-    out.clip=[];
-    document.querySelectorAll('.doctor-card__body, .doctors__head, .section__title').forEach(function(e){
-      if (e.scrollHeight > e.clientHeight + 2) out.clip.push((e.className||'')+' '+e.scrollHeight+'>'+e.clientHeight);
-    });
-    var t=document.createElement('pre'); t.id='__probe'; t.textContent=JSON.stringify(out);
-    document.body.appendChild(t);
-  }, 600);
-});
-</script>
 </head>
 <body>
 <script>/* Paint the stored theme before first paint; site.js re-applies it idempotently. */
@@ -113,7 +86,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
       </div>
 
       <div class="menu menu--wide">
-        <a class="nav__link" href="consultas-examenes.html" aria-haspopup="true">Servicios <span class="nav__caret" aria-hidden="true">▾</span></a>
+        <a class="nav__link nav__link--current" aria-current="page" href="consultas-examenes.html" aria-haspopup="true">Servicios <span class="nav__caret" aria-hidden="true">▾</span></a>
         <button class="menu__toggle" type="button" aria-expanded="false" aria-controls="menu-servicios" aria-label="Desplegar Servicios"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <div class="menu__panel" id="menu-servicios">
           <div class="menu__inner">
@@ -140,7 +113,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
       </div>
 
       <a class="nav__link" href="casos-clinicos.html">Casos Clínicos</a>
-      <a class="nav__link nav__link--current" aria-current="page" href="contactanos.html">Contáctanos</a>
+      <a class="nav__link" href="contactanos.html">Contáctanos</a>
 
       <div class="nav__divider" aria-hidden="true"></div>
 
@@ -169,137 +142,144 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
        ==================================================================== -->
   <section class="page-hero">
     <div class="page-hero__media">
-      <img src="assets/img/photos/hero-contacto.webp" alt="" fetchpriority="high" decoding="async">
+      <img src="assets/img/photos/hero-especialidades.webp" alt="" fetchpriority="high" decoding="async">
     </div>
     <div class="page-hero__inner">
-      <h1 class="page-hero__title">Estamos para atenderte</h1>
-      <p class="page-hero__lede">Agenda tu cita con nuestro equipo.</p>
+      <h1 class="page-hero__title">Atención oftalmológica especializada</h1>
+      <p class="page-hero__lede">Córnea, catarata, retina y vítreo, glaucoma y cirugía refractiva. Cada área con diagnóstico de precisión y tratamiento a cargo de nuestros especialistas.</p>
     </div>
   </section>
 
   <!-- ====================================================================
-       Formulario y datos de la clínica
+       Córnea
        ==================================================================== -->
-  <section id="formulario" class="section section--page">
+  <section id="cornea" class="section section--page">
     <div class="u-shell">
       <div class="section-head" data-rev>
         <h2 class="section__title">
-          <span class="dots" aria-hidden="true"></span>Cuéntanos qué <span class="u-accent-phrase">necesitas</span>
+          <span class="dots" aria-hidden="true"></span><span class="u-accent-phrase">Córnea</span>
+        </h2>
+      </div>
+
+      <div class="cards cards--3" data-rev>
+        <article class="card">
+          <h3 class="card__title">Queratocono</h3>
+          <p class="card__text">Es una enfermedad degenerativa que deforma y adelgaza progresivamente la córnea, provocando visión distorsionada. Aparece en la juventud y es especialmente frecuente en Ecuador. Detectarlo a tiempo es clave para frenar su avance.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Pterigión</h3>
+          <p class="card__text">Es el crecimiento de un tejido sobre la córnea, asociado a la exposición solar, el polvo y el viento. Puede afectar la estética del ojo y, si avanza, la visión. Su tratamiento es quirúrgico y busca devolver al ojo su aspecto blanco y sano.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Trasplante de córnea</h3>
+          <p class="card__text">Reemplaza el tejido corneal dañado cuando la córnea pierde su transparencia y no hay otra forma de recuperar la visión. Es un procedimiento ambulatorio con anestesia local. Las técnicas actuales conservan parte del tejido del paciente, reduciendo el riesgo de rechazo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Catarata
+       ==================================================================== -->
+  <section id="catarata" class="section section--sunken">
+    <div class="u-shell">
+      <div class="section-head" data-rev>
+        <h2 class="section__title">
+          <span class="dots" aria-hidden="true"></span><span class="u-accent-phrase">Catarata</span>
         </h2>
       </div>
 
       <div class="split" data-rev>
-        <form class="form" action="#" method="post" novalidate>
-          <div class="field">
-            <label class="field__label" for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="given-name" required>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="apellido">Apellido</label>
-            <input id="apellido" name="apellido" type="text" autocomplete="family-name" required>
-          </div>
-
-          <div class="field field--wide">
-            <label class="field__label" for="motivo">Motivo de contacto</label>
-            <select id="motivo" name="motivo" required>
-              <option value="">Selecciona una opción</option>
-              <option value="agendar-cita">Agendar cita</option>
-              <option value="consulta-general">Consulta general</option>
-              <option value="informacion-servicio">Información sobre un servicio</option>
-              <option value="estudiante">Estudiante</option>
-              <option value="medico-colega">Médico colega</option>
-              <option value="empresa-privada">Empresa privada</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="correo">Correo electrónico</label>
-            <input id="correo" name="correo" type="email" autocomplete="email" required>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="telefono">Teléfono <span class="field__opt">(opcional)</span></label>
-            <input id="telefono" name="telefono" type="tel" autocomplete="tel">
-          </div>
-
-          <div class="field field--wide">
-            <label class="field__label" for="mensaje">Mensaje <span class="field__opt">(opcional)</span></label>
-            <textarea id="mensaje" name="mensaje" rows="6"></textarea>
-          </div>
-
-          <div class="form__actions">
-            <button class="btn btn--primary" type="submit">Enviar mensaje</button>
-            <p class="form__note">El envío de este formulario todavía no está conectado; mientras tanto puedes escribirnos por <a href="contactanos.html" data-whatsapp rel="noopener">WhatsApp</a>.</p>
-          </div>
-        </form>
-
-        <div class="card">
-          <h3 class="card__title">Datos de la clínica</h3>
-          <dl class="info-list">
-            <div>
-              <dt>Dirección</dt>
-              <dd>Cumbayá · Quito, Ecuador — dirección exacta por confirmar</dd>
-            </div>
-            <div>
-              <dt>Teléfono</dt>
-              <dd>Por confirmar</dd>
-            </div>
-            <div>
-              <dt>WhatsApp</dt>
-              <dd><a href="contactanos.html" data-whatsapp rel="noopener">Escríbenos por WhatsApp</a></dd>
-            </div>
-            <div>
-              <dt>Correo</dt>
-              <dd>Por confirmar</dd>
-            </div>
-            <div>
-              <dt>Horarios</dt>
-              <dd>Por confirmar</dd>
-            </div>
-          </dl>
+        <div class="prose">
+          <p>Es la pérdida de transparencia del cristalino, el lente natural del ojo, lo que vuelve la visión borrosa. Aparece principalmente con la edad y es la principal causa de ceguera en el mundo. Su tratamiento es quirúrgico: se reemplaza el cristalino por un lente intraocular en un procedimiento ambulatorio.</p>
+        </div>
+        <div class="split__media">
+          <img src="assets/img/photos/cirugias.webp" alt="" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
   </section>
 
   <!-- ====================================================================
-       Ubicación
+       Retina y Vítreo
        ==================================================================== -->
-  <section id="ubicacion" class="section section--sunken">
+  <section id="retina" class="section section--page">
     <div class="u-shell">
       <div class="section-head" data-rev>
         <h2 class="section__title">
-          <span class="dots" aria-hidden="true"></span>Cómo <span class="u-accent-phrase">llegar</span>
+          <span class="dots" aria-hidden="true"></span>Retina y <span class="u-accent-phrase">Vítreo</span>
         </h2>
       </div>
 
-      <div data-rev>
-        <div class="map-wide">
-          <img src="assets/img/mapa-cumbaya.webp" alt="Mapa de Cumbayá, Quito" loading="lazy" decoding="async">
-          <span class="footer__pin" aria-hidden="true"></span>
-        </div>
-        <p class="map-note">Mapa referencial de la zona · © colaboradores de OpenStreetMap. La ubicación exacta se marcará cuando la clínica confirme la dirección.</p>
+      <div class="cards cards--3" data-rev>
+        <article class="card">
+          <h3 class="card__title">Desprendimiento de retina</h3>
+          <p class="card__text">Ocurre cuando la retina se separa del fondo del ojo y constituye una urgencia oftalmológica. Puede manifestarse con destellos de luz, manchas volantes nuevas o una sombra en el campo visual. Requiere atención inmediata para evitar la pérdida de visión.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Retinopatía diabética</h3>
+          <p class="card__text">Es una complicación de la diabetes que daña los vasos sanguíneos de la retina. Al inicio no da síntomas, por lo que el control periódico es indispensable. Detectada a tiempo, es prevenible; sin tratamiento, puede llevar a la ceguera.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Degeneración macular (DMAE)</h3>
+          <p class="card__text">Trastorno asociado a la edad que deteriora lentamente la visión central, dificultando leer y distinguir detalles finos. Es más común después de los 60 años. Su detección temprana permite frenar su progresión y proteger la visión.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- ====================================================================
-       Redes sociales
+       Glaucoma
        ==================================================================== -->
-  <section id="redes" class="section section--page">
+  <section id="glaucoma" class="section section--sunken">
     <div class="u-shell">
-      <div class="head-split" data-rev>
+      <div class="section-head" data-rev>
         <h2 class="section__title">
-          <span class="dots" aria-hidden="true"></span>Redes <span class="u-accent-phrase">sociales</span>
+          <span class="dots" aria-hidden="true"></span><span class="u-accent-phrase">Glaucoma</span>
         </h2>
-        <div class="head-split__aside">
-          <p>También publicamos novedades de la clínica en Facebook e Instagram. <span class="u-muted">Los perfiles oficiales están por confirmar, así que estos enlaces todavía no apuntan a ninguna cuenta.</span></p>
-          <div class="cta-band__actions">
-            <a class="btn btn--outline" href="#">Facebook</a>
-            <a class="btn btn--outline" href="#">Instagram</a>
-          </div>
+      </div>
+
+      <div class="split split--reverse" data-rev>
+        <div class="prose">
+          <p>Es una enfermedad que daña el nervio óptico, generalmente por un aumento de la presión ocular, y puede llevar a una pérdida irreversible de la visión. Avanza sin dolor ni síntomas, por lo que se lo conoce como el ladrón silencioso de la vista. La detección temprana y el seguimiento son fundamentales para controlarla.</p>
         </div>
+        <div class="split__media">
+          <img src="assets/img/photos/equipo-humphrey.webp" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================================
+       Cirugía Refractiva
+       ==================================================================== -->
+  <section id="refractiva" class="section section--page">
+    <div class="u-shell">
+      <div class="section-head" data-rev>
+        <h2 class="section__title">
+          <span class="dots" aria-hidden="true"></span>Cirugía <span class="u-accent-phrase">Refractiva</span>
+        </h2>
+      </div>
+
+      <div class="cards cards--3" data-rev>
+        <article class="card">
+          <h3 class="card__title">Miopía</h3>
+          <p class="card__text">Dificultad para ver con nitidez de lejos, mientras la visión de cerca se mantiene clara. Se debe a que la imagen se enfoca delante de la retina y no sobre ella. Puede corregirse con lentes o mediante cirugía refractiva.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Hipermetropía</h3>
+          <p class="card__text">Dificultad para enfocar los objetos cercanos, y en casos mayores también los lejanos. Ocurre cuando la imagen se enfoca detrás de la retina. Se corrige con lentes o mediante cirugía refractiva.</p>
+        </article>
+
+        <article class="card">
+          <h3 class="card__title">Astigmatismo</h3>
+          <p class="card__text">Visión borrosa o distorsionada a cualquier distancia, causada por una curvatura irregular de la córnea. Suele acompañar a la miopía o la hipermetropía. Puede corregirse con lentes o cirugía refractiva.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -307,16 +287,16 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
   <!-- ====================================================================
        Cierre
        ==================================================================== -->
-  <section id="agenda" class="section section--sunken">
+  <section id="cita" class="section section--sunken">
     <div class="u-shell">
       <div class="cta-band" data-rev>
         <div>
-          <h2 class="cta-band__title">Agenda tu cita</h2>
-          <p class="cta-band__text">Completa el formulario o escríbenos por WhatsApp y coordinamos el horario que mejor te acomode.</p>
+          <h2 class="cta-band__title">Evalúa tu caso con un especialista</h2>
+          <p class="cta-band__text">Una consulta oftalmológica integral es el punto de partida para definir el diagnóstico y el tratamiento que corresponde a cada paciente.</p>
         </div>
         <div class="cta-band__actions">
-          <a class="btn btn--primary" data-ondark="theme" href="contactanos.html#formulario">Agendar cita</a>
-          <a class="btn btn--outline" data-ondark="theme" href="contactanos.html" data-whatsapp rel="noopener">Escríbenos por WhatsApp</a>
+          <a class="btn btn--primary" data-ondark="theme" href="contactanos.html">Agenda tu cita</a>
+          <a class="btn btn--outline" data-ondark="theme" href="sobre-nosotros.html#equipo">Conoce a los doctores</a>
         </div>
       </div>
     </div>
@@ -371,7 +351,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
 
     <div class="footer__mid">
       <div class="footer__map">
-        <img src="assets/img/mapa-cumbaya.webp" alt="Mapa de Cumbayá, Quito" loading="lazy" decoding="async">
+        <img src="assets/img/mapa-cumbaya-2.webp" alt="Mapa de Cumbayá, Quito" loading="lazy" decoding="async">
         <span class="footer__pin" aria-hidden="true"></span>
       </div>
       <div class="footer__place">
@@ -387,6 +367,40 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
 <a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
-<script src="assets/js/site.js?v=59" defer></script>
+<script src="assets/js/site.js?v=62" defer></script>
+
+<script>
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    var z = new URLSearchParams(location.search).get('z') || '1';
+    if (z !== '1') document.body.style.zoom = z;
+    // fuerza revelado para poder medir todo
+    var pend = document.querySelectorAll('[data-rev]');
+    for (var i=0;i<pend.length;i++) pend[i].classList.remove('is-pending');
+    setTimeout(function () {
+      var out = [];
+      var vw = window.innerWidth;
+      var de = document.documentElement;
+      out.push('VW=' + vw + ' Z=' + z + ' docScrollW=' + de.scrollWidth + ' bodyScrollW=' + document.body.scrollWidth);
+      if (de.scrollWidth > vw + 1) out.push('!! OVERFLOW-H doc ' + de.scrollWidth + ' > ' + vw);
+      var sels = ['.site-header','.site-header__inner','.nav','.doctors__layout','.doctors__grid','.doctor-card','.doctor-card__body','.doctor-card__name','.doctor-card__specialty','.doctor-card__note','.stats-band__grid','.figure','.figure__num','.quote','.quotes','.footer__map','.map-wide','.u-shell'];
+      for (var s=0;s<sels.length;s++) {
+        var els = document.querySelectorAll(sels[s]);
+        for (var j=0;j<els.length;j++) {
+          var el = els[j];
+          var r = el.getBoundingClientRect();
+          if (el.scrollWidth > el.clientWidth + 1) out.push('!! CLIP-X ' + sels[s] + '[' + j + '] sw=' + el.scrollWidth + ' cw=' + el.clientWidth + ' text="' + (el.textContent||'').trim().slice(0,40) + '"');
+          if (el.scrollHeight > el.clientHeight + 1 && getComputedStyle(el).overflow !== 'visible') out.push('!! CLIP-Y ' + sels[s] + '[' + j + '] sh=' + el.scrollHeight + ' ch=' + el.clientHeight + ' text="' + (el.textContent||'').trim().slice(0,40) + '"');
+          if (r.right > vw + 1) out.push('!! PAST-RIGHT ' + sels[s] + '[' + j + '] right=' + Math.round(r.right) + ' vw=' + vw);
+          if (r.width > 0 && r.right < vw - 4 && (sels[s] === '.site-header')) out.push('!! HEADER-SHORT right=' + Math.round(r.right) + ' vw=' + vw + ' w=' + Math.round(r.width));
+        }
+      }
+      var pre = document.createElement('pre'); pre.id='__report'; pre.textContent = out.join('\n');
+      document.body.appendChild(pre);
+      document.title = 'RDY';
+    }, 400);
+  }, 300);
+});
+</script>
 </body>
 </html>

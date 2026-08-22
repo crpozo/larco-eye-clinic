@@ -378,5 +378,39 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#18191B
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
 <script src="assets/js/site.js?v=62" defer></script>
+
+<script>
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    var z = new URLSearchParams(location.search).get('z') || '1';
+    if (z !== '1') document.body.style.zoom = z;
+    // fuerza revelado para poder medir todo
+    var pend = document.querySelectorAll('[data-rev]');
+    for (var i=0;i<pend.length;i++) pend[i].classList.remove('is-pending');
+    setTimeout(function () {
+      var out = [];
+      var vw = window.innerWidth;
+      var de = document.documentElement;
+      out.push('VW=' + vw + ' Z=' + z + ' docScrollW=' + de.scrollWidth + ' bodyScrollW=' + document.body.scrollWidth);
+      if (de.scrollWidth > vw + 1) out.push('!! OVERFLOW-H doc ' + de.scrollWidth + ' > ' + vw);
+      var sels = ['.site-header','.site-header__inner','.nav','.doctors__layout','.doctors__grid','.doctor-card','.doctor-card__body','.doctor-card__name','.doctor-card__specialty','.doctor-card__note','.stats-band__grid','.figure','.figure__num','.quote','.quotes','.footer__map','.map-wide','.u-shell'];
+      for (var s=0;s<sels.length;s++) {
+        var els = document.querySelectorAll(sels[s]);
+        for (var j=0;j<els.length;j++) {
+          var el = els[j];
+          var r = el.getBoundingClientRect();
+          if (el.scrollWidth > el.clientWidth + 1) out.push('!! CLIP-X ' + sels[s] + '[' + j + '] sw=' + el.scrollWidth + ' cw=' + el.clientWidth + ' text="' + (el.textContent||'').trim().slice(0,40) + '"');
+          if (el.scrollHeight > el.clientHeight + 1 && getComputedStyle(el).overflow !== 'visible') out.push('!! CLIP-Y ' + sels[s] + '[' + j + '] sh=' + el.scrollHeight + ' ch=' + el.clientHeight + ' text="' + (el.textContent||'').trim().slice(0,40) + '"');
+          if (r.right > vw + 1) out.push('!! PAST-RIGHT ' + sels[s] + '[' + j + '] right=' + Math.round(r.right) + ' vw=' + vw);
+          if (r.width > 0 && r.right < vw - 4 && (sels[s] === '.site-header')) out.push('!! HEADER-SHORT right=' + Math.round(r.right) + ' vw=' + vw + ' w=' + Math.round(r.width));
+        }
+      }
+      var pre = document.createElement('pre'); pre.id='__report'; pre.textContent = out.join('\n');
+      document.body.appendChild(pre);
+      document.title = 'RDY';
+    }, 400);
+  }, 300);
+});
+</script>
 </body>
 </html>

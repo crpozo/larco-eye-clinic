@@ -34,6 +34,10 @@
     .page-hero { padding-top: 48px; }
   }
 </style></noscript>
+<style>
+  /* test harness: reveal ya cumplido, como si el usuario hubiera bajado */
+  body.js [data-rev].is-pending { opacity: 1 !important; transform: none !important; }
+</style>
 </head>
 <body>
 <script>/* Paint the stored theme before first paint; site.js re-applies it idempotently. */

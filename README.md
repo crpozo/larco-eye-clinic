@@ -138,11 +138,20 @@ arranca sólo si el visitante no pidió menos movimiento ni ahorro de datos. El
 el primer cuadro son la misma imagen.
 
 **Ritmo de secciones.** La página alterna a propósito para no leerse plana, según
-la referencia de Vyra Capital que el propio sitemap del cliente citaba: las cifras van en una
-banda petróleo con filas de filete en vez de cuatro tarjetas, y entre Doctores y
-Casos hay una banda de fotografía a sangre. `--space-section` bajó de
-`clamp(96px,12vw,160px)` a `clamp(64px,7vw,104px)`: 320px de aire entre secciones
-contiguas eran demasiados.
+la referencia de Vyra Capital que el propio sitemap del cliente citaba. Las cifras
+van en una banda tintada (`#E9F1FA`) con un panel blanco único dividido por
+filetes —no cuatro tarjetas sueltas—, y Doctores rompe la retícula: encabezado a
+la izquierda, dos fichas verticales a la derecha y la segunda desplazada hacia
+abajo.
+
+`--space-section` bajó de `clamp(96px,12vw,160px)` a `clamp(64px,7vw,104px)`, y
+dos secciones del mismo color seguidas colapsan su aire compartido
+(`.section--page + .section--page`): 320px entre secciones contiguas, y luego
+208px de blanco idéntico, se leían como un hueco y no como un corte.
+
+**Las divisiones del panel de cifras** salen del `gap: 1px` del grid sobre un
+fondo de color de filete, no de bordes por celda: así la retícula se divide sola
+en cuatro, dos o una columna sin apagar bordes en cada breakpoint.
 
 **Menú móvil** (≤1024px): hoja a pantalla completa bajo el header. Las dos
 secciones con hijos —Sobre Nosotros y Servicios— son acordeones cerrados por

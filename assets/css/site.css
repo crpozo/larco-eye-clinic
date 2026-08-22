@@ -787,13 +787,14 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
 
 .footer__links a:hover { color: var(--accent-strong); }
 
+/* Sin filete inferior: desde que se quitó la fila de copyright esta es la
+   última del pie, y la línea quedaba flotando contra el borde de la página. */
 .footer__mid {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   gap: var(--space-7);
   align-items: center;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--border-hairline);
+  padding: 32px 0 0;
 }
 
 .footer__map {
@@ -1232,26 +1233,32 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 .stats-band__title { color: var(--text-body); }
 
+/* Las cuatro cifras dejan de ser cuatro tarjetas y pasan a ser un panel único
+   dividido por filetes. El truco es el gap: el fondo del grid asoma por la
+   rendija de 1px y dibuja la división sola, en cualquier número de columnas,
+   sin tener que apagar bordes por breakpoint. */
 .stats-band__grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--grid-gutter);
+  gap: 1px;
+  overflow: hidden;
+  background: var(--border-hairline);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
 }
 
 .figure {
   display: block;
-  padding: 26px 28px 30px;
+  padding: clamp(28px, 3vw, 44px) clamp(20px, 2.4vw, 34px);
   background: var(--surface-raised);
-  border-radius: var(--radius-card);
 }
 
-/* El filete abre la tarjeta por encima del numeral. */
+/* El numeral manda en el panel, así que sube al escalón del StatCounter del
+   design system. No compite con los titulares: es cifra, no encabezado. */
 .figure__num {
   display: block;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-hairline);
   font-family: var(--font-serif-display);
-  font-size: clamp(34px, 3vw, 44px);
+  font-size: clamp(40px, 4.4vw, 72px);
   font-weight: var(--weight-display);
   line-height: 1;
   letter-spacing: var(--tracking-display);
@@ -1263,7 +1270,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 .figure__label {
   display: block;
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 14px;
   line-height: 1.5;
   color: var(--text-muted);
@@ -1383,13 +1390,32 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 .quote {
   margin: 0;
-  padding-top: 26px;
-  border-top: 2px solid var(--petrol);
 }
 
-/* Un filete distinto por columna, en los tres colores de la marca. */
-.quote:nth-child(3n + 2) { border-top-color: var(--accent); }
-.quote:nth-child(3n)     { border-top-color: var(--mark); }
+/* La comilla abre la cita y sustituye al filete de color. Va de adorno —el
+   testimonio ya se entiende sin ella— así que es aria-hidden por la vía de
+   ::before, que los lectores de pantalla no anuncian. Las comillas de Montserrat
+   son cuñas rectas, no comas: por eso se lee como marca y no como puntuación
+   suelta. */
+.quote::before {
+  /* Doble prima, no comilla de cierre: la “ ” de Montserrat es una coma y en
+     grande se lee como puntuación suelta; la ″ son dos barras inclinadas y
+     funciona como marca. Está en el subset latin que servimos, comprobado. */
+  content: "\2033";
+  display: block;
+  width: fit-content;
+  margin-bottom: 22px;
+  font-family: var(--font-serif-display);
+  /* La ″ de Montserrat es vertical y la referencia la trae inclinada, así que
+     el skew la alinea con el mockup. La caja se ajusta al glifo (fit-content)
+     para que la inclinación no arrastre toda la fila. */
+  font-size: 92px;
+  font-weight: var(--weight-bold);
+  line-height: .42;
+  color: var(--mark);
+  transform: skewX(-14deg);
+  transform-origin: bottom left;
+}
 
 .quote__text {
   margin: 0 0 22px;
