@@ -572,7 +572,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .doctors__layout {
   display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
   gap: clamp(32px, 4vw, 64px);
   align-items: start;
 }
@@ -609,6 +609,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   align-items: center;
   margin: 0;
 }
+
+/* El titular va a dos líneas: es lo que fija el mockup y lo que deja sitio al
+   punto colgante, que se centra sobre el bloque entero. */
+.doctors__title .u-accent-phrase { display: block; }
 
 .doctors__lede + .doctors__lede { margin-top: var(--space-3); }
 
