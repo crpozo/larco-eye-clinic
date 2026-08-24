@@ -180,9 +180,12 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 
 - [ ] **Casos clínicos** — los tres dicen “ejemplo”: son redacción de muestra,
       no casos de la clínica
-- [ ] **Dra. Ana Larco** — nombre y especialidad vienen del mockup del cliente,
-      no de la clínica. Tiene retrato pero **no tiene ficha** en
-      `sobre-nosotros.html#equipo`, que es a donde apunta su enlace
+- [ ] **Doctores asociados** — la portada muestra sólo a los dos socios, Marcelo
+      y Roberto. Los asociados van en `sobre-nosotros.html#equipo` y **falta su
+      información**: nombre, especialidad y retrato de cada uno. La ficha
+      inventada de «Dra. Ana Larco» se retiró de la portada; su foto sigue en
+      `assets/img/photos/dra-ana-larco.webp` por si sirve de marcador
+
 - [ ] **Perfiles de los doctores 4 y 5** — la ficha de equipo sólo tiene a
       Marcelo y Roberto
 - [ ] **Dirección y teléfono** — “Cumbayá · Quito, Ecuador — dirección por confirmar”

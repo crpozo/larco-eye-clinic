@@ -168,25 +168,32 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   color: var(--text-body);
 }
 
+/* La línea que distingue al doctor: va en tinta plena y pesa más que la
+   especialidad, porque es lo que no se repite entre uno y otro. */
+.doctor-card__note {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--text-body-size);
+  line-height: 1.45;
+  color: var(--text-body);
+}
+
 .doctor-card__specialty {
   display: block;
-  margin-top: 5px;
+  margin-top: 10px;
   font-size: var(--text-small);
   line-height: 1.5;
   color: var(--text-muted);
 }
 
-.doctor-card__more {
+/* «Especialidad» rotula el dato sin gritarlo: versalitas y un filete corto
+   hacen de dos puntos. */
+.doctor-card__tag {
   display: block;
-  margin-top: var(--space-3);
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--border-strong);
+  margin-bottom: 3px;
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--text-body);
-  transition: border-color var(--dur-fast) var(--ease-out);
+  color: var(--text-faint);
 }
-
-.doctor-card:hover .doctor-card__more { border-bottom-color: var(--text-body); }
