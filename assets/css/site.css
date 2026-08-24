@@ -342,7 +342,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
      el titular y el desplazamiento del párrafo; el ancho del párrafo, el lede y
      la sangría de la última línea; el hueco, la separación del bloque y ese
      mismo desplazamiento. */
-  --hero-title: min(clamp(56px, 9.6vw, 148px), 16vh);
+  --hero-title: min(clamp(56px, 9.6vw, 148px), 15vh);
   --hero-lede: clamp(210px, 21vw, 290px);
   --hero-encaje: clamp(18px, 2.2vw, 36px);
   --hero-gap: clamp(24px, 4.5vh, 48px);
