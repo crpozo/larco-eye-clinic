@@ -541,36 +541,18 @@ body.nav-open .site-header .btn:hover {
 /* --------------------------------------------------------------------------
    Retícula editorial
 
-   Cada sección abre con un filete a todo lo ancho y su número al margen. El
-   número sale de un contador CSS y no del markup: así la numeración se mantiene
-   sola cuando una sección se añade, se quita o se mueve, en las seis páginas.
+   Cada sección abre con un filete a todo lo ancho. El número de sección que
+   llevaban antes se quitó a petición del cliente.
    -------------------------------------------------------------------------- */
-
-main { counter-reset: seccion; }
 
 .section,
 .stats-band {
-  counter-increment: seccion;
   border-top: 1px solid var(--border-hairline);
-}
-
-.section::before,
-.stats-band::before {
-  content: counter(seccion, decimal-leading-zero);
-  position: absolute;
-  top: 20px;
-  left: var(--grid-margin);
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  color: var(--text-faint);
 }
 
 .section {
   position: relative;
-  /* El aire de arriba tiene que alojar además la fila del número. */
-  padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
+  padding: var(--space-section) var(--grid-margin);
 }
 
 .section--sunken { background: var(--surface-sunken); }
@@ -1348,7 +1330,7 @@ body.js [data-rev].is-pending {
    quedar ARRIBA del todo. */
 .stats-band {
   position: relative;
-  padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
+  padding: var(--space-section) var(--grid-margin);
   background-color: #14150F;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),

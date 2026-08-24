@@ -23,7 +23,7 @@ PARTIALS = ROOT / "_partials"
 CONTENT = ROOT / "pages"
 
 # Subir esto invalida la caché de los navegadores en css y js a la vez.
-ASSET_VERSION = 104
+ASSET_VERSION = 105
 
 PAGES = [
     {
