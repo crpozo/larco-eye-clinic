@@ -702,11 +702,12 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
    encima del texto.
    -------------------------------------------------------------------------- */
 
+/* Paneles separados por un hueco fino, no columnas a hueso: en la referencia
+   el fondo de la sección asoma entre tarjeta y tarjeta. */
 .services__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  border-left: 1px solid var(--border-hairline);
+  gap: 10px;
 }
 
 .service-col {
@@ -720,7 +721,9 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   min-height: max(320px, calc(84vh - 300px));
   padding: clamp(20px, 2.2vw, 32px);
   overflow: hidden;
-  border-right: 1px solid var(--border-hairline);
+  /* Un punto más oscuro que la banda, que es lo que las separa del fondo
+     cuando no llevan foto. */
+  background: #08080A;
   text-decoration: none;
 }
 
@@ -758,6 +761,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   display: block;
   margin-bottom: 14px;
   padding-bottom: 12px;
+  position: relative;
   border-bottom: 1px solid var(--border-hairline);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
@@ -1440,8 +1444,8 @@ body.js [data-rev].is-pending {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
     linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    radial-gradient(105% 75% at 16% 4%, rgba(88, 104, 180, .10), transparent 56%),
-    linear-gradient(158deg, #05061F 0%, #010014 52%, #000006 100%);
+    radial-gradient(100% 70% at 16% 3%, rgba(74, 88, 158, .07), transparent 54%),
+    linear-gradient(158deg, #030415 0%, #01000D 52%, #000004 100%);
   background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%;
   background-blend-mode: overlay, normal, normal, screen, normal;
 }

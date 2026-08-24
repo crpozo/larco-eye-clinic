@@ -53,4 +53,5 @@ Las cinco portadas de página (`hero-sobre`, `hero-casos`, `hero-consultas`,
 `hero-especialidades`, `hero-contacto`) quedaron sin usar cuando las interiores
 pasaron a llevar el mismo banner que la home. Se conservan por si se quiere
 volver a una foto distinta por página. Igual `dra-ana-larco.webp`, de la ficha
-que se retiró.
+que se retiró, y `cirugias.webp` y `consultas.webp`: la sección de servicios
+sigue la referencia del cliente, donde sólo una de las tarjetas lleva foto.
