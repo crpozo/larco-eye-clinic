@@ -183,10 +183,9 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 
 - [ ] **Casos clínicos** — los tres dicen “ejemplo”: son redacción de muestra,
       no casos de la clínica
-- [ ] **Dra. Ana Larco** — aparece en la portada porque venía en el mockup del
-      cliente, con nombre y especialidad inventados. **No hay retrato ni perfil**:
-      su ficha es un marcador (`.doctor-card--pending`) y el enlace la lleva a un
-      `sobre-nosotros.html#equipo` donde todavía no está
+- [ ] **Dra. Ana Larco** — nombre y especialidad vienen del mockup del cliente,
+      no de la clínica. Tiene retrato pero **no tiene ficha** en
+      `sobre-nosotros.html#equipo`, que es a donde apunta su enlace
 - [ ] **Perfiles de los doctores 4 y 5** — la ficha de equipo sólo tiene a
       Marcelo y Roberto
 - [ ] **Dirección y teléfono** — “Cumbayá · Quito, Ecuador — dirección por confirmar”
@@ -197,7 +196,7 @@ Marcado en la página con `[ … ]` o con la palabra “pendiente”:
 - [ ] **Facebook e Instagram** — los enlaces apuntan a `#`
 - [ ] **Testimonios** — los seis son de ejemplo y lo dicen en la firma; el
       slider está pensado para que crezcan sin tocar el diseño
-- [ ] **Fotografía propia** — todo es placeholder de Unsplash, incluidos los
+- [ ] **Fotografía propia** — todo es placeholder, incluidos los
       retratos, que **no son los doctores reales**
       (ver `assets/img/photos/CREDITS.md`). Unsplash ya rechaza las búsquedas sin
       credencial, así que reponer una foto exige o el ID exacto —los de las que

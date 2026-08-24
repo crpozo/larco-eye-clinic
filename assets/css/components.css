@@ -352,22 +352,6 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   box-shadow: var(--shadow-float);
 }
 
-/* Marcador mientras no llegue el retrato: la ficha conserva su forma y dice qué
-   falta, en vez de disimularlo con la cara de otra persona. Se quita entera en
-   cuanto haya fotografía. */
-.doctor-card--pending { background: var(--tile-empty); }
-
-.doctor-card__pending {
-  position: absolute;
-  top: 46%;
-  right: clamp(20px, 2vw, 28px);
-  left: clamp(20px, 2vw, 28px);
-  font-size: 12px;
-  line-height: 1.5;
-  letter-spacing: .04em;
-  color: var(--tile-empty-ink);
-}
-
 .doctor-card__photo {
   position: absolute;
   inset: 0;
@@ -378,23 +362,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   transition: transform var(--dur-med) var(--ease-out);
 }
 
-.doctor-card:hover /* Marcador mientras no llegue el retrato: la ficha conserva su forma y dice qué
-   falta, en vez de disimularlo con la cara de otra persona. Se quita entera en
-   cuanto haya fotografía. */
-.doctor-card--pending { background: var(--tile-empty); }
-
-.doctor-card__pending {
-  position: absolute;
-  top: 46%;
-  right: clamp(20px, 2vw, 28px);
-  left: clamp(20px, 2vw, 28px);
-  font-size: 12px;
-  line-height: 1.5;
-  letter-spacing: .04em;
-  color: var(--tile-empty-ink);
-}
-
-.doctor-card__photo { transform: scale(1.04); }
+.doctor-card:hover .doctor-card__photo { transform: scale(1.04); }
 
 /* El velo cuelga del bloque de texto, no de la tarjeta.
    En porcentaje de la tarjeta no funciona: el texto mide lo mismo siempre

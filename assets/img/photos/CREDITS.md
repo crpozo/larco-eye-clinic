@@ -14,8 +14,9 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
 | `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
 | `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
-| `dr-marcelo-larco-2.webp` | `VAvkPtF4HJI` | Retrato Dr. Marcelo Larco. Recorte 2:3 de 800×1200 sobre el rostro (x≈50,5%, 72% del alto del original), para la ficha vertical de la portada. |
-| `dr-roberto-larco-2.webp` | `XSPFs82j_v0` | Retrato Dr. Roberto Larco. Recorte 2:3 de 800×1200 (x≈57%, alto completo), encuadrado para igualar el plano del anterior. |
+| `dr-marcelo-larco-3.webp` | Pexels `8460090` | Retrato Dr. Marcelo Larco. Recorte 9:16 de 800×1422 (x≈48%, alto completo). |
+| `dr-roberto-larco-3.webp` | Pexels `8460094` | Retrato Dr. Roberto Larco. Recorte 9:16 (x≈48%, 78% del alto) para igualar el tamaño de cabeza del anterior. |
+| `dra-ana-larco.webp` | Pexels `8459997` | Retrato Dra. Ana Larco. Recorte 9:16 (x≈70%, 86% del alto). |
 | `equipo-optica.webp` | `C6sxSzPUjss` | Carrusel · Óptica ZEISS |
 | `equipo-iol-master.webp` | `D74jLvxv6yo` | Carrusel · IOL Master 700 |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Carrusel · Pentacam OCT |
@@ -27,10 +28,16 @@ se deja el registro para poder dar crédito y para reponer el original.
 
 Página de origen: `https://unsplash.com/photos/<ID>`
 
-Los dos retratos venían apaisados (1400×788) y la ficha nueva de la portada es
-vertical 2:3, así que se rehicieron desde el original de Unsplash a 800×1200 en
-vez de dejar que el navegador recortara el 31% central y lo escalara. El mismo
-archivo alimenta la ficha de `sobre-nosotros.html`, que ya era vertical.
+Los tres retratos son de **Pexels**, los tres de la misma serie de *Los Muertos
+Crew*: tres personas distintas con el mismo tratamiento de luz, que es lo que
+hace que la fila se lea pareja. Antes eran dos fotos de Unsplash del **mismo
+modelo de stock**, que era justo lo que se notaba.
+
+Licencia Pexels: uso comercial permitido, sin atribución obligatoria.
+
+La búsqueda de Unsplash dejó de responder sin credencial, así que para reponer
+una foto de ahí hay que usar el ID exacto de la tabla. Las de Pexels se reponen
+con la API y el ID de la tabla.
 
 **Los retratos no son los doctores reales.** Son marcadores de composición y
 deben sustituirse antes de cualquier publicación.

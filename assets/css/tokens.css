@@ -120,9 +120,11 @@
   --space-8: 64px;
   --space-9: 96px;
   --space-10: 128px;
-  /* 160px arriba y abajo daban 320px de aire entre secciones contiguas.
-     Con 104px el ritmo se mantiene y la página deja de sentirse hueca. */
-  --space-section: clamp(64px, 7vw, 104px);
+  /* Fue de 160px, que daban 320 de aire entre secciones contiguas y se leían
+     como un hueco; bajó a 104 y quedó apretado. 132 es el punto medio, y ahora
+     se puede sostener porque dos secciones del mismo color colapsan su aire
+     compartido en vez de sumarlo. */
+  --space-section: clamp(80px, 9vw, 132px);
 
   --grid-max: 1360px;
   --grid-gutter: 32px;

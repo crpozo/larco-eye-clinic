@@ -430,12 +430,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* Heading left, action right */
+/* El titular de sección pasó a 46px y con 48px por debajo quedaba pegado a su
+   contenido: el aire tiene que crecer con la letra. */
 .section-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: 32px;
-  margin-bottom: var(--space-7);
+  margin-bottom: clamp(40px, 4.5vw, 68px);
 }
 
 /* Heading left, supporting copy + action right */
@@ -444,7 +446,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   grid-template-columns: 1fr 1fr;
   gap: var(--grid-gutter);
   align-items: end;
-  margin-bottom: var(--space-7);
+  margin-bottom: clamp(40px, 4.5vw, 68px);
 }
 
 .head-split__aside {
@@ -1202,7 +1204,7 @@ body.js [data-rev].is-pending {
 
 body.lv-dark .stats-band { background: var(--surface-sunken); }
 
-.stats-band__head { margin-bottom: var(--space-7); }
+.stats-band__head { margin-bottom: clamp(40px, 4.5vw, 68px); }
 
 .stats-band__title { color: var(--text-body); }
 
