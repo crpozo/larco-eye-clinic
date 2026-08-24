@@ -506,9 +506,23 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
     max-height: max(200px, calc(84vh - 130px));
   }
 
-  body[data-page="index"] .service-col__media img {
-    max-height: max(128px, calc(84vh - 430px));
+  /* Las filas de artículo también ceden con la altura: relleno proporcional y
+     el extracto acotado a dos líneas. Sólo aquí — en móvil y en las interiores
+     la fila crece con su texto y se lee entero. */
+  body[data-page="index"] .article-row__aside,
+  body[data-page="index"] .article-row__body {
+    padding-top: clamp(10px, 1.8vh, 26px);
+    padding-bottom: clamp(10px, 1.8vh, 26px);
   }
+
+  body[data-page="index"] .article-row__text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+
 }
 
 /* --------------------------------------------------------------------------
@@ -603,9 +617,20 @@ body.nav-open .site-header .btn:hover {
 
 .section--dark a { color: var(--dark-text); }
 
-/* Negro puro sobre la banda oscura, que es negro cálido. --brand-deep-2 ya
-   estaba en la paleta como el fondo más profundo. */
-.section--black { background: var(--brand-deep-2); }
+/* Continúa el degradado de la banda de cifras: aquélla termina en #00000F y
+   ésta arranca justo ahí, con el mismo ángulo, así que las dos se leen como un
+   solo lienzo que se va apagando. Lleva la misma rejilla y el mismo grano, en
+   la misma escala, para que la retícula tampoco se corte. */
+.section--night {
+  background-color: #00000F;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
+    linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
+    linear-gradient(158deg, #00000F 0%, #000008 58%, #000000 100%);
+  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%;
+  background-blend-mode: overlay, normal, normal, normal;
+}
 .section--dark a:hover { color: var(--text-muted); }
 
 /* Con el tema oscuro activo la página entera es tinta: la banda se distingue
@@ -668,73 +693,102 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
    Services
    -------------------------------------------------------------------------- */
 
-/* Columnas divididas por filete, como la banda oscura de la referencia: sin
-   tarjeta, sin sombra — la foto arriba y el texto en columna. */
+/* --------------------------------------------------------------------------
+   Servicios — columnas altas a hueso
+
+   El formato de la referencia: tarjetas a toda altura divididas por filete y
+   sin separación, con el dato corto arriba, el titular grande abajo y el
+   enlace cerrando. La foto va a sangre bajo un velo, no como banda recortada
+   encima del texto.
+   -------------------------------------------------------------------------- */
+
 .services__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
+  border-left: 1px solid var(--border-hairline);
 }
 
 .service-col {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0 clamp(20px, 2.4vw, 36px);
-  border-left: 1px solid var(--border-hairline);
+  justify-content: space-between;
+  gap: var(--space-6);
+  /* Alto elástico: la sección va clavada a un viewport, así que la tarjeta se
+     mide contra la altura y no contra un valor fijo. */
+  min-height: max(320px, calc(84vh - 300px));
+  padding: clamp(20px, 2.2vw, 32px);
+  overflow: hidden;
+  border-right: 1px solid var(--border-hairline);
   text-decoration: none;
 }
 
-.service-col:first-child {
-  padding-left: 0;
-  border-left: 0;
-}
-
-.service-col:last-child { padding-right: 0; }
-
-.service-col__media {
-  display: block;
+.service-col__photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  overflow: hidden;
-  margin-bottom: var(--space-5);
-}
-
-.service-col__media img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   filter: grayscale(1);
   transition: transform var(--dur-med) var(--ease-out);
 }
 
-.service-col:hover .service-col__media img { transform: scale(1.03); }
+.service-col:hover .service-col__photo { transform: scale(1.04); }
+
+/* Dos velos en uno: el general asienta la foto y el de abajo protege al
+   titular, que es donde el texto pesa más. */
+.service-col__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(0, 0, 12, .9) 0%,
+    rgba(0, 0, 12, .86) 34%,
+    rgba(0, 0, 12, .6) 60%,
+    rgba(0, 0, 12, .92) 100%);
+}
+
+.service-col__top,
+.service-col__foot {
+  position: relative;
+  display: block;
+}
 
 .service-col__index {
+  display: block;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-hairline);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   color: var(--text-faint);
 }
 
-.service-col__name {
-  margin: 10px 0 0;
-  font-size: var(--text-h3);
-}
-
 .service-col__desc {
-  margin: 12px 0 0;
+  display: block;
   font-size: var(--text-small);
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--text-muted);
 }
 
+.service-col__name {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  letter-spacing: var(--tracking-display);
+  color: var(--dark-text);
+}
+
 .service-col__more {
+  display: inline-block;
   margin-top: var(--space-5);
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   border-bottom: 1px solid var(--border-strong);
-  font-size: var(--text-small);
+  font-size: var(--text-label);
   font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   transition: border-color var(--dur-fast) var(--ease-out);
 }
 
@@ -772,43 +826,37 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .doctors__cta { margin-top: var(--space-5); }
 
 /* --------------------------------------------------------------------------
-   Artículos — filas de lista con filete, como la cronología de la referencia:
-   etiqueta a la izquierda, título y extracto al centro, flecha al margen.
+   Artículos — filas de tres carriles
+
+   El formato de la referencia: etiqueta y enlace en un carril estrecho a la
+   izquierda, el texto grande en el centro y la foto a la derecha, con filete
+   entre filas y entre carriles.
    -------------------------------------------------------------------------- */
 
-.articles__layout {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: clamp(32px, 4vw, 64px);
-  align-items: start;
+.articles__head { align-items: start; }
+
+.articles__list {
+  display: block;
+  border-top: 1px solid var(--border-hairline);
 }
-
-.articles__head { display: flex; flex-direction: column; align-items: flex-start; }
-
-.articles__lede {
-  margin: var(--space-4) 0 var(--space-5);
-  max-width: 36ch;
-  font-size: var(--text-body-size);
-  line-height: var(--leading-body);
-  color: var(--text-muted);
-}
-
-.articles__list { display: block; }
 
 .article-row {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) auto;
-  gap: clamp(16px, 2.5vw, 40px);
-  align-items: start;
-  padding: 26px 0;
-  border-top: 1px solid var(--border-hairline);
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 6.6fr) minmax(0, 3fr);
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-hairline);
   text-decoration: none;
 }
 
-.article-row:last-child { border-bottom: 1px solid var(--border-hairline); }
+.article-row__aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: clamp(20px, 2vw, 30px) clamp(16px, 2vw, 32px) clamp(20px, 2vw, 30px) 0;
+}
 
 .article-row__label {
-  padding-top: 5px;
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
@@ -816,30 +864,61 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   color: var(--text-faint);
 }
 
+.article-row__more {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-body);
+  transition: color var(--dur-fast);
+}
+
+.article-row:hover .article-row__more { color: var(--text-muted); }
+
+.article-row__body {
+  display: block;
+  padding: clamp(20px, 2vw, 30px) clamp(20px, 2.4vw, 44px);
+  border-left: 1px solid var(--border-hairline);
+}
+
+/* El titular es lo que se lee de lejos en esta fila, así que va al escalón de
+   una portada pequeña y no al de una tarjeta. */
 .article-row__title {
   margin: 0;
-  font-size: var(--text-h3);
-  transition: color var(--dur-fast);
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-body);
 }
 
 .article-row__text {
   display: block;
-  margin-top: 8px;
-  max-width: 60ch;
+  margin-top: 14px;
+  max-width: 62ch;
   font-size: var(--text-small);
   line-height: 1.7;
   color: var(--text-muted);
 }
 
-.article-row__arrow {
-  padding-top: 5px;
-  font-size: 18px;
-  color: var(--text-faint);
-  transition: transform var(--dur-fast) var(--ease-out);
+/* La foto sale del flujo: con `height: 100%` en una celda elástica acababa
+   imponiendo su proporción como alto de la fila —269px cuando el texto pedía
+   124— y la sección se salía del viewport. Absoluta dentro de su celda, el alto
+   lo manda el texto y la foto lo llena. */
+.article-row__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-left: 1px solid var(--border-hairline);
 }
 
-.article-row:hover .article-row__arrow { transform: translateX(4px); }
-.article-row:hover .article-row__title { color: var(--text-muted); }
+.article-row__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+}
 
 /* --------------------------------------------------------------------------
    Enlace de continuar — el filete bajo «Ver todos», «Conócenos» y compañía.
@@ -1219,7 +1298,6 @@ body.js [data-rev].is-pending {
 @media (max-width: 960px) {
   .head-split,
   .doctors__layout,
-  .articles__layout { grid-template-columns: 1fr; }
 
   /* Apilado, el lede ya no compite con las fichas y puede respirar a lo ancho. */
   
@@ -1233,6 +1311,22 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 760px) {
+  /* Tres columnas altas no caben en un móvil: se apilan y el alto lo pone el
+     contenido, no el viewport. */
+  .services__grid { grid-template-columns: 1fr; border-left: 0; }
+
+  .service-col {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  /* La fila de artículo pierde el carril de la foto y apila etiqueta y texto. */
+  .article-row { grid-template-columns: 1fr; }
+  .article-row__media { display: none; }
+  .article-row__aside { padding-bottom: 0; flex-direction: row; align-items: baseline; }
+  .article-row__body { padding-left: 0; border-left: 0; }
+
   /* Tres fichas verticales por debajo de 760px dan menos de 220px de ancho: el
      nombre se parte y la especialidad ocupa media foto. En una columna se
      acorta el formato y se topa el ancho, porque a 720px de contenedor una sola

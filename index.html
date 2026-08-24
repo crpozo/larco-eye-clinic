@@ -19,11 +19,11 @@
 
 <link rel="icon" type="image/webp" href="assets/img/logo.webp">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=117">
-<link rel="stylesheet" href="assets/css/tokens.css?v=117">
-<link rel="stylesheet" href="assets/css/components.css?v=117">
-<link rel="stylesheet" href="assets/css/site.css?v=117">
-<link rel="stylesheet" href="assets/css/pages.css?v=117">
+<link rel="stylesheet" href="assets/css/fonts.css?v=125">
+<link rel="stylesheet" href="assets/css/tokens.css?v=125">
+<link rel="stylesheet" href="assets/css/components.css?v=125">
+<link rel="stylesheet" href="assets/css/site.css?v=125">
+<link rel="stylesheet" href="assets/css/pages.css?v=125">
 <noscript><style>
   /* Sin JS la hamburguesa no puede abrir nada, así que el menú va en línea. */
   @media (max-width: 1024px) {
@@ -192,7 +192,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
   <!-- ====================================================================
        3 · Doctores socios
        ==================================================================== -->
-  <section id="doctores" class="section section--dark section--black">
+  <section id="doctores" class="section section--dark section--night">
     <div class="u-shell">
       <div class="doctors__layout">
         <div class="doctors__head" data-rev>
@@ -238,31 +238,40 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
 
       <div class="services__grid" data-rev>
         <a class="service-col" href="especialidades.html">
-          <span class="service-col__media">
-            <img src="assets/img/photos/cirugias.webp" alt="" loading="lazy" decoding="async">
+          <img class="service-col__photo" src="assets/img/photos/cirugias.webp" alt="" loading="lazy" decoding="async">
+          <span class="service-col__scrim" aria-hidden="true"></span>
+          <span class="service-col__top">
+            <span class="service-col__index">01</span>
+            <span class="service-col__desc">Procedimientos quirúrgicos con tecnología láser para catarata, córnea, retina y corrección de defectos refractivos. Cirugía ambulatoria, precisa y con recuperación ágil.</span>
           </span>
-          <span class="service-col__index">01</span>
-          <h3 class="service-col__name">Cirugías</h3>
-          <p class="service-col__desc">Procedimientos quirúrgicos con tecnología láser para catarata, córnea, retina y corrección de defectos refractivos. Cirugía ambulatoria, precisa y con recuperación ágil.</p>
-          <span class="service-col__more">Saber más <span aria-hidden="true">→</span></span>
+          <span class="service-col__foot">
+            <h3 class="service-col__name">Cirugías</h3>
+            <span class="service-col__more">Saber más <span aria-hidden="true">↗</span></span>
+          </span>
         </a>
         <a class="service-col" href="consultas-examenes.html">
-          <span class="service-col__media">
-            <img src="assets/img/photos/examenes.webp" alt="" loading="lazy" decoding="async">
+          <img class="service-col__photo" src="assets/img/photos/examenes.webp" alt="" loading="lazy" decoding="async">
+          <span class="service-col__scrim" aria-hidden="true"></span>
+          <span class="service-col__top">
+            <span class="service-col__index">02</span>
+            <span class="service-col__desc">Diagnóstico de alta precisión con equipos especializados. Estudios complementarios que confirman cada diagnóstico y planifican el tratamiento exacto para cada paciente.</span>
           </span>
-          <span class="service-col__index">02</span>
-          <h3 class="service-col__name">Exámenes</h3>
-          <p class="service-col__desc">Diagnóstico de alta precisión con equipos especializados. Estudios complementarios que confirman cada diagnóstico y planifican el tratamiento exacto para cada paciente.</p>
-          <span class="service-col__more">Saber más <span aria-hidden="true">→</span></span>
+          <span class="service-col__foot">
+            <h3 class="service-col__name">Exámenes</h3>
+            <span class="service-col__more">Saber más <span aria-hidden="true">↗</span></span>
+          </span>
         </a>
         <a class="service-col" href="consultas-examenes.html">
-          <span class="service-col__media">
-            <img src="assets/img/photos/consultas.webp" alt="" loading="lazy" decoding="async">
+          <img class="service-col__photo" src="assets/img/photos/consultas.webp" alt="" loading="lazy" decoding="async">
+          <span class="service-col__scrim" aria-hidden="true"></span>
+          <span class="service-col__top">
+            <span class="service-col__index">03</span>
+            <span class="service-col__desc">Evaluación oftalmológica integral. El punto de partida para detectar a tiempo, dar seguimiento y definir el mejor tratamiento para tu salud visual.</span>
           </span>
-          <span class="service-col__index">03</span>
-          <h3 class="service-col__name">Consultas</h3>
-          <p class="service-col__desc">Evaluación oftalmológica integral. El punto de partida para detectar a tiempo, dar seguimiento y definir el mejor tratamiento para tu salud visual.</p>
-          <span class="service-col__more">Saber más <span aria-hidden="true">→</span></span>
+          <span class="service-col__foot">
+            <h3 class="service-col__name">Consultas</h3>
+            <span class="service-col__more">Saber más <span aria-hidden="true">↗</span></span>
+          </span>
         </a>
       </div>
     </div>
@@ -272,37 +281,55 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
        5 · Artículos
        ==================================================================== -->
   <section id="articulos" class="section section--page">
-    <div class="u-shell articles__layout">
-      <div class="articles__head" data-rev>
-        <h2 class="section__title">Artículos de nuestros especialistas</h2>
-        <p class="articles__lede">Casos reales redactados por el equipo: el motivo de consulta, el procedimiento y el resultado.</p>
-        <a class="btn btn--link case__link" href="casos-clinicos.html">Ver todos <span aria-hidden="true">→</span></a>
+    <div class="u-shell">
+      <div class="head-split articles__head" data-rev>
+        <div class="head-title">
+          <h2 class="section__title">Artículos de nuestros especialistas</h2>
+        </div>
+        <div class="head-split__aside">
+          <p>Casos reales redactados por el equipo: el motivo de consulta, el procedimiento y el resultado.</p>
+        </div>
       </div>
 
       <div class="articles__list" data-rev>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__label">caso 01 · ejemplo</span>
-          <div class="article-row__body">
+          <span class="article-row__aside">
+            <span class="article-row__label">Caso 01 · ejemplo</span>
+            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="article-row__body">
             <h3 class="article-row__title">Queratocono progresivo en paciente de 24 años</h3>
             <span class="article-row__text">Crosslinking para frenar la progresión y anillos intraestromales seis meses después. La agudeza corregida pasó de 20/80 a 20/25 y se mantiene estable.</span>
-          </div>
-          <span class="article-row__arrow" aria-hidden="true">→</span>
+          </span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/caso-queratocono.webp" alt="" loading="lazy" decoding="async">
+          </span>
         </a>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__label">caso 02 · ejemplo</span>
-          <div class="article-row__body">
+          <span class="article-row__aside">
+            <span class="article-row__label">Caso 02 · ejemplo</span>
+            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="article-row__body">
             <h3 class="article-row__title">Catarata bilateral con corrección de presbicia</h3>
             <span class="article-row__text">Facoemulsificación asistida por láser con lente trifocal calculado con el IOL Master 700. Alta el mismo día y visión a todas las distancias sin gafas al mes.</span>
-          </div>
-          <span class="article-row__arrow" aria-hidden="true">→</span>
+          </span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/caso-catarata.webp" alt="" loading="lazy" decoding="async">
+          </span>
         </a>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__label">caso 03 · ejemplo</span>
-          <div class="article-row__body">
+          <span class="article-row__aside">
+            <span class="article-row__label">Caso 03 · ejemplo</span>
+            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          </span>
+          <span class="article-row__body">
             <h3 class="article-row__title">Desprendimiento de retina atendido en 24 horas</h3>
             <span class="article-row__text">Vitrectomía posterior con taponamiento de gas la misma noche de la consulta de urgencia. Retina aplicada en el primer procedimiento y visión central recuperada.</span>
-          </div>
-          <span class="article-row__arrow" aria-hidden="true">→</span>
+          </span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/caso-retina.webp" alt="" loading="lazy" decoding="async">
+          </span>
         </a>
       </div>
     </div>
@@ -440,6 +467,6 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
 <a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
-<script src="assets/js/site.js?v=117" defer></script>
+<script src="assets/js/site.js?v=125" defer></script>
 </body>
 </html>

@@ -46,3 +46,11 @@ deben sustituirse antes de cualquier publicación.
 
     curl -sSL -o /tmp/src.jpg "https://unsplash.com/photos/<ID>/download?w=1080"
     cwebp -quiet -q 78 /tmp/src.jpg -o <nombre>.webp
+
+## Sin uso ahora mismo
+
+Las cinco portadas de página (`hero-sobre`, `hero-casos`, `hero-consultas`,
+`hero-especialidades`, `hero-contacto`) quedaron sin usar cuando las interiores
+pasaron a llevar el mismo banner que la home. Se conservan por si se quiere
+volver a una foto distinta por página. Igual `dra-ana-larco.webp`, de la ficha
+que se retiró.
