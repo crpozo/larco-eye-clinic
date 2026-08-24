@@ -527,4 +527,10 @@
   }
 
   .map-wide { height: 260px; }
+
+  /* .btn lleva white-space: nowrap; a 320 de viewport «Escríbenos por
+     WhatsApp» impone 268px de mínimo en una caja de 216 y la banda entera se
+     salía 1px del carril. Con el texto envolviendo, el botón cede. */
+  .cta-band__actions { align-self: stretch; flex-direction: column; }
+  .cta-band__actions .btn { white-space: normal; }
 }

@@ -336,53 +336,86 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  /* El header transparente mide ~109px; con 120 el titular le quedaba a
-     once píxeles. Se separa contra la altura del viewport para que el aire
-     no desaparezca en pantallas bajas. */
-  padding: clamp(150px, 20vh, 200px) var(--grid-margin) 56px;
+  /* La referencia ancla toda la masa del titular al tercio inferior: el header
+     flota arriba y el resto del hero es foto. */
+  justify-content: flex-end;
+  gap: clamp(24px, 4.5vh, 48px);
+  padding: clamp(120px, 16vh, 160px) var(--grid-margin) 24px;
 }
 
 .hero__title,
 .hero__lede { text-shadow: 0 2px 28px rgba(11, 10, 8, .65); }
 
+/* El titular llena el ancho, como en la referencia. La sangría francesa
+   —padding que la primera línea descuenta con text-indent negativo— produce el
+   escalonado: la primera línea arranca en el margen y las siguientes entran
+   7vw, sin partir líneas a mano ni depender de dónde rompa el texto. */
 .hero__title {
   margin: 0;
-  max-width: 11.5em;
-  font-size: min(var(--text-display-xl), 9.5vh);
-  line-height: var(--leading-display);
+  max-width: none;
+  padding-left: 7vw;
+  text-indent: -7vw;
+  font-size: min(clamp(56px, 9.6vw, 148px), 17vh);
+  line-height: .96;
+  letter-spacing: -.025em;
   color: var(--paper);
 }
 
-/* La segunda frase del titular va en cursiva dentro del mismo bloque, como en
-   la referencia: una sola masa de display alineada a la izquierda. */
 .hero__title em {
   font-style: italic;
-  color: rgba(244, 242, 237, .78);
+  color: rgba(244, 242, 237, .82);
 }
 
 .hero__foot {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 32px;
-  margin-top: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(24px, 4vh, 40px);
+  margin: 0;
 }
 
 .hero__lede {
   margin: 0;
-  max-width: 460px;
-  font-size: var(--text-body-lg);
-  line-height: 1.6;
-  color: rgba(244, 242, 237, .8);
+  max-width: 340px;
+  font-size: var(--text-small);
+  line-height: 1.65;
+  color: rgba(244, 242, 237, .82);
 }
 
 .hero__lede span { color: rgba(244, 242, 237, .55); }
 
 .hero__actions {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* La barra de cita de la referencia: una pastilla traslúcida a todo lo ancho,
+   con el punto delante. Pisa al btn--primary de siempre sólo aquí. */
+.hero__actions .btn {
+  flex: 1 1 100%;
+  padding: 20px 24px;
+  background: rgba(244, 242, 237, .16);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--paper);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.hero__actions .btn::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-right: 12px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+.hero__actions .btn:hover {
+  background: rgba(244, 242, 237, .28);
+  color: var(--paper);
 }
 
 /* --------------------------------------------------------------------------
@@ -1203,7 +1236,10 @@ body.js [data-rev].is-pending {
 
   .hero__title {
     max-width: none;
-    font-size: clamp(36px, 10.5vw, 56px);
+    /* En columna estrecha el escalonado come demasiado ancho. */
+    padding-left: 0;
+    text-indent: 0;
+    font-size: clamp(40px, 12vw, 64px);
   }
 
   .hero__foot {
