@@ -77,10 +77,14 @@
      en cada componente, que era lo que había antes —seis títulos de tarjeta
      entre 20 y 34px sin criterio— y lo que hacía que el h2 compitiera con el
      hero y que la portada de las interiores fuera más grande que la de la
-     home. */
+     home.
+
+     El titular de sección subió de 34 a 46px: es el tamaño al que sale en los
+     mockups del cliente, medido sobre la referencia. La portada de interiores
+     sube con él para no quedar por debajo de un título de sección. */
   --text-display-xl: clamp(40px, 5vw, 64px);    /* hero de la portada */
-  --text-display: clamp(30px, 3.4vw, 46px);     /* portada de páginas interiores */
-  --text-h2: clamp(24px, 2.5vw, 34px);          /* títulos de sección */
+  --text-display: clamp(34px, 3.9vw, 54px);     /* portada de páginas interiores */
+  --text-h2: clamp(26px, 3.2vw, 46px);          /* títulos de sección */
   --text-h3: clamp(19px, 1.8vw, 25px);          /* títulos de tarjeta grande */
   --text-h4: clamp(17px, 1.3vw, 19px);          /* títulos de tarjeta y ficha */
 

@@ -105,7 +105,7 @@ El tema oscuro es el del mockup: `#13142E` de fondo, `#1B1C40` en tarjetas.
 ### Escalera de titulares
 
 Los tamaños salen de los tokens, no de valores sueltos en cada componente. A
-1440px: **64 / 46 / 34 / 25 / 19**, con un paso constante de ~1,35x.
+1440px: **64 / 54 / 46 / 25 / 19**.
 
 | Token | Uso |
 | --- | --- |

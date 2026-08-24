@@ -572,7 +572,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .doctors__layout {
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  /* 3,5 de 12 y no 3 ni 4: en la referencia las fichas arrancan a 310px del filo
+     del contenedor sobre 967, que con el hueco de la retícula sale a 3,5fr. Con
+     3fr el texto se estrechaba y el lede ganaba una línea. */
+  grid-template-columns: minmax(0, 3.5fr) minmax(0, 8.5fr);
   gap: clamp(32px, 4vw, 64px);
   align-items: start;
 }
@@ -580,10 +583,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 /* Columna en flex para que los márgenes del lede y del enlace se apilen de
    verdad: .btn es inline-flex y en flujo inline el margen superior no abre
    espacio fiable. */
+/* Toda la columna se sangra lo que ocupa el punto, no sólo el titular: en la
+   referencia el lede y el enlace arrancan del mismo eje que «Doctores», y el
+   punto es lo único que cuelga hacia el filo del contenedor. */
 .doctors__head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding-left: 33px;
 }
 
 /* Aquí el titular va a dos líneas, así que el punto deja de ser un carácter
@@ -591,10 +598,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    bloque entero. Las dos líneas arrancan del mismo eje. El sangrado de 33px es
    el mismo que el punto ocupa en línea (17px de los dos círculos + 16 de
    margen), así que el texto cae donde caía. */
-.doctors__title {
-  position: relative;
-  padding-left: 33px;
-}
+.doctors__title { position: relative; }
 
 /* `top:50% + translateY(-50%)` centraba la CAJA de .dots, que es inline-block y
    mide una línea entera del titular; los círculos se apoyan en su baseline, así
@@ -604,7 +608,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: -33px;
   display: flex;
   align-items: center;
   margin: 0;

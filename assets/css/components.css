@@ -336,7 +336,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
 .doctor-card {
   position: relative;
   display: block;
-  aspect-ratio: 8 / 15;
+  aspect-ratio: 9 / 16;
   overflow: hidden;
   border-radius: var(--radius-card);
   /* Se ve mientras carga la foto y si la foto falta. */
