@@ -2,7 +2,7 @@
    Larco Visión — Inicio
    Behaviour ported from the DCLogic class in _design/inicio.dc.html:
    header scroll state, dropdown menus, dark mode, reader text zoom,
-   scroll reveals and the animated stat counters.
+   scroll reveals, the animated stat counters and the sliders.
    ========================================================================== */
 
 (function () {
@@ -286,26 +286,6 @@
      datos. En cualquier otro caso se queda el póster, que es un fotograma
      del propio video.
      ------------------------------------------------------------------ */
-
-  function wireHeroVideo() {
-    var video = document.querySelector('[data-hero-video]');
-    if (!video) return;
-    if (!CONFIG.animations || reduceMotion) return;
-
-    var net = navigator.connection;
-    if (net && net.saveData) return;
-
-    var source = video.querySelector('source[data-src]');
-    if (!source) return;
-
-    source.src = source.getAttribute('data-src');
-    video.load();
-
-    // Si el navegador bloquea la reproducción automática no hay nada que
-    // arreglar: se queda el primer fotograma, que es el mismo póster.
-    var started = video.play();
-    if (started && started.catch) started.catch(function () {});
-  }
 
   /* ------------------------------------------------------------------
      Galería de equipos
@@ -607,7 +587,6 @@
   measureHeader();
   wireMenus();
   wireSections();
-  wireHeroVideo();
   wireEquipos();
   wireAccordions();
   wireReveals();

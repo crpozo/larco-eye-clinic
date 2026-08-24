@@ -10,7 +10,7 @@ se deja el registro para poder dar crédito y para reponer el original.
 
 | Archivo | Unsplash ID | Uso en la página |
 | --- | --- | --- |
-| `hero-iris.webp`, `hero-iris-1200.webp` | `2wDxCCw83HM` | Hero. Recortado a cuadrado sobre el iris; el original trae mucho negro arriba y abajo. **Va a reemplazarse por video.** |
+| `hero-ojo.webp`, `hero-ojo-800.webp` | — (aportada por el cliente) | Fondo del hero, en color |
 | `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
 | `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
 | `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
@@ -46,9 +46,3 @@ deben sustituirse antes de cualquier publicación.
 
     curl -sSL -o /tmp/src.jpg "https://unsplash.com/photos/<ID>/download?w=1080"
     cwebp -quiet -q 78 /tmp/src.jpg -o <nombre>.webp
-
-## Video de portada
-
-`../../video/hero.mp4` es material que aportó el cliente (macro de iris), no de
-Unsplash. `hero-poster.webp` es un fotograma extraído de ese mismo video, para
-que el estado previo a la carga y el primer cuadro coincidan.
