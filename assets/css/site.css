@@ -10,8 +10,12 @@
    Header
    -------------------------------------------------------------------------- */
 
+/* No pegajoso: la cabecera vive sobre la portada y se va con ella al bajar.
+   `absolute` y no `static` para que siga flotando encima de la foto sin ocupar
+   sitio en el flujo. Consecuencia asumida: el menú sólo se abre arriba del
+   todo, que es donde está la cabecera. */
 .site-header {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -333,10 +337,15 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    arranca 40px más adentro que el logo y que todas las demás secciones,
    donde el padding lo pone la sección y el tope lo pone .u-shell dentro. */
 .hero__inner {
-  /* El ancho del párrafo lo comparten el lede y la última línea del titular:
-     una sola fuente para el encaje. */
+  /* Las cuatro medidas del hero viven aquí porque cada una la usan dos piezas
+     a la vez, y separadas se desincronizan: el cuerpo del display lo comparten
+     el titular y el desplazamiento del párrafo; el ancho del párrafo, el lede y
+     la sangría de la última línea; el hueco, la separación del bloque y ese
+     mismo desplazamiento. */
+  --hero-title: min(clamp(56px, 9.6vw, 148px), 16vh);
   --hero-lede: clamp(210px, 21vw, 290px);
   --hero-encaje: clamp(18px, 2.2vw, 36px);
+  --hero-gap: clamp(24px, 4.5vh, 48px);
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -347,14 +356,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   /* La referencia ancla toda la masa del titular al tercio inferior: el header
      flota arriba y el resto del hero es foto. */
   justify-content: flex-end;
-  gap: clamp(24px, 4.5vh, 48px);
+  gap: var(--hero-gap);
   padding: clamp(120px, 16vh, 160px) var(--grid-margin) 24px;
 }
 
 .hero__title {
   margin: 0;
   max-width: none;
-  font-size: min(clamp(56px, 9.6vw, 148px), 17vh);
+  font-size: var(--hero-title);
   line-height: .96;
   letter-spacing: -.025em;
   color: var(--paper);
@@ -390,7 +399,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    lo que debería. Los dos valores tienen que ir siempre juntos, por eso salen
    de la misma variable. */
 .hero__lede {
-  --hero-tuck: calc(min(clamp(56px, 9.6vw, 148px), 17vh) * .62 + clamp(24px, 4.5vh, 48px));
+  --hero-tuck: calc(var(--hero-title) * .62 + var(--hero-gap));
   position: relative;
   top: calc(var(--hero-tuck) * -1);
   margin: 0 0 calc(var(--hero-tuck) * -1);
@@ -1331,9 +1340,24 @@ body.js [data-rev].is-pending {
 
 /* ---- cifras: sección clara con cuatro tarjetas ------------------------- */
 
+/* El fondo de la referencia, todo en CSS y sin una imagen que descargar: una
+   base verde-oliva muy desaturada que cae a negro, una luz difusa arriba a la
+   izquierda, la rejilla de filetes que estructura la banda, y grano de película
+   por encima —una turbulencia SVG en línea, que es lo único que da ruido sin
+   pedir un archivo—. El orden importa: el grano va primero en la lista para
+   quedar ARRIBA del todo. */
 .stats-band {
   position: relative;
   padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
+  background-color: #14150F;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
+    linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
+    radial-gradient(110% 80% at 16% 6%, rgba(196, 205, 160, .16), transparent 62%),
+    linear-gradient(158deg, #262920 0%, #16170F 52%, #0B0C07 100%);
+  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%;
+  background-blend-mode: overlay, normal, normal, screen, normal;
 }
 
 /* La sentencia manda: a todo lo ancho, con el arranque desplazado a la derecha
