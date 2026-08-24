@@ -382,8 +382,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    entra en el hueco restante en todos los anchos de escritorio. */
 .hero__title-line--end { padding-left: calc(var(--hero-lede) + var(--hero-encaje)); }
 
-
-
 .hero__foot {
   display: flex;
   flex-direction: column;
@@ -484,6 +482,33 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   body[data-page="index"] main > section > .u-shell {
     width: 100%;
   }
+
+  /* --space-section se mide en ANCHURA, así que en una ventana ancha y baja
+     reservaba 115px arriba y abajo aunque no sobrara alto. Con la sección
+     clavada a un viewport el relleno tiene que ceder con la altura: 8vh por
+     lado, y el valor de siempre como techo para que en pantallas altas el
+     ritmo no cambie. */
+  /* El hero se excluye: ya trae su propio relleno calculado contra la altura y
+     su .hero__inner mide un viewport; sumarle éste lo empujaba 130px fuera. */
+  body[data-page="index"] main > section:not(.hero) {
+    padding-block: min(var(--space-section), 8vh);
+  }
+
+  /* La foto es lo único elástico que queda: su alto sale de la relación de
+     aspecto y en pantallas bajas empujaba la sección 130px por debajo del
+     corte. El tope la ata al alto disponible —la pantalla menos el relleno,
+     que ya es proporcional, menos el texto que va debajo— y sólo actúa cuando
+     hace falta: en una pantalla alta el alto natural es menor y manda la
+     relación de aspecto. Las constantes salen de medir el bloque de texto de
+     cada ficha, no de tantear. El suelo evita que una ventana muy baja deje
+     una tira. */
+  body[data-page="index"] .doctor-card__photo {
+    max-height: max(200px, calc(84vh - 130px));
+  }
+
+  body[data-page="index"] .service-col__media img {
+    max-height: max(128px, calc(84vh - 430px));
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -577,6 +602,10 @@ body.nav-open .site-header .btn:hover {
 }
 
 .section--dark a { color: var(--dark-text); }
+
+/* Negro puro sobre la banda oscura, que es negro cálido. --brand-deep-2 ya
+   estaba en la paleta como el fondo más profundo. */
+.section--black { background: var(--brand-deep-2); }
 .section--dark a:hover { color: var(--text-muted); }
 
 /* Con el tema oscuro activo la página entera es tinta: la banda se distingue
@@ -638,7 +667,6 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 /* --------------------------------------------------------------------------
    Services
    -------------------------------------------------------------------------- */
-
 
 /* Columnas divididas por filete, como la banda oscura de la referencia: sin
    tarjeta, sin sombra — la foto arriba y el texto en columna. */
@@ -719,11 +747,6 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
    encima. Sin velo: la foto se queda foto.
    -------------------------------------------------------------------------- */
 
-.doctors__banner {
-  max-width: 16em;
-  margin: 0 0 clamp(40px, 4.5vw, 68px);
-}
-
 .doctors__layout {
   display: grid;
   grid-template-columns: minmax(0, 3.5fr) minmax(0, 8.5fr);
@@ -737,17 +760,6 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   align-items: flex-start;
 }
 
-.doctors__lede + .doctors__lede { margin-top: var(--space-3); }
-
-.doctors__lede {
-  margin: var(--space-4) 0 0;
-  font-size: var(--text-body-size);
-  line-height: var(--leading-body);
-  color: var(--text-muted);
-}
-
-.doctors__lede:first-child { margin-top: 0; }
-
 .doctors__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -755,9 +767,9 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   align-items: start;
 }
 
-/* El botón cierra la columna de texto: uno solo para la sección, en vez de un
-   enlace repetido en cada ficha diciendo lo mismo. */
-.doctors__cta { margin-top: var(--space-6); }
+/* Uno solo para la sección, en vez del enlace que se repetía en cada ficha
+   diciendo lo mismo y apuntando al mismo sitio. */
+.doctors__cta { margin-top: var(--space-5); }
 
 /* --------------------------------------------------------------------------
    Artículos — filas de lista con filete, como la cronología de la referencia:
@@ -969,7 +981,6 @@ body[data-page="contactanos"] .footer__mid { display: none; }
 }
 
 .footer__mid .btn { margin-left: auto; }
-
 
 /* --------------------------------------------------------------------------
    WhatsApp floating action
@@ -1205,21 +1216,18 @@ body.js [data-rev].is-pending {
   .nav__tool { min-width: 44px; min-height: 44px; justify-content: center; }
 }
 
-
 @media (max-width: 960px) {
   .head-split,
   .doctors__layout,
   .articles__layout { grid-template-columns: 1fr; }
 
   /* Apilado, el lede ya no compite con las fichas y puede respirar a lo ancho. */
-  .doctors__lede { max-width: 46ch; }
+  
 
   .head-split__aside {
     justify-self: start;
     max-width: 640px;
   }
-
-
 
   .footer__top { grid-template-columns: 1fr 1fr; }
 }
@@ -1317,8 +1325,6 @@ body.js [data-rev].is-pending {
    Print
    -------------------------------------------------------------------------- */
 
-
-
 /* ==========================================================================
    Bandas — cortan la sucesión de secciones claras
    Referencia: Vyra Capital, que el sitemap del cliente ya citaba.
@@ -1361,8 +1367,6 @@ body.js [data-rev].is-pending {
      ella la pone el titular. */
   margin-bottom: clamp(48px, 6vw, 88px);
 }
-
-
 
 .stats-band__grid {
   display: grid;
@@ -1615,7 +1619,6 @@ body.js [data-rev].is-pending {
 @media (max-width: 700px) {
   .slider__track { grid-auto-columns: 100%; }
 }
-
 
 /* ==========================================================================
    Impresión
