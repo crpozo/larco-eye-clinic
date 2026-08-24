@@ -617,17 +617,17 @@ body.nav-open .site-header .btn:hover {
 
 .section--dark a { color: var(--dark-text); }
 
-/* Continúa el degradado de la banda de cifras: aquélla termina en #000006 y
-   ésta arranca justo ahí, con el mismo ángulo, así que las dos se leen como un
-   solo lienzo que se va apagando. Lleva la misma rejilla y el mismo grano, en
-   la misma escala, para que la retícula tampoco se corte. */
+/* Azul noche casi plano, con un realce diagonal muy leve: es la muestra que
+   pasó el cliente. Ya no continúa el degradado de la banda de cifras —esa
+   continuidad la sustituye este fondo propio—, pero conserva la rejilla y el
+   grano en la misma escala para que la retícula no se corte entre secciones. */
 .section--night {
-  background-color: #000006;
+  background-color: #04001A;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
     linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    linear-gradient(158deg, #000006 0%, #000003 58%, #000000 100%);
+    linear-gradient(28deg, #03000F 0%, #050020 46%, #04001A 72%, #02000C 100%);
   background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%;
   background-blend-mode: overlay, normal, normal, normal;
 }
@@ -1446,8 +1446,8 @@ body.js [data-rev].is-pending {
   background-blend-mode: overlay, normal, normal, screen, normal;
 }
 
-/* La sentencia manda: a todo lo ancho, con el arranque desplazado a la derecha
-   como en la referencia, y las cifras en una fila de filetes debajo. */
+/* La sentencia manda: a todo lo ancho, alineada al carril como el resto de la
+   página, y las cifras en una fila de filetes debajo. */
 .stats-band__layout { display: block; }
 
 .stats-band__title {
@@ -1456,7 +1456,6 @@ body.js [data-rev].is-pending {
   font-size: clamp(40px, 6.6vw, 96px);
   line-height: .98;
   letter-spacing: var(--tracking-display);
-  text-indent: clamp(0px, 18vw, 260px);
   /* La separación hasta las cifras la ponía el margen inferior de la nota; sin
      ella la pone el titular. */
   margin-bottom: clamp(48px, 6vw, 88px);
@@ -1525,7 +1524,6 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 560px) {
-  .stats-band__title { text-indent: 0; }
   .stats-band__grid { row-gap: var(--space-6); }
 }
 
