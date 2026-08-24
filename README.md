@@ -3,11 +3,11 @@
 Clínica y cirugía de ojos, Quito. Sitio estático: HTML, CSS y un archivo JS sin
 dependencias ni build. Se abre `index.html` y funciona.
 
-Implementa el artboard **Inicio** del proyecto de Claude Design
-[“Website mockup creation”](https://claude.ai/design/p/f77e51cf-320f-4e19-8f78-36ab6697be1a),
-con la paleta del design system de Larco Visión. Del board de referencia que
-mandó el cliente se toma la composición —esquinas redondeadas, display ligero,
-tiles separados— y el tipo de fotografía, no sus colores cálidos.
+Partió del artboard **Inicio** del proyecto de Claude Design
+[“Website mockup creation”](https://claude.ai/design/p/f77e51cf-320f-4e19-8f78-36ab6697be1a);
+hoy sigue la referencia editorial que aprobó el cliente: monocromo cálido,
+display serif y retícula de filetes. La fuente importada del canvas queda en
+`_design/` como registro.
 
 ## Correr en local
 
@@ -32,16 +32,15 @@ pages/                      El <main> de cada página, uno por archivo
 tools/build.py              Arma las páginas a partir de lo anterior
 assets/
   css/
-    fonts.css               @font-face de Montserrat (self-hosted)
+    fonts.css               @font-face de Montserrat e Instrument Serif (self-hosted)
     tokens.css              Paleta, tipografía, espaciado, tema claro/oscuro, base
-    components.css          Botón, PillTag, SectionLabel, StatCounter,
-                            ServiceCard, DoctorCard, TestimonialCard
+    components.css          Botón (variantes y estados) y ficha de doctor
     site.css                Layout de la página, responsive, motion, print
     pages.css               Páginas interiores: portada compacta, tarjetas,
                             fichas de equipo, acordeón, formulario, mapa
   js/site.js                Header, menús, modo oscuro, zoom de texto,
-                            reveals, contadores y acordeones
-  fonts/                    Montserrat woff2 (variable, latin + latin-ext)
+                            reveals, contadores, slider y acordeones
+  fonts/                    Montserrat (variable) e Instrument Serif woff2
   img/                      Logos + fotografía (ver photos/CREDITS.md)
 _design/                    Fuente importada de Claude Design (no se sirve)
 ```
@@ -102,15 +101,18 @@ margen. El número sale de un contador CSS y no del markup, así la numeración 
 mantiene sola cuando una sección se añade, se quita o se mueve, en las seis
 páginas a la vez.
 
-**Tipografía.** Display en **Instrument Serif** (SIL OFL, self-hosted, 21KB entre
-redonda y cursiva) sobre cuerpo en Montserrat. El contraste entre las dos es lo
-que sostiene el enfoque: el display va grande y muy justo de interlínea, el
-cuerpo pequeño y suelto. La frase secundaria de cada titular va en **cursiva** —
-es lo que hacía antes el color.
+**Tipografía.** Display en **Instrument Serif** (SIL OFL, self-hosted, un solo
+peso) sobre cuerpo en Montserrat. El contraste entre las dos es lo que sostiene
+el enfoque: el display va grande y muy justo de interlínea, el cuerpo pequeño y
+suelto. **Nada de cursiva** — regla del cliente, en todo el sitio. La frase
+secundaria de cada titular se distingue por atenuación (tinta al 66%), no por
+corte ni color.
 
 ### Escalera de titulares
 
 Los tamaños salen de los tokens, no de valores sueltos en cada componente. A 1440px: **104 / 76 / 60 / 30 / 21**, en Instrument Serif.
+| --- | --- |
+| Token | Uso |
 | --- | --- |
 | `--text-display-xl` | Hero de la portada |
 | `--text-display` | Portada de las páginas interiores |
@@ -123,9 +125,8 @@ así fue como se llegó a tener seis títulos de tarjeta entre 20 y 34px sin
 criterio, un h2 que competía con el hero y portadas interiores más grandes que
 la de la home.
 
-Tipografía: **Montserrat** en todo, incluido el display — así lo fija el mockup,
-que sobreescribe la Playfair Display del design system. Está self-hosted en
-`assets/fonts/`: el sitio no hace ninguna petición a terceros en runtime.
+El sitio no hace ninguna petición a terceros en runtime: las dos familias van
+self-hosted en `assets/fonts/`.
 
 Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 (`lv-dark`, `lv-zoom`).

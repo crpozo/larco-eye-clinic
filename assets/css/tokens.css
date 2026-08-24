@@ -149,7 +149,6 @@
   --tile-empty: linear-gradient(160deg, var(--paper-2), var(--paper-3));
   --tile-empty-ink: rgba(18, 17, 14, .7);
 
-  --photo-scrim: linear-gradient(180deg, rgba(11, 10, 8, .18), rgba(11, 10, 8, .88));
 
   --nav-scrolled-bg: rgba(244, 242, 237, .94);
   --nav-scrolled-border: rgba(18, 17, 14, .16);
@@ -179,6 +178,10 @@ body.lv-dark {
   --accent-display: var(--paper);
   --accent-strong: var(--paper);
   --accent-hover: var(--paper-2);
+  /* La etiqueta sobre un relleno de acento: el acento en oscuro es papel, así
+     que la etiqueta vuelve a tinta. Sin esto, el FAB de WhatsApp y el hover de
+     los botones primarios quedaban papel sobre papel. */
+  --accent-ink: var(--ink);
   --mark: var(--paper);
   --mark-soft: rgba(244, 242, 237, .3);
 
@@ -258,24 +261,10 @@ a:hover { color: var(--text-muted); }
 
 /* ---- utilities ---------------------------------------------------------- */
 
-.u-label {
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
+/* El titular es una sola masa uniforme, como en la referencia: sin cursiva
+   —vetada por el cliente—, sin segundo tono y sin atenuación. La jerarquía la
+   ponen el tamaño y el sitio, no un cambio dentro de la frase. */
 
-/* La frase secundaria del titular ya no cambia de color —no hay color— sino de
-   corte: cursiva del mismo serif. Es lo que sostiene la jerarquía dentro de un
-   titular cuando la paleta es una sola tinta. */
-.u-accent-phrase {
-  font-style: italic;
-  color: inherit;
-}
-
-
-.u-dim { color: var(--text-dim); }
 
 .u-muted { color: var(--text-muted); }
 

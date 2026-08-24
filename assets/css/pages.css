@@ -276,7 +276,7 @@
   transition: color var(--dur-fast);
 }
 
-.accordion__trigger:hover { color: var(--accent-strong); }
+.accordion__trigger:hover { color: var(--text-muted); }
 
 .accordion__icon {
   flex: 0 0 auto;
@@ -343,7 +343,7 @@
   color: var(--text-body);
   background: var(--surface-raised);
   border: 1px solid var(--border-strong);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 
@@ -401,7 +401,7 @@
 }
 
 .info-list a { color: var(--text-body); }
-.info-list a:hover { color: var(--accent-strong); }
+.info-list a:hover { color: var(--text-muted); }
 
 /* Mapa grande de la página de contacto */
 .map-wide {
@@ -418,6 +418,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Gris como el mapa del pie y toda la fotografía: en una página monocroma
+     el color de las teselas de OSM se lleva el ojo. */
+  filter: grayscale(1);
 }
 
 .map-wide .footer__pin { width: 18px; height: 18px; margin: -9px 0 0 -9px; }

@@ -1,13 +1,9 @@
 /* ==========================================================================
-   Larco Visión — design-system components
-   Ported 1:1 from the React components in
-   _design/_ds/_ds_bundle.js (Button, PillTag, SectionLabel, StatCounter,
-   ServiceCard, DoctorCard, TestimonialCard).
+   Larco Visión — componentes
 
-   The React sources read `var(--ink)` for body copy. Here that is
-   `var(--text-body)` instead, so the same components stay legible when the
-   page switches to its dark palette. Pills and badges that paint their own
-   light background keep `var(--ink)` on purpose.
+   Botón (con sus variantes y estados data-ondark) y la ficha de doctor. Nació
+   como un port 1:1 del design system de Claude Design; del port ya sólo queda
+   el botón — el resto se reescribió o se retiró con el enfoque editorial.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -51,7 +47,9 @@
 
 .btn--primary {
   background: var(--brand-deep);
-  color: var(--dark-text);
+  /* El par se invierte solo en modo oscuro: relleno papel, etiqueta tinta.
+     Con --dark-text aquí, el submit del formulario quedaba papel sobre papel. */
+  color: var(--surface-page);
 }
 
 .btn--primary:hover {
@@ -126,75 +124,6 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
 }
 
 .btn--link:hover { color: var(--accent-strong); }
-
-/* --------------------------------------------------------------------------
-   PillTag
-   -------------------------------------------------------------------------- */
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-pill);
-  background: var(--surface-raised);
-  color: var(--text-body);
-}
-
-.pill::before {
-  content: "+";
-  color: var(--accent-display);
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 1;
-}
-
-.pill--over-photo {
-  background: rgba(244, 242, 237, .85);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: none;
-  color: var(--ink);
-}
-
-/* --------------------------------------------------------------------------
-   SectionLabel
-   -------------------------------------------------------------------------- */
-
-.section-label {
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* --------------------------------------------------------------------------
-   StatCounter
-   -------------------------------------------------------------------------- */
-
-.stat__value {
-  font-family: var(--font-serif-display);
-  font-size: clamp(48px, 5vw, 80px);
-  line-height: 1;
-  font-weight: 500;
-  color: var(--text-body);
-  font-variant-numeric: tabular-nums;
-}
-
-.stat__suffix { color: var(--accent); }
-
-.stat__label {
-  margin-top: 10px;
-  max-width: 180px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
 
 /* --------------------------------------------------------------------------
    DoctorCard

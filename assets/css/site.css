@@ -1,9 +1,9 @@
 /* ==========================================================================
-   Larco Visión — Inicio
-   Layout for the page described by _design/inicio.dc.html.
+   Larco Visión — layout global
 
-   `body.is-solid` means the header is painted (page scrolled past 40px, or
-   the mobile menu is open). The mockup calls this state `scrolled`.
+   Header, hero, retícula editorial de secciones, bandas oscuras, pie, slider,
+   responsive e impresión de las seis páginas. La portada sigue la referencia
+   editorial del cliente, no el canvas de _design/.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -353,10 +353,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--paper);
 }
 
-.hero__title em {
-  font-style: italic;
-  color: rgba(244, 242, 237, .82);
-}
+
 
 .hero__foot {
   display: flex;
@@ -407,6 +404,54 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .hero__actions .btn:hover {
   background: rgba(244, 242, 237, .28);
+  color: var(--paper);
+}
+
+/* --------------------------------------------------------------------------
+   Chip de cita del header
+   El de la referencia: pastilla traslúcida oscura con el punto delante y la
+   etiqueta en versalitas. Sobre el hero va traslúcida con blur; con el header
+   sólido o el menú abierto pasa a tinta plena, que funciona sobre papel.
+   -------------------------------------------------------------------------- */
+
+.site-header .btn {
+  padding: 12px 22px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.site-header .btn::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-right: 10px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+body:not(.is-solid) .site-header .btn {
+  background: rgba(18, 17, 14, .42);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--paper);
+}
+
+body:not(.is-solid) .site-header .btn:hover {
+  background: rgba(18, 17, 14, .62);
+  color: var(--paper);
+}
+
+body.is-solid .site-header .btn,
+body.nav-open .site-header .btn {
+  background: var(--brand-deep);
+  color: var(--surface-page);
+}
+
+body.is-solid .site-header .btn:hover,
+body.nav-open .site-header .btn:hover {
+  background: var(--ink-3);
   color: var(--paper);
 }
 
@@ -472,6 +517,10 @@ main { counter-reset: seccion; }
 
 .section--dark a { color: var(--dark-text); }
 .section--dark a:hover { color: var(--text-muted); }
+
+/* Con el tema oscuro activo la página entera es tinta: la banda se distingue
+   subiendo un paso, no bajando. */
+body.lv-dark .section--dark { background: var(--surface-raised); }
 
 /* Todas llevan filete ya; el modificador se queda sin trabajo pero sigue en el
    markup de las seis páginas, así que no rompe nada dejarlo inerte. */
@@ -603,33 +652,6 @@ main { counter-reset: seccion; }
 .service-col:hover .service-col__more { border-bottom-color: var(--dark-text); }
 
 /* --------------------------------------------------------------------------
-   Stats
-   -------------------------------------------------------------------------- */
-
-.stats {
-  position: relative;
-  padding: var(--space-8) var(--grid-margin);
-  background: var(--surface-page);
-}
-
-.stats__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--grid-gutter);
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 32px 32px 24px;
-  background: var(--surface-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-}
-
-/* --------------------------------------------------------------------------
    Doctors
    Como la fila de especialistas de la referencia: titular a todo lo ancho,
    una columna de texto y los retratos con el nombre DEBAJO de la foto, no
@@ -743,59 +765,10 @@ main { counter-reset: seccion; }
 .article-row:hover .article-row__title { color: var(--text-muted); }
 
 /* --------------------------------------------------------------------------
-   Clinical cases
+   Enlace de continuar — el filete bajo «Ver todos», «Conócenos» y compañía.
+   Heredó el nombre de las fichas de caso, que ya no existen.
    -------------------------------------------------------------------------- */
 
-.cases__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--grid-gutter);
-}
-
-.case {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-/* 3:2 y no un alto fijo: el recorte es el mismo a cualquier ancho de columna. */
-.case__photo {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  border-radius: var(--radius-tile);
-  margin-bottom: 10px;
-}
-
-/* En acento, no en gris: es lo que ordena la columna y merece leerse antes que
-   el cuerpo. --accent-strong y no --accent porque a 12px el relleno no llega. */
-.case__eyebrow {
-  font-family: var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--accent-strong);
-}
-
-.case__title {
-  margin: 0;
-  font-family: var(--font-serif-display);
-  font-size: var(--text-h4);
-  font-weight: var(--weight-medium);
-  line-height: 1.3;
-  color: var(--text-body);
-}
-
-.case__text {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-muted);
-}
-
-/* Mismo filete que bajo «Conócenos»: marca los enlaces de continuar. */
 .case__link {
   margin-top: 6px;
   padding-bottom: 6px;
@@ -986,7 +959,6 @@ body.js [data-rev].is-pending {
 
 @media (max-width: 1180px) {
   .nav { gap: 20px; }
-  .stats__grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 1024px) {
@@ -1172,8 +1144,7 @@ body.js [data-rev].is-pending {
 @media (max-width: 960px) {
   .head-split,
   .doctors__layout,
-  .articles__layout,
-  .stats-band__layout { grid-template-columns: 1fr; }
+  .articles__layout { grid-template-columns: 1fr; }
 
   /* Apilado, el lede ya no compite con las fichas y puede respirar a lo ancho. */
   .doctors__lede { max-width: 46ch; }
@@ -1184,9 +1155,6 @@ body.js [data-rev].is-pending {
   }
 
 
-  .services__grid { grid-template-columns: repeat(2, 1fr); }
-  .cases__grid { grid-template-columns: 1fr; }
-  .case__photo { height: 200px; }
 
   .footer__top { grid-template-columns: 1fr 1fr; }
 }
@@ -1293,44 +1261,33 @@ body.js [data-rev].is-pending {
 .stats-band {
   position: relative;
   padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
-  background: var(--paper-2);
-  color: var(--text-body);
 }
 
-body.lv-dark .stats-band { background: var(--surface-sunken); }
+/* La sentencia manda: a todo lo ancho, con el arranque desplazado a la derecha
+   como en la referencia, y las cifras en una fila de filetes debajo. */
+.stats-band__layout { display: block; }
 
-.stats-band__layout {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(32px, 5vw, 88px);
-  align-items: start;
+.stats-band__title {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(40px, 6.6vw, 96px);
+  line-height: .98;
+  letter-spacing: var(--tracking-display);
+  text-indent: clamp(0px, 18vw, 260px);
 }
-
-.stats-band__head { margin: 0; }
 
 .stats-band__note {
-  margin: var(--space-5) 0 0;
+  margin: var(--space-6) 0 clamp(48px, 6vw, 88px);
   max-width: 34ch;
   font-size: var(--text-small);
   line-height: 1.7;
   color: var(--text-muted);
 }
 
-.stats-band__title { color: var(--text-body); }
-
-/* Las cuatro cifras van directamente sobre la banda: sin recuadro blanco, sin
-   sombra y sin relleno propio. Sólo las separa un filete vertical.
-
-   Ese filete ya no puede salir del gap de 1px sobre un fondo de color —ese
-   truco necesitaba que las celdas taparan el fondo, y ahora no tapan nada—, así
-   que vuelve a ser un borde por celda y hay que apagarlo a mano en la primera
-   de cada fila, que es distinta en cada breakpoint. */
-/* Dos por fila, como los grandes porcentajes de la referencia. El filete
-   izquierdo marca la columna y la fila de abajo se separa con aire. */
 .stats-band__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-7) 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
 }
 
 .figure {
@@ -1339,13 +1296,11 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   border-left: 1px solid var(--border-hairline);
 }
 
-.figure:nth-child(odd) {
+.figure:first-child {
   padding-left: 0;
   border-left: 0;
 }
 
-/* El numeral manda en el panel, así que sube al escalón del StatCounter del
-   design system. No compite con los titulares: es cifra, no encabezado. */
 .figure__num {
   display: block;
   font-family: var(--font-serif-display);
@@ -1357,7 +1312,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   font-variant-numeric: tabular-nums;
 }
 
-.figure__suffix { color: var(--accent-display); }
+.figure__suffix { color: var(--text-muted); }
 
 .figure__label {
   display: block;
@@ -1367,12 +1322,19 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   color: var(--text-muted);
 }
 
-
 @media (max-width: 1100px) {
-  .stats-band__layout { grid-template-columns: 1fr; }
+  .stats-band__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-7);
+  }
+
+  .figure:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .figure:nth-child(even) { padding-right: 0; }
 }
 
 @media (max-width: 560px) {
+  .stats-band__title { text-indent: 0; }
+
   .stats-band__grid {
     grid-template-columns: 1fr;
     row-gap: var(--space-5);
@@ -1579,8 +1541,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 @media print {
   .site-header,
-  .wa-fab,
-  .hero__note { display: none; }
+  .wa-fab { display: none; }
 
   .hero { min-height: auto; background: #fff; }
   .hero__inner { min-height: auto; padding: 40px 0; }
@@ -1591,51 +1552,42 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   .hero__lede,
   .hero__lede span { color: var(--ink); text-shadow: none; }
 
+  .hero__actions .btn {
+    background: none;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
 
-  /* En papel no hay scroll que dispare el observador de reveals, así que todo
-     lo que no llegó a entrar en pantalla antes de imprimir sigue en opacity:0
-     y la sección sale en blanco. Se ve en el PDF: #cifras y #doctores enteros
-     vacíos si se imprime sin haber bajado. */
+  /* En papel no hay scroll que dispare el observador de reveals: lo que no
+     llegó a entrar en pantalla seguiría en opacity 0 y la sección saldría en
+     blanco. */
   body.js [data-rev].is-pending {
     opacity: 1;
     transform: none;
   }
 
-  /* Las divisiones del panel de cifras son fondo (gap de 1px sobre un fondo de
-     color), y el navegador descarta los fondos al imprimir: las cuatro cifras
-     quedaban pegadas sin separación. En papel las separa un filete de verdad,
-     que sí se imprime. */
-  /* `overflow: hidden` con esquina redondeada recorta la primera letra de la
-     etiqueta en cuanto el texto se apoya en el filo de la caja, que es lo que
-     pasa al quitarle el margen lateral en papel: «años» salía «ños». Sin fondo
-     que recortar, el radio y el overflow no pintan nada. */
-  .stats-band__grid,
-  .doctor-card,
-
-  .stats-band__grid {
-    display: block;
-    box-shadow: none;
-    background: none;
+  /* Las bandas oscuras pierden su fondo al imprimir, así que sus tokens
+     vuelven a tinta sobre papel AQUÍ, en las custom properties y no pieza a
+     pieza: cifras, servicios y testimonios se arreglan de una vez, y lo que se
+     añada a una banda oscura mañana imprime bien sin tocar este bloque. */
+  .section--dark {
+    --text-body: var(--ink);
+    --text-muted: rgba(18, 17, 14, .66);
+    --text-faint: rgba(18, 17, 14, .6);
+    --text-dim: rgba(18, 17, 14, .62);
+    --border-hairline: rgba(18, 17, 14, .16);
+    --border-strong: rgba(18, 17, 14, .55);
+    --dark-text: var(--ink);
+    --dark-text-muted: rgba(18, 17, 14, .66);
+    --mark: var(--ink);
+    --accent: var(--ink);
+    color: var(--ink);
   }
 
-  .figure {
-    padding: 12px 0;
-    border-top: 1px solid var(--gray-3);
-    break-inside: avoid;
-  }
-
-  /* La ficha de doctor y la columna de servicio llevan el texto fuera de la
-     foto, así que imprimen legibles por sí solas. Sólo hay que devolver a tinta
-     el texto de las bandas oscuras, cuyo fondo no se imprime. */
-  .section--dark,
-  .section--dark .service-col__name,
-  .section--dark .service-col__desc,
-  .section--dark .service-col__more,
-  .section--dark .quote__text,
-  .section--dark .quote__by,
-  .section--dark .quote__by strong,
   .section--dark .section__title { color: var(--ink); }
 
-  .section--dark .quote__mark { color: var(--ink); }
-
+  .figure,
+  .doctor-card,
+  .service-col,
+  .article-row { break-inside: avoid; }
 }

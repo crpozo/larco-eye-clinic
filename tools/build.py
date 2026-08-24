@@ -23,7 +23,7 @@ PARTIALS = ROOT / "_partials"
 CONTENT = ROOT / "pages"
 
 # Subir esto invalida la caché de los navegadores en css y js a la vez.
-ASSET_VERSION = 87
+ASSET_VERSION = 91
 
 PAGES = [
     {
@@ -101,7 +101,7 @@ HEAD = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F4F2ED">
 <!-- Preview para el cliente: contenido y fotografía son placeholders. Quitar esta
      línea al publicar el sitio definitivo con el contenido real de la clínica. -->
 <meta name="robots" content="noindex, nofollow">

@@ -244,7 +244,7 @@
     }
 
     // Otherwise the mobile address bar stays paper-white around a dark page.
-    if (themeColor) themeColor.setAttribute('content', next ? '#18191B' : '#F1EFEC');
+    if (themeColor) themeColor.setAttribute('content', next ? '#12110E' : '#F4F2ED');
 
     if (persist) store(STORAGE_DARK, next ? '1' : '0');
   }
@@ -291,33 +291,6 @@
      Galería de equipos
      Las miniaturas cambian la foto grande y su etiqueta.
      ------------------------------------------------------------------ */
-
-  function wireEquipos() {
-    var foto = document.querySelector('[data-equipo-foto]');
-    var etiqueta = document.querySelector('[data-equipo-label]');
-    var thumbs = document.querySelectorAll('.equipos__thumb');
-    if (!foto || !thumbs.length) return;
-
-    for (var i = 0; i < thumbs.length; i++) {
-      thumbs[i].addEventListener('click', function (event) {
-        var b = event.currentTarget;
-        var src = b.getAttribute('data-equipo');
-        var label = b.getAttribute('data-label');
-        if (!src) return;
-
-        foto.src = src;
-        foto.alt = label || '';
-        if (etiqueta) etiqueta.textContent = label || '';
-
-        for (var j = 0; j < thumbs.length; j++) {
-          var on = thumbs[j] === b;
-          thumbs[j].classList.toggle('is-active', on);
-          if (on) thumbs[j].setAttribute('aria-current', 'true');
-          else thumbs[j].removeAttribute('aria-current');
-        }
-      });
-    }
-  }
 
   /* ------------------------------------------------------------------
      Scroll reveals
@@ -587,7 +560,6 @@
   measureHeader();
   wireMenus();
   wireSections();
-  wireEquipos();
   wireAccordions();
   wireReveals();
   wireCounters();
