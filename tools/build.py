@@ -23,7 +23,7 @@ PARTIALS = ROOT / "_partials"
 CONTENT = ROOT / "pages"
 
 # Subir esto invalida la caché de los navegadores en css y js a la vez.
-ASSET_VERSION = 97
+ASSET_VERSION = 100
 
 PAGES = [
     {
@@ -111,7 +111,7 @@ HEAD = """<!DOCTYPE html>
 <meta property="og:title" content="{og_title}">
 <meta property="og:description" content="{og_description}">
 <!-- TODO(dominio): og:image y og:url deben ser absolutos, y el card quiere un JPEG 1200x630 propio. -->
-<meta property="og:image" content="assets/img/photos/hero-ojos.webp">
+<meta property="og:image" content="assets/img/photos/hero-ojo.webp">
 
 <link rel="icon" type="image/webp" href="assets/img/logo.webp">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
