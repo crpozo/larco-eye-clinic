@@ -331,6 +331,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    arranca 40px más adentro que el logo y que todas las demás secciones,
    donde el padding lo pone la sección y el tope lo pone .u-shell dentro. */
 .hero__inner {
+  /* El ancho del párrafo lo comparten el lede y la última línea del titular:
+     una sola fuente para el encaje. */
+  --hero-lede: clamp(210px, 21vw, 290px);
+  --hero-encaje: clamp(18px, 2.2vw, 36px);
   position: relative;
   width: 100%;
   min-height: 100vh;
@@ -348,10 +352,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .hero__title,
 .hero__lede {
   margin: 0;
-  max-width: 340px;
-  font-size: var(--text-small);
-  line-height: 1.65;
-  color: rgba(244, 242, 237, .82);
+  max-width: var(--hero-lede);
+  font-size: var(--text-body-size);
+  line-height: 1.6;
+  color: rgba(244, 242, 237, .86);
 }
 
 /* El encaje con el titular: el párrafo sube un renglón de display y ocupa el
@@ -362,7 +366,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   position: relative;
   top: calc((min(clamp(56px, 9.6vw, 148px), 17vh) * .62 + clamp(24px, 4.5vh, 48px)) * -1);
   margin-bottom: calc((min(clamp(56px, 9.6vw, 148px), 17vh) * .62 + clamp(24px, 4.5vh, 48px)) * -1);
-  max-width: clamp(240px, 26vw, 340px);
+  max-width: var(--hero-lede);
 }
 
 .hero__title {
@@ -380,7 +384,12 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    aguanta porque la letra se mide en vw: si cabe a 1440, cabe a 900. En
    estrecho las líneas vuelven a ser texto corrido. */
 .hero__title-line { display: block; }
-.hero__title-line--end { text-align: right; }
+
+/* La última línea no se pega al borde derecho: arranca justo después del
+   párrafo, como en la referencia, y desde ahí llega casi al filo. El corte de
+   línea se eligió midiendo: «tecnología del mañana» es la única partición que
+   entra en el hueco restante en todos los anchos de escritorio. */
+.hero__title-line--end { padding-left: calc(var(--hero-lede) + var(--hero-encaje)); }
 
 
 
@@ -394,10 +403,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .hero__lede {
   margin: 0;
-  max-width: 340px;
-  font-size: var(--text-small);
-  line-height: 1.65;
-  color: rgba(244, 242, 237, .82);
+  max-width: var(--hero-lede);
+  font-size: var(--text-body-size);
+  line-height: 1.6;
+  color: rgba(244, 242, 237, .86);
 }
 
 .hero__lede span { color: inherit; }
@@ -1251,7 +1260,7 @@ body.js [data-rev].is-pending {
   /* En columna estrecha no hay hueco que encajar: líneas corridas y párrafo
      en su sitio. */
   .hero__title-line { display: inline; }
-  .hero__title-line--end { text-align: inherit; }
+  .hero__title-line--end { padding-left: 0; }
   .hero__lede { position: static; top: 0; margin-bottom: 0; max-width: 340px; }
 
   .hero__foot {

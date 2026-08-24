@@ -131,7 +131,7 @@ self-hosted en `assets/fonts/`.
 Modo oscuro y zoom de lectura (100 / 112 / 125 %) se guardan en `localStorage`
 (`lv-dark`, `lv-zoom`).
 
-**Fondo de portada.** `assets/img/photos/hero-ojo.webp` — primer plano cálido
+**Fondo de portada.** `assets/img/photos/hero-ojos.webp` — primer plano cálido
 que aportó el cliente, en color a diferencia del resto de la fotografía: la
 referencia abre con su hero cálido y esta imagen trae exactamente esa gama. El
 velo de tinta y el degradado la oscurecen lo justo para el titular. Va con

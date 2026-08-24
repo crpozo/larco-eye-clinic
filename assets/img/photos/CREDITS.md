@@ -10,7 +10,7 @@ se deja el registro para poder dar crédito y para reponer el original.
 
 | Archivo | Unsplash ID | Uso en la página |
 | --- | --- | --- |
-| `hero-ojo.webp`, `hero-ojo-800.webp` | — (aportada por el cliente) | Fondo del hero, en color |
+| `hero-ojos.webp`, `hero-ojos-800.webp` | — (aportada por el cliente) | Fondo del hero, en color |
 | `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
 | `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
 | `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
