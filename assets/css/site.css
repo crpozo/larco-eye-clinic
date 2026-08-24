@@ -344,31 +344,21 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 .hero__title,
-.hero__title-alt,
 .hero__lede { text-shadow: 0 2px 28px rgba(11, 10, 8, .65); }
 
 .hero__title {
   margin: 0;
-  max-width: 8.5em;
-  font-size: min(var(--text-display-xl), 8.5vh);
+  max-width: 11.5em;
+  font-size: min(var(--text-display-xl), 9.5vh);
   line-height: var(--leading-display);
   color: var(--paper);
 }
 
-.hero__title-alt {
-  margin: 0;
-  align-self: flex-end;
-  max-width: 9em;
-  font-family: var(--font-serif-display);
-  font-weight: var(--weight-display);
-  font-size: min(var(--text-display-xl), 8.5vh);
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-display);
-  text-align: right;
-  /* Misma tinta que la primera mitad y en cursiva, como la frase secundaria de
-     cualquier titular: en monocromo la jerarquía la marca el corte, no el tono. */
+/* La segunda frase del titular va en cursiva dentro del mismo bloque, como en
+   la referencia: una sola masa de display alineada a la izquierda. */
+.hero__title em {
   font-style: italic;
-  color: var(--paper);
+  color: rgba(244, 242, 237, .78);
 }
 
 .hero__foot {
@@ -437,6 +427,27 @@ main { counter-reset: seccion; }
 .section--sunken { background: var(--surface-sunken); }
 .section--page { background: var(--surface-page); }
 
+/* Banda a sangre en tinta, como alterna la referencia. Redefine los tokens de
+   texto y filete puertas adentro: así el número de sección, los hairlines y
+   todo lo que viva aquí se resuelve solo, sin variantes --dark de cada pieza. */
+.section--dark {
+  --mark: var(--paper);
+  --mark-soft: rgba(244, 242, 237, .3);
+  --accent: var(--paper);
+  --border-hairline: rgba(244, 242, 237, .2);
+  --border-strong: rgba(244, 242, 237, .55);
+  --text-muted: rgba(244, 242, 237, .64);
+  --text-faint: rgba(244, 242, 237, .58);
+  --text-dim: rgba(244, 242, 237, .6);
+  --text-body: var(--dark-text);
+  --surface-raised: var(--ink-2);
+  background: var(--ink);
+  color: var(--dark-text);
+}
+
+.section--dark a { color: var(--dark-text); }
+.section--dark a:hover { color: var(--text-muted); }
+
 /* Todas llevan filete ya; el modificador se queda sin trabajo pero sigue en el
    markup de las seis páginas, así que no rompe nada dejarlo inerte. */
 .section--ruled { border-top-width: 1px; }
@@ -490,80 +501,81 @@ main { counter-reset: seccion; }
 }
 
 /* --------------------------------------------------------------------------
-   Intro — texto a la izquierda, dos fotos superpuestas a la derecha.
-   La pequeña se sale del bloque por abajo y por la derecha, así que el
-   contenedor reserva ese espacio en lugar de dejarla desbordar la sección.
-   -------------------------------------------------------------------------- */
-
-.intro {
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
-}
-
-.intro__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
-  gap: clamp(32px, 5vw, 80px);
-  align-items: center;
-}
-
-.intro__copy { max-width: 620px; }
-
-.intro__copy .section__title { margin-bottom: var(--space-5); }
-
-.intro__copy p {
-  margin: 0 0 18px;
-  font-size: var(--text-body-lg);
-  line-height: 1.7;
-  color: var(--text-body);
-}
-
-.intro__copy p:last-of-type {
-  margin-bottom: 0;
-  color: var(--text-muted);
-}
-
-/* El bloque de fotos se mide contra la altura del viewport y las dos fotos
-   se dimensionan en porcentaje de él: así la sección entra completa en
-   pantalla en vez de crecer con el ancho de la columna. */
-.intro__media {
-  position: relative;
-  height: min(62vh, 540px);
-}
-
-.intro__photo {
-  display: block;
-  position: absolute;
-  object-fit: cover;
-  border-radius: var(--radius-card);
-}
-
-.intro__photo--main {
-  top: 0;
-  left: 0;
-  width: 74%;
-  height: 82%;
-}
-
-.intro__photo--over {
-  right: 0;
-  bottom: 0;
-  width: 54%;
-  height: 46%;
-  box-shadow: var(--shadow-float);
-}
-
-/* --------------------------------------------------------------------------
    Services
    -------------------------------------------------------------------------- */
 
-.services__head .section__title { max-width: 14em; }
 
+/* Columnas divididas por filete, como la banda oscura de la referencia: sin
+   tarjeta, sin sombra — la foto arriba y el texto en columna. */
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
 }
+
+.service-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 clamp(20px, 2.4vw, 36px);
+  border-left: 1px solid var(--border-hairline);
+  text-decoration: none;
+}
+
+.service-col:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.service-col:last-child { padding-right: 0; }
+
+.service-col__media {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: var(--space-5);
+}
+
+.service-col__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: grayscale(1);
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.service-col:hover .service-col__media img { transform: scale(1.03); }
+
+.service-col__index {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+
+.service-col__name {
+  margin: 10px 0 0;
+  font-size: var(--text-h3);
+}
+
+.service-col__desc {
+  margin: 12px 0 0;
+  font-size: var(--text-small);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.service-col__more {
+  margin-top: var(--space-5);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-strong);
+  font-size: var(--text-small);
+  font-weight: var(--weight-semibold);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.service-col:hover .service-col__more { border-bottom-color: var(--dark-text); }
 
 /* --------------------------------------------------------------------------
    Stats
@@ -594,43 +606,28 @@ main { counter-reset: seccion; }
 
 /* --------------------------------------------------------------------------
    Doctors
-   El encabezado deja de ser una barra a lo ancho y pasa a ser la columna
-   izquierda: título apilado, una línea de contexto y el enlace. Las dos fichas
-   ocupan la derecha y la segunda baja, para que el par no se lea como dos
-   celdas de una tabla.
+   Como la fila de especialistas de la referencia: titular a todo lo ancho,
+   una columna de texto y los retratos con el nombre DEBAJO de la foto, no
+   encima. Sin velo: la foto se queda foto.
    -------------------------------------------------------------------------- */
+
+.doctors__banner {
+  max-width: 16em;
+  margin: 0 0 clamp(40px, 4.5vw, 68px);
+}
 
 .doctors__layout {
   display: grid;
-  /* 3,5 de 12 y no 3 ni 4: en la referencia las fichas arrancan a 310px del filo
-     del contenedor sobre 967, que con el hueco de la retícula sale a 3,5fr. Con
-     3fr el texto se estrechaba y el lede ganaba una línea. */
   grid-template-columns: minmax(0, 3.5fr) minmax(0, 8.5fr);
   gap: clamp(32px, 4vw, 64px);
   align-items: start;
 }
 
-/* Columna en flex para que los márgenes del lede y del enlace se apilen de
-   verdad: .btn es inline-flex y en flujo inline el margen superior no abre
-   espacio fiable. */
-/* Toda la columna se sangra lo que ocupa el punto, no sólo el titular: en la
-   referencia el lede y el enlace arrancan del mismo eje que «Doctores», y el
-   punto es lo único que cuelga hacia el filo del contenedor. */
 .doctors__head {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
-/* Aquí el titular va a dos líneas, así que el punto deja de ser un carácter
-   más de la primera y pasa a colgar del filo del contenedor, centrado sobre el
-   bloque entero. Las dos líneas arrancan del mismo eje. El sangrado de 33px es
-   el mismo que el punto ocupa en línea (17px de los dos círculos + 16 de
-   margen), así que el texto cae donde caía. */
-
-/* El titular va a dos líneas: es lo que fija el mockup y lo que deja sitio al
-   punto colgante, que se centra sobre el bloque entero. */
-.doctors__title .u-accent-phrase { display: block; }
 
 .doctors__lede + .doctors__lede { margin-top: var(--space-3); }
 
@@ -641,29 +638,84 @@ main { counter-reset: seccion; }
   color: var(--text-muted);
 }
 
-/* Filete bajo el enlace, en el azul de --mark: es decorativo —el enlace ya se
-   distingue por color y posición—, así que no carga contraste, y hace eco del
-   punto que abre el titular. */
-.doctors__link {
-  margin-top: var(--space-5);
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--mark-soft);
-  border-radius: 0;
-  transition: color var(--dur-fast) var(--ease-out),
-              border-color var(--dur-fast) var(--ease-out);
-}
+.doctors__lede:first-child { margin-top: 0; }
 
-.doctors__link:hover { border-bottom-color: var(--mark); }
-
-/* El reveal vive en el envoltorio y no en la ficha: [data-rev] declara su propia
-   transition de .9s y, puesta sobre la ficha, se comía el levantamiento del
-   hover. */
 .doctors__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(16px, 2vw, 28px);
   align-items: start;
 }
+
+/* --------------------------------------------------------------------------
+   Artículos — filas de lista con filete, como la cronología de la referencia:
+   etiqueta a la izquierda, título y extracto al centro, flecha al margen.
+   -------------------------------------------------------------------------- */
+
+.articles__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
+}
+
+.articles__head { display: flex; flex-direction: column; align-items: flex-start; }
+
+.articles__lede {
+  margin: var(--space-4) 0 var(--space-5);
+  max-width: 36ch;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
+  color: var(--text-muted);
+}
+
+.articles__list { display: block; }
+
+.article-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: clamp(16px, 2.5vw, 40px);
+  align-items: start;
+  padding: 26px 0;
+  border-top: 1px solid var(--border-hairline);
+  text-decoration: none;
+}
+
+.article-row:last-child { border-bottom: 1px solid var(--border-hairline); }
+
+.article-row__label {
+  padding-top: 5px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.article-row__title {
+  margin: 0;
+  font-size: var(--text-h3);
+  transition: color var(--dur-fast);
+}
+
+.article-row__text {
+  display: block;
+  margin-top: 8px;
+  max-width: 60ch;
+  font-size: var(--text-small);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.article-row__arrow {
+  padding-top: 5px;
+  font-size: 18px;
+  color: var(--text-faint);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.article-row:hover .article-row__arrow { transform: translateX(4px); }
+.article-row:hover .article-row__title { color: var(--text-muted); }
 
 /* --------------------------------------------------------------------------
    Clinical cases
@@ -815,6 +867,9 @@ body[data-page="contactanos"] .footer__mid { display: none; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Las teselas de OSM traen sus colores; en una página monocroma el mapa es
+     la única mancha de color y se lleva el ojo. Gris, como todo lo demás. */
+  filter: grayscale(1);
 }
 
 /* Marca el centro de la zona; no es la dirección exacta todavía. */
@@ -1090,25 +1145,19 @@ body.js [data-rev].is-pending {
 
 
 @media (max-width: 960px) {
-  .intro__grid,
   .head-split,
-  .doctors__layout { grid-template-columns: 1fr; }
+  .doctors__layout,
+  .articles__layout,
+  .stats-band__layout { grid-template-columns: 1fr; }
 
   /* Apilado, el lede ya no compite con las fichas y puede respirar a lo ancho. */
   .doctors__lede { max-width: 46ch; }
 
-  .intro__copy,
   .head-split__aside {
     justify-self: start;
     max-width: 640px;
   }
 
-  /* Apiladas, las dos fotos pierden la superposición: en una columna estrecha
-     la pequeña taparía media foto grande. */
-  .intro__media { height: auto; display: grid; gap: var(--space-4); }
-  .intro__photo { position: static; }
-  .intro__photo--main { width: 100%; height: auto; aspect-ratio: 4 / 3; }
-  .intro__photo--over { width: 100%; height: auto; aspect-ratio: 16 / 10; box-shadow: none; }
 
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .cases__grid { grid-template-columns: 1fr; }
@@ -1124,7 +1173,6 @@ body.js [data-rev].is-pending {
      ficha 8:15 mediría 1350px de alto. */
   .doctors__grid { grid-template-columns: 1fr; }
   .doctors__slot { max-width: 460px; }
-  .doctor-card { aspect-ratio: 4 / 5; }
 
   .section-head {
     flex-direction: column;
@@ -1132,23 +1180,30 @@ body.js [data-rev].is-pending {
     gap: 24px;
   }
 
-  .services__grid { grid-template-columns: 1fr; }
-  .stats__grid { grid-template-columns: 1fr; }
+  /* Apiladas, las columnas cambian el filete de lado: la división vertical se
+     vuelve horizontal, igual que hace la referencia en móvil. */
+  .services__grid { grid-template-columns: 1fr; gap: var(--space-6); }
+
+  .service-col,
+  .service-col:first-child {
+    padding: var(--space-6) 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .service-col:first-child { padding-top: 0; border-top: 0; }
+
+  /* La fila de artículo apila la etiqueta sobre el título y suelta la flecha. */
+  .article-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .article-row__label { grid-column: 1 / -1; padding-top: 0; }
 
   /* The desktop artboard sizes the display line off viewport height; at phone
      widths that overflows, so cap it against the width instead. */
   .hero__inner { padding-top: clamp(140px, 21vh, 180px); }
 
-  .hero__title,
-  .hero__title-alt { font-size: clamp(36px, 10.5vw, 56px); }
-
-
-  .hero__title { max-width: none; }
-
-  .hero__title-alt {
-    align-self: flex-start;
+  .hero__title {
     max-width: none;
-    text-align: left;
+    font-size: clamp(36px, 10.5vw, 56px);
   }
 
   .hero__foot {
@@ -1216,7 +1271,22 @@ body.js [data-rev].is-pending {
 
 body.lv-dark .stats-band { background: var(--surface-sunken); }
 
-.stats-band__head { margin-bottom: clamp(40px, 4.5vw, 68px); }
+.stats-band__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: start;
+}
+
+.stats-band__head { margin: 0; }
+
+.stats-band__note {
+  margin: var(--space-5) 0 0;
+  max-width: 34ch;
+  font-size: var(--text-small);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
 
 .stats-band__title { color: var(--text-body); }
 
@@ -1227,10 +1297,12 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
    truco necesitaba que las celdas taparan el fondo, y ahora no tapan nada—, así
    que vuelve a ser un borde por celda y hay que apagarlo a mano en la primera
    de cada fila, que es distinta en cada breakpoint. */
+/* Dos por fila, como los grandes porcentajes de la referencia. El filete
+   izquierdo marca la columna y la fila de abajo se separa con aire. */
 .stats-band__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7) 0;
 }
 
 .figure {
@@ -1239,7 +1311,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   border-left: 1px solid var(--border-hairline);
 }
 
-.figure:nth-child(4n + 1) {
+.figure:nth-child(odd) {
   padding-left: 0;
   border-left: 0;
 }
@@ -1269,13 +1341,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 
 @media (max-width: 1100px) {
-  .stats-band__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: var(--space-6);
-  }
-
-  .figure:nth-child(4n + 1) { padding-left: clamp(20px, 2.4vw, 34px); border-left: 1px solid var(--border-hairline); }
-  .figure:nth-child(2n + 1) { padding-left: 0; border-left: 0; }
+  .stats-band__layout { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 560px) {
@@ -1294,71 +1360,6 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
 @media (max-width: 860px) {
   .footer__mid { grid-template-columns: 1fr; gap: var(--space-5); }
-}
-
-/* ==========================================================================
-   Equipos — foto grande con miniaturas que la cambian
-   ========================================================================== */
-
-.equipos__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(32px, 5vw, 80px);
-  align-items: center;
-}
-
-.equipos__stage { aspect-ratio: 5 / 4; }
-
-.equipos__aside .section__title { margin-bottom: var(--space-5); }
-
-.equipos__aside p {
-  margin: 0 0 var(--space-6);
-  font-size: var(--text-body-lg);
-  line-height: 1.7;
-  color: var(--text-body);
-}
-
-.equipos__thumbs {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 10px;
-  margin-bottom: var(--space-5);
-}
-
-.equipos__thumb {
-  aspect-ratio: 1;
-  padding: 0;
-  overflow: hidden;
-  border: 2px solid transparent;
-  border-radius: 12px;
-  background: var(--tile-empty);
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out),
-              opacity var(--dur-fast) var(--ease-out);
-  opacity: .62;
-}
-
-.equipos__thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.equipos__thumb:hover { opacity: 1; }
-
-.equipos__thumb.is-active {
-  border-color: var(--ink);
-  opacity: 1;
-}
-
-@media (max-width: 960px) {
-  .equipos__grid { grid-template-columns: 1fr; }
-  .equipos__stage { aspect-ratio: 4 / 3; }
-}
-
-@media (max-width: 560px) {
-  .equipos__thumbs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* ==========================================================================
@@ -1562,7 +1563,6 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   .hero__lede,
   .hero__lede span { color: var(--ink); text-shadow: none; }
 
-  .hero__title-alt { color: var(--ink); text-shadow: none; }
 
   /* En papel no hay scroll que dispare el observador de reveals, así que todo
      lo que no llegó a entrar en pantalla antes de imprimir sigue en opacity:0
@@ -1583,10 +1583,6 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
      que recortar, el radio y el overflow no pintan nada. */
   .stats-band__grid,
   .doctor-card,
-  .photo-card {
-    overflow: visible;
-    border-radius: 0;
-  }
 
   .stats-band__grid {
     display: block;
@@ -1600,46 +1596,18 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
     break-inside: avoid;
   }
 
-  /* Las fichas que apoyan su legibilidad en un velo —doctor y servicio— quedan
-     con texto casi blanco sobre la foto en cuanto el navegador descarta los
-     fondos, que es lo que hace por defecto al imprimir. En papel se desarman:
-     la foto arriba, el texto debajo en tinta. */
-  .doctor-card,
-  .photo-card {
-    background: none;
-    aspect-ratio: auto;
-    min-height: 0;
-    height: auto;
-    padding: 0;
-    box-shadow: none;
-    break-inside: avoid;
-  }
+  /* La ficha de doctor y la columna de servicio llevan el texto fuera de la
+     foto, así que imprimen legibles por sí solas. Sólo hay que devolver a tinta
+     el texto de las bandas oscuras, cuyo fondo no se imprime. */
+  .section--dark,
+  .section--dark .service-col__name,
+  .section--dark .service-col__desc,
+  .section--dark .service-col__more,
+  .section--dark .quote__text,
+  .section--dark .quote__by,
+  .section--dark .quote__by strong,
+  .section--dark .section__title { color: var(--ink); }
 
-  .doctor-card__photo,
-  .photo-card__photo {
-    position: static;
-    width: 100%;
-    height: 150px;
-    border-radius: var(--radius-tile);
-  }
+  .section--dark .quote__mark { color: var(--ink); }
 
-  .doctor-card__scrim,
-  .photo-card__scrim { display: none; }
-
-  .doctor-card__body,
-  .photo-card__body,
-  .photo-card__top {
-    position: static;
-    padding: 10px 0 0;
-    background: none;
-  }
-
-  .doctor-card__name,
-  .doctor-card__specialty,
-  .doctor-card__note,
-  .photo-card__name,
-  .photo-card__desc,
-  .photo-card__index { color: var(--ink); }
-
-  .doctor-card__note { border-top-color: rgba(18, 17, 14, .25); }
 }

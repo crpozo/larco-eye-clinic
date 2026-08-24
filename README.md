@@ -140,17 +140,13 @@ arranca sólo si el visitante no pidió menos movimiento ni ahorro de datos. El
 `poster` es un fotograma del propio video, así que el estado sin reproducir y
 el primer cuadro son la misma imagen.
 
-**Ritmo de secciones.** La página alterna a propósito para no leerse plana, según
-la referencia de Vyra Capital que el propio sitemap del cliente citaba. Las cifras
-van en una banda tintada (`#E9F1FA`) con un panel blanco único dividido por
-filetes —no cuatro tarjetas sueltas—, y Doctores rompe la retícula: encabezado a
-la izquierda, dos fichas verticales a la derecha y la segunda desplazada hacia
-abajo.
-
-`--space-section` bajó de `clamp(96px,12vw,160px)` a `clamp(64px,7vw,104px)`, y
-dos secciones del mismo color seguidas colapsan su aire compartido
-(`.section--page + .section--page`): 320px entre secciones contiguas, y luego
-208px de blanco idéntico, se leían como un hueco y no como un corte.
+**Estructura de la portada.** Sigue la referencia editorial del cliente:
+portada → bloque de datos → doctores socios → servicios (banda oscura) →
+artículos → testimonios (banda oscura). Las bandas oscuras alternan tinta y
+papel como la referencia; `.section--dark` redefine los tokens de texto y filete
+puertas adentro, así cualquier pieza que caiga en ella se resuelve sola. La
+galería de equipos y la intro salieron de la portada; los equipos siguen en
+`sobre-nosotros.html`.
 
 **Las divisiones del panel de cifras** salen del `gap: 1px` del grid sobre un
 fondo de color de filete, no de bordes por celda: así la retícula se divide sola
@@ -216,7 +212,7 @@ Todas implementadas, con el contenido del sitemap del cliente
 
 | Página | Qué tiene |
 | --- | --- |
-| `index.html` | Portada, cifras, doctores, servicios, casos, equipos, testimonios |
+| `index.html` | Portada, cifras, doctores, servicios, artículos, testimonios |
 | `sobre-nosotros.html` | Historia, misión y visión, equipo, instalaciones y equipos |
 | `consultas-examenes.html` | La consulta y los doce exámenes, en acordeón |
 | `especialidades.html` | Córnea, catarata, retina y vítreo, glaucoma, refractiva |

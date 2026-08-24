@@ -23,8 +23,8 @@ se deja el registro para poder dar crédito y para reponer el original.
 | `equipo-oct-triton.webp` | `mDCuzdHh_bw` | Carrusel · OCT Triton Plus |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Carrusel · Humphrey FA3 |
 | `equipo-laser-pascal.webp` | `IzvQ1R5I_Gw` | Carrusel · Láser Pascal 577 |
-| `intro-tecnologia.webp` | `aMmDIsdnUro` | Foto vertical de la sección de introducción |
-| `intro-doctor-paciente.webp` | `ibZ2QiKkEsg` | Foto pequeña superpuesta de la introducción |
+| `intro-tecnologia.webp` | `aMmDIsdnUro` | Sin uso desde el rediseño editorial (la intro salió de la portada); se conserva por si vuelve |
+| `intro-doctor-paciente.webp` | `ibZ2QiKkEsg` | Sin uso desde el rediseño editorial; se conserva por si vuelve |
 
 Página de origen: `https://unsplash.com/photos/<ID>`
 
