@@ -465,6 +465,16 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
     flex-direction: column;
     justify-content: center;
   }
+
+  /* El `margin: 0 auto` de .u-shell es un margen automático en el eje
+     transversal, y eso ANULA el estirado del ítem flex: la caja se queda al
+     ancho de su contenido y se centra. Con textos largos no se nota —el
+     contenido ya llena—, pero la banda de cifras encogía a 938 de 1344. El
+     ancho explícito lo devuelve al carril, y el max-width de .u-shell sigue
+     poniendo el tope. */
+  body[data-page="index"] main > section > .u-shell {
+    width: 100%;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -1349,7 +1359,7 @@ body.js [data-rev].is-pending {
 
 .stats-band__grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
 }
 
@@ -1367,43 +1377,51 @@ body.js [data-rev].is-pending {
 .figure__num {
   display: block;
   font-family: var(--font-serif-display);
-  font-size: clamp(40px, 4.4vw, 72px);
+  /* El numeral manda en la sección: es lo que se lee de lejos y el rótulo lo
+     explica debajo. Por eso llega casi al tamaño de un titular de sección. */
+  font-size: clamp(64px, 8.4vw, 132px);
   font-weight: var(--weight-display);
-  line-height: 1;
-  letter-spacing: var(--tracking-display);
+  line-height: .9;
+  letter-spacing: -.03em;
   color: var(--text-body);
   font-variant-numeric: tabular-nums;
 }
 
-.figure__suffix { color: var(--text-muted); }
+/* El afijo no compite con la cifra: la mitad de cuerpo y en tono secundario. */
+.figure__prefix,
+.figure__suffix {
+  font-size: .46em;
+  color: var(--text-muted);
+}
+
+.figure__prefix { margin-right: .06em; }
 
 .figure__label {
   display: block;
-  margin-top: 18px;
-  font-size: 14px;
+  margin-top: clamp(18px, 2vw, 28px);
+  max-width: 22ch;
+  font-size: var(--text-body-size);
   line-height: 1.5;
   color: var(--text-muted);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
   .stats-band__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     row-gap: var(--space-7);
   }
 
-  .figure:nth-child(odd) { padding-left: 0; border-left: 0; }
-  .figure:nth-child(even) { padding-right: 0; }
+  .figure {
+    padding: 0;
+    border-left: 0;
+  }
+
+  .figure__label { max-width: 34ch; }
 }
 
 @media (max-width: 560px) {
   .stats-band__title { text-indent: 0; }
-
-  .stats-band__grid {
-    grid-template-columns: 1fr;
-    row-gap: var(--space-5);
-  }
-
-  .figure { padding: 0; border-left: 0; }
+  .stats-band__grid { row-gap: var(--space-6); }
 }
 
 /* El pie: la columna de texto necesita cuerpo, si no la fila queda hueca. */
