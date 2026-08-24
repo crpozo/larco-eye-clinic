@@ -73,41 +73,44 @@ para `/assets/img/` y `/assets/fonts/`.
 
 ## Diseño
 
+Enfoque editorial monocromo, según la referencia que aprobó el cliente: negro
+cálido, papel roto y una retícula de filetes. **No hay color de acento.** Lo que
+distingue una cosa de otra es el contraste, el filete y el tamaño de la letra; el
+único color de la página es el logo de la clínica.
+
 Paleta en `assets/css/tokens.css`:
 
 | Token | Valor | Uso |
 | --- | --- | --- |
-| `--surface-page` | `#FFFFFF` | Fondo general, blanco puro |
-| `--surface-raised` | `#FFFFFF` | Paneles y superposiciones (menús, skip link) |
-| `--surface-card` | `#EEF4FB` | Tarjetas de contenido, con tinte azul |
-| `--border-card` | `#D2E0F0` | Filo de esas tarjetas |
-| `--surface-sunken` | `#F7FAFD` | Secciones alternas, apenas perceptible |
-| `--text-body` / `--petrol` | `#27285A` | Tinta petróleo |
-| `--brand-deep` | `#27285A` | Botón primario, tarjetas sobre foto |
-| `--accent` / `--teal` | `#4F8FCC` | Rellenos, botón flotante, filo de la miniatura activa |
-| `--accent-display` | `#4581BC` | El acento como texto grande (titulares) y anillo de foco |
-| `--accent-strong` | `#35659B` | El acento como texto chico (enlaces, hover) |
-| `--accent-light` | `#6FA6DB` | El acento como texto en tema oscuro |
-| `--mark` | `#459BF8` | Punto de 12px que abre cada titular, filete del enlace de Doctores y marca de comillas de los testimonios |
+| `--ink` | `#12110E` | Tinta y bandas oscuras. Negro cálido, no neutro |
+| `--ink-2` / `--ink-3` | `#1A1815` / `#232019` | Paneles sobre tinta |
+| `--paper` | `#F4F2ED` | Fondo general |
+| `--paper-2` | `#EBE8E1` | Secciones alternas y tarjetas |
+| `--text-muted` | tinta al 66% | Cuerpo secundario |
+| `--text-faint` | tinta al 60% | Número de sección, notas al pie |
+| `--border-hairline` | tinta al 16% | El filete que arma toda la retícula |
 
-El acento tiene varios pasos porque el mismo teal no puede ser relleno y texto
-legible de 13px a la vez: `--accent` se queda en 3,15:1 sobre el fondo, así que
-los titulares usan `--accent-display` y el texto chico `--accent-strong`. Los 42
-pares de color de la página pasan WCAG AA en ambos temas.
+Los tokens de acento (`--accent`, `--accent-display`, `--mark`…) siguen
+existiendo porque medio sitio los nombra, pero **todos resuelven a tinta**: así
+ninguna pieza vieja reintroduce color por la puerta de atrás.
 
-Es una clínica, así que el fondo es blanco puro y el color lo llevan las
-tarjetas: relleno `#EEF4FB` con filo `#D2E0F0`, como en la referencia que
-aprobó el cliente. Las secciones alternas van a `#F7FAFD`, lo justo para dar
-ritmo sin romper la lectura de blanco.
+`--text-faint` está en 60% y no más abajo porque es el suelo al que texto de
+11-13px llega a 4,5:1 sobre `--surface-card`, que es el peor de los dos fondos.
 
-El tema oscuro es el del mockup: `#13142E` de fondo, `#1B1C40` en tarjetas.
+**La retícula.** Cada sección abre con un filete a todo lo ancho y su número al
+margen. El número sale de un contador CSS y no del markup, así la numeración se
+mantiene sola cuando una sección se añade, se quita o se mueve, en las seis
+páginas a la vez.
+
+**Tipografía.** Display en **Instrument Serif** (SIL OFL, self-hosted, 21KB entre
+redonda y cursiva) sobre cuerpo en Montserrat. El contraste entre las dos es lo
+que sostiene el enfoque: el display va grande y muy justo de interlínea, el
+cuerpo pequeño y suelto. La frase secundaria de cada titular va en **cursiva** —
+es lo que hacía antes el color.
 
 ### Escalera de titulares
 
-Los tamaños salen de los tokens, no de valores sueltos en cada componente. A
-1440px: **64 / 54 / 46 / 25 / 19**.
-
-| Token | Uso |
+Los tamaños salen de los tokens, no de valores sueltos en cada componente. A 1440px: **104 / 76 / 60 / 30 / 21**, en Instrument Serif.
 | --- | --- |
 | `--text-display-xl` | Hero de la portada |
 | `--text-display` | Portada de las páginas interiores |

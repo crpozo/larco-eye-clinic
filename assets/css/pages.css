@@ -18,7 +18,7 @@
   min-height: 62vh;
   padding: 180px var(--grid-margin) var(--space-8);
   overflow: hidden;
-  background: #14181d;
+  background: var(--ink);
 }
 
 .page-hero__media {
@@ -39,7 +39,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(16, 18, 26, .45) 20%, rgba(16, 18, 26, .86));
+  background: linear-gradient(180deg, rgba(11, 10, 8, .45) 20%, rgba(11, 10, 8, .86));
 }
 
 .page-hero__inner {
@@ -55,8 +55,8 @@
   max-width: 14em;
   font-size: var(--text-display);
   line-height: 1.06;
-  color: var(--bone);
-  text-shadow: 0 2px 28px rgba(10, 11, 26, .6);
+  color: var(--paper);
+  text-shadow: 0 2px 28px rgba(11, 10, 8, .6);
 }
 
 .page-hero__lede {
@@ -64,8 +64,8 @@
   max-width: 46em;
   font-size: var(--text-body-lg);
   line-height: 1.6;
-  color: rgba(247, 246, 243, .8);
-  text-shadow: 0 2px 28px rgba(10, 11, 26, .6);
+  color: rgba(244, 242, 237, .8);
+  text-shadow: 0 2px 28px rgba(11, 10, 8, .6);
 }
 
 /* --------------------------------------------------------------------------
@@ -357,7 +357,7 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--accent-strong);
-  box-shadow: 0 0 0 3px rgba(79, 143, 204, .22);
+  box-shadow: 0 0 0 3px rgba(18, 17, 14, .22);
 }
 
 .form__actions {

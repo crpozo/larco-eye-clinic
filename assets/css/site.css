@@ -29,7 +29,7 @@
 body.is-solid .site-header {
   padding-top: 12px;
   padding-bottom: 12px;
-  color: var(--petrol);
+  color: var(--ink);
   background: var(--nav-scrolled-bg);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -271,13 +271,13 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: #14181d;
+  background: var(--ink);
 }
 
 .hero__media {
   position: absolute;
   inset: -8% 0;
-  background: linear-gradient(160deg, var(--gray-6) 0%, #1a2430 55%, var(--gray-5) 100%);
+  background: linear-gradient(160deg, var(--ink) 0%, var(--ink-3) 55%, var(--gray-5) 100%);
 }
 
 .hero__media img {
@@ -305,7 +305,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .hero__media-tint {
   position: absolute;
   inset: 0;
-  background: rgba(39, 40, 90, .45);
+  background: rgba(18, 17, 14, .45);
 }
 
 .hero__note {
@@ -315,13 +315,13 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   z-index: 2;
   font-size: 11px;
   letter-spacing: .12em;
-  color: rgba(247, 246, 243, .55);
+  color: rgba(244, 242, 237, .55);
 }
 
 .hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(16, 18, 26, .2) 30%, rgba(16, 18, 26, .82));
+  background: linear-gradient(180deg, rgba(11, 10, 8, .2) 30%, rgba(11, 10, 8, .82));
 }
 
 /* El tope y el padding van en el mismo elemento, así que el ancho máximo
@@ -345,14 +345,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .hero__title,
 .hero__title-alt,
-.hero__lede { text-shadow: 0 2px 28px rgba(10, 11, 26, .65); }
+.hero__lede { text-shadow: 0 2px 28px rgba(11, 10, 8, .65); }
 
 .hero__title {
   margin: 0;
   max-width: 8.5em;
   font-size: min(var(--text-display-xl), 8.5vh);
-  line-height: 1.08;
-  color: var(--bone);
+  line-height: var(--leading-display);
+  color: var(--paper);
 }
 
 .hero__title-alt {
@@ -362,10 +362,13 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   font-family: var(--font-serif-display);
   font-weight: var(--weight-display);
   font-size: min(var(--text-display-xl), 8.5vh);
-  letter-spacing: -0.01em;
-  line-height: 1.08;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
   text-align: right;
-  color: var(--accent);
+  /* Misma tinta que la primera mitad y en cursiva, como la frase secundaria de
+     cualquier titular: en monocromo la jerarquía la marca el corte, no el tono. */
+  font-style: italic;
+  color: var(--paper);
 }
 
 .hero__foot {
@@ -381,10 +384,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   max-width: 460px;
   font-size: var(--text-body-lg);
   line-height: 1.6;
-  color: rgba(247, 246, 243, .8);
+  color: rgba(244, 242, 237, .8);
 }
 
-.hero__lede span { color: rgba(247, 246, 243, .55); }
+.hero__lede span { color: rgba(244, 242, 237, .55); }
 
 .hero__actions {
   display: flex;
@@ -396,26 +399,51 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    Shared section furniture
    -------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------
+   Retícula editorial
+
+   Cada sección abre con un filete a todo lo ancho y su número al margen. El
+   número sale de un contador CSS y no del markup: así la numeración se mantiene
+   sola cuando una sección se añade, se quita o se mueve, en las seis páginas.
+   -------------------------------------------------------------------------- */
+
+main { counter-reset: seccion; }
+
+.section,
+.stats-band {
+  counter-increment: seccion;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.section::before,
+.stats-band::before {
+  content: counter(seccion, decimal-leading-zero);
+  position: absolute;
+  top: 20px;
+  left: var(--grid-margin);
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+
 .section {
   position: relative;
-  padding: var(--space-section) var(--grid-margin);
+  /* El aire de arriba tiene que alojar además la fila del número. */
+  padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
 }
 
 .section--sunken { background: var(--surface-sunken); }
 .section--page { background: var(--surface-page); }
-.section--ruled { border-top: 1px solid var(--border-hairline); }
 
-/* Dos secciones del mismo color seguidas apilan dos veces --space-section del
-   mismo fondo: 208px de blanco entre el pie de una y el título de la otra, que
-   no se leen como un corte sino como un hueco. Donde el color cambia, ese aire
-   se justifica —cada banda lleva el suyo—; donde no cambia, sobra la mitad, así
-   que la de abajo cede su margen superior. */
-.section--page + .section--page,
-.section--sunken + .section--sunken { padding-top: 0; }
+/* Todas llevan filete ya; el modificador se queda sin trabajo pero sigue en el
+   markup de las seis páginas, así que no rompe nada dejarlo inerte. */
+.section--ruled { border-top-width: 1px; }
 
-/* Salvo si hay filete: la línea necesita aire a los dos lados para leerse. */
-.section--page + .section--page.section--ruled,
-.section--sunken + .section--sunken.section--ruled { padding-top: var(--space-section); }
+/* El colapso de aire entre secciones del mismo color se fue con el enfoque
+   anterior: ahora todas llevan filete arriba, así que el corte se lee aunque el
+   fondo no cambie y cada una conserva su margen. */
 
 /* El eyebrow y el h2 son una sola unidad: sin esto cada uno se vuelve una
    celda del flex/grid del encabezado y el titular se desalinea. */
@@ -592,7 +620,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 33px;
 }
 
 /* Aquí el titular va a dos líneas, así que el punto deja de ser un carácter
@@ -600,21 +627,6 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
    bloque entero. Las dos líneas arrancan del mismo eje. El sangrado de 33px es
    el mismo que el punto ocupa en línea (17px de los dos círculos + 16 de
    margen), así que el texto cae donde caía. */
-.doctors__title { position: relative; }
-
-/* `top:50% + translateY(-50%)` centraba la CAJA de .dots, que es inline-block y
-   mide una línea entera del titular; los círculos se apoyan en su baseline, así
-   que quedaban 6px por debajo del centro y el punto se leía pegado a «socios».
-   Estirando la caja de arriba abajo y centrando en flex se centra la tinta. */
-.doctors__title .dots {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -33px;
-  display: flex;
-  align-items: center;
-  margin: 0;
-}
 
 /* El titular va a dos líneas: es lo que fija el mockup y lo que deja sitio al
    punto colgante, que se centra sobre el bloque entero. */
@@ -816,7 +828,7 @@ body[data-page="contactanos"] .footer__mid { display: none; }
   border: 3px solid var(--surface-raised);
   border-radius: var(--radius-pill);
   background: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(39, 40, 90, .45);
+  box-shadow: 0 2px 8px rgba(18, 17, 14, .45);
 }
 
 .footer__mapnote {
@@ -1197,8 +1209,8 @@ body.js [data-rev].is-pending {
 
 .stats-band {
   position: relative;
-  padding: var(--space-section) var(--grid-margin);
-  background: #E9F1FA;
+  padding: calc(var(--space-section) + 30px) var(--grid-margin) var(--space-section);
+  background: var(--paper-2);
   color: var(--text-body);
 }
 
@@ -1336,7 +1348,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 .equipos__thumb:hover { opacity: 1; }
 
 .equipos__thumb.is-active {
-  border-color: var(--petrol);
+  border-color: var(--ink);
   opacity: 1;
 }
 
@@ -1548,9 +1560,9 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
   .hero__title,
   .hero__lede,
-  .hero__lede span { color: #27285A; text-shadow: none; }
+  .hero__lede span { color: var(--ink); text-shadow: none; }
 
-  .hero__title-alt { color: #35659B; text-shadow: none; }
+  .hero__title-alt { color: var(--ink); text-shadow: none; }
 
   /* En papel no hay scroll que dispare el observador de reveals, así que todo
      lo que no llegó a entrar en pantalla antes de imprimir sigue en opacity:0
@@ -1584,7 +1596,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
 
   .figure {
     padding: 12px 0;
-    border-top: 1px solid #C6C6CE;
+    border-top: 1px solid var(--gray-3);
     break-inside: avoid;
   }
 
@@ -1627,7 +1639,7 @@ body.lv-dark .stats-band { background: var(--surface-sunken); }
   .doctor-card__note,
   .photo-card__name,
   .photo-card__desc,
-  .photo-card__index { color: #27285A; }
+  .photo-card__index { color: var(--ink); }
 
-  .doctor-card__note { border-top-color: rgba(39, 40, 90, .25); }
+  .doctor-card__note { border-top-color: rgba(18, 17, 14, .25); }
 }
