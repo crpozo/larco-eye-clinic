@@ -98,6 +98,16 @@ body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
   color: inherit;
 }
 
+/* Con el header transparente el nav vive sobre foto oscura: el hover global
+   (tinta atenuada) lo hacía desaparecer. Sobre el hero se atenúa hacia papel;
+   con el header sólido, hacia tinta. */
+.nav__link:hover { color: var(--text-muted); }
+
+body:not(.is-solid):not(.nav-open) .site-header .nav__link:hover,
+body:not(.is-solid):not(.nav-open) .site-header .nav__tool:hover {
+  color: rgba(244, 242, 237, .72);
+}
+
 /* El subrayado va en un ::after posicionado y no como border: si engorda la
    caja del enlace, el nav —que centra verticalmente— sube ese texto respecto
    de sus hermanos. Así el texto no se mueve y la línea baja donde queramos. */
@@ -150,7 +160,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: inherit;
 }
 
-.nav__tool:hover { color: var(--accent-strong); }
+.nav__tool:hover { color: var(--text-muted); }
 
 /* ---- dropdown menus ------------------------------------------------------ */
 
@@ -201,7 +211,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--text-body);
 }
 
-.menu__item:hover .menu__item-title { color: var(--accent-strong); }
+.menu__item:hover .menu__item-title { color: var(--text-muted); }
 
 .menu__item-note {
   display: block;
@@ -230,7 +240,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--text-body);
 }
 
-.menu__col a:hover .menu__col-title { color: var(--accent-strong); }
+.menu__col a:hover .menu__col-title { color: var(--text-muted); }
 
 .menu__sublinks {
   display: grid;
@@ -243,7 +253,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--text-muted);
 }
 
-.menu__sublinks a:hover { color: var(--accent-strong); }
+.menu__sublinks a:hover { color: var(--text-muted); }
 
 .menu__toggle { display: none; }
 
@@ -336,22 +346,41 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 .hero__title,
-.hero__lede { text-shadow: 0 2px 28px rgba(11, 10, 8, .65); }
+.hero__lede {
+  margin: 0;
+  max-width: 340px;
+  font-size: var(--text-small);
+  line-height: 1.65;
+  color: rgba(244, 242, 237, .82);
+}
 
-/* El titular llena el ancho, como en la referencia. La sangría francesa
-   —padding que la primera línea descuenta con text-indent negativo— produce el
-   escalonado: la primera línea arranca en el margen y las siguientes entran
-   7vw, sin partir líneas a mano ni depender de dónde rompa el texto. */
+/* El encaje con el titular: el párrafo sube un renglón de display y ocupa el
+   hueco a la izquierda de «del mañana». `top` relativo y no margen negativo,
+   para que la barra de abajo no suba con él; el margin-bottom devuelve el
+   hueco que el párrafo deja libre. */
+.hero__lede {
+  position: relative;
+  top: calc((min(clamp(56px, 9.6vw, 148px), 17vh) * .62 + clamp(24px, 4.5vh, 48px)) * -1);
+  margin-bottom: calc((min(clamp(56px, 9.6vw, 148px), 17vh) * .62 + clamp(24px, 4.5vh, 48px)) * -1);
+  max-width: clamp(240px, 26vw, 340px);
+}
+
 .hero__title {
   margin: 0;
   max-width: none;
-  padding-left: 7vw;
-  text-indent: -7vw;
   font-size: min(clamp(56px, 9.6vw, 148px), 17vh);
   line-height: .96;
   letter-spacing: -.025em;
   color: var(--paper);
 }
+
+/* Los saltos de línea son de diseño, no del ancho: como en la referencia, las
+   dos primeras líneas arrancan en el margen y la última se va a la derecha,
+   dejando a su izquierda el hueco donde se encaja el párrafo. La composición
+   aguanta porque la letra se mide en vw: si cabe a 1440, cabe a 900. En
+   estrecho las líneas vuelven a ser texto corrido. */
+.hero__title-line { display: block; }
+.hero__title-line--end { text-align: right; }
 
 
 
@@ -371,7 +400,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: rgba(244, 242, 237, .82);
 }
 
-.hero__lede span { color: rgba(244, 242, 237, .55); }
+.hero__lede span { color: inherit; }
 
 .hero__actions {
   display: flex;
@@ -383,7 +412,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .hero__actions .btn {
   flex: 1 1 100%;
   padding: 20px 24px;
-  background: rgba(244, 242, 237, .16);
+  background: rgba(244, 242, 237, .24);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   color: var(--paper);
@@ -405,6 +434,26 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .hero__actions .btn:hover {
   background: rgba(244, 242, 237, .28);
   color: var(--paper);
+}
+
+/* --------------------------------------------------------------------------
+   Portada como baraja — scroll-snap de sección en sección
+
+   Sólo la portada y sólo en escritorio: en las interiores el snap pelearía con
+   el formulario y los acordeones, y en móvil las secciones son más altas que
+   la pantalla y el imán se siente como arena en el scroll. Las secciones más
+   altas que el viewport se recorren libres por dentro; el imán actúa en los
+   bordes, que es el comportamiento del snap con áreas grandes.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1025px) {
+  html:has(body[data-page="index"]) { scroll-snap-type: y mandatory; }
+
+  body[data-page="index"] main > section,
+  body[data-page="index"] .site-footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -432,14 +481,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 body:not(.is-solid) .site-header .btn {
-  background: rgba(18, 17, 14, .42);
+  background: rgba(244, 242, 237, .22);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   color: var(--paper);
 }
 
 body:not(.is-solid) .site-header .btn:hover {
-  background: rgba(18, 17, 14, .62);
+  background: rgba(244, 242, 237, .34);
   color: var(--paper);
 }
 
@@ -1196,11 +1245,14 @@ body.js [data-rev].is-pending {
 
   .hero__title {
     max-width: none;
-    /* En columna estrecha el escalonado come demasiado ancho. */
-    padding-left: 0;
-    text-indent: 0;
     font-size: clamp(40px, 12vw, 64px);
   }
+
+  /* En columna estrecha no hay hueco que encajar: líneas corridas y párrafo
+     en su sitio. */
+  .hero__title-line { display: inline; }
+  .hero__title-line--end { text-align: inherit; }
+  .hero__lede { position: static; top: 0; margin-bottom: 0; max-width: 340px; }
 
   .hero__foot {
     flex-direction: column;
