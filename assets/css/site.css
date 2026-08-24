@@ -1431,21 +1431,21 @@ body.js [data-rev].is-pending {
 /* ---- cifras: sección clara con cuatro tarjetas ------------------------- */
 
 /* El fondo de la referencia, todo en CSS y sin una imagen que descargar: una
-   base azul noche (#010027) que cae a negro, una luz difusa arriba a la
-   izquierda, la rejilla de filetes que estructura la banda, y grano de película
+   base verde-oliva desaturada que cae a negro y una luz difusa arriba a la
+   izquierda —blanca y no amarilla, para que el verde no tire a mostaza—, la rejilla de filetes que estructura la banda, y grano de película
    por encima —una turbulencia SVG en línea, que es lo único que da ruido sin
    pedir un archivo—. El orden importa: el grano va primero en la lista para
    quedar ARRIBA del todo. */
 .stats-band {
   position: relative;
   padding: var(--space-section) var(--grid-margin);
-  background-color: #010027;
+  background-color: #12150E;
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
     linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    radial-gradient(100% 70% at 16% 3%, rgba(74, 88, 158, .07), transparent 54%),
-    linear-gradient(158deg, #030415 0%, #01000D 52%, #000004 100%);
+    radial-gradient(115% 85% at 14% 4%, rgba(234, 240, 228, .15), transparent 60%),
+    linear-gradient(158deg, #272D22 0%, #161A12 50%, #080906 100%);
   background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%;
   background-blend-mode: overlay, normal, normal, screen, normal;
 }
