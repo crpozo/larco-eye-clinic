@@ -49,9 +49,12 @@ deben sustituirse antes de cualquier publicación.
 
 ## Sin uso ahora mismo
 
-Las cinco portadas de página (`hero-sobre`, `hero-casos`, `hero-consultas`,
-`hero-especialidades`, `hero-contacto`) quedaron sin usar cuando las interiores
-pasaron a llevar el mismo banner que la home. Se conservan por si se quiere
+Las portadas de página `hero-sobre`, `hero-casos` y `hero-consultas` quedaron
+sin usar cuando las interiores pasaron a llevar el mismo banner que la home;
+`hero-especialidades` y `hero-contacto` se reciclaron para las filas de
+artículos, que van en color. Las tres fotos de caso (`caso-queratocono`,
+`caso-catarata`, `caso-retina`) salieron de ahí por lo mismo: son blanco y
+negro de origen, con saturación cero, así que no había forma de darles color. Se conservan por si se quiere
 volver a una foto distinta por página. Igual `dra-ana-larco.webp`, de la ficha
 que se retiró, y `cirugias.webp` y `consultas.webp`: la sección de servicios
 sigue la referencia del cliente, donde sólo una de las tarjetas lleva foto.

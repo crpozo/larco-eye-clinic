@@ -597,6 +597,10 @@ body.nav-open .site-header .btn:hover {
 .section--sunken { background: var(--surface-sunken); }
 .section--page { background: var(--surface-page); }
 
+/* Blanco puro, no el papel del resto: en esta sección las fotos van en color y
+   el blanco las deja respirar sin el tinte cálido de --surface-page. */
+.section--white { background: #FFFFFF; }
+
 /* Banda a sangre en tinta, como alterna la referencia. Redefine los tokens de
    texto y filete puertas adentro: así el número de sección, los hairlines y
    todo lo que viva aquí se resuelve solo, sin variantes --dark de cada pieza. */
@@ -617,20 +621,12 @@ body.nav-open .site-header .btn:hover {
 
 .section--dark a { color: var(--dark-text); }
 
-/* Azul noche casi plano, con un realce diagonal muy leve: es la muestra que
-   pasó el cliente. Ya no continúa el degradado de la banda de cifras —esa
-   continuidad la sustituye este fondo propio—, pero conserva la rejilla y el
-   grano en la misma escala para que la retícula no se corte entre secciones. */
-.section--night {
-  background-color: #04001A;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
-    linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    linear-gradient(28deg, #03000F 0%, #050020 46%, #04001A 72%, #02000C 100%);
-  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%;
-  background-blend-mode: overlay, normal, normal, normal;
-}
+/* Negro casi plano, el color que pasó el cliente. Lo comparten servicios y
+   doctores: son las dos bandas que enmarcan a la de cifras, y planas dejan que
+   el degradado de aquélla sea lo único que llama la atención. Sin rejilla ni
+   grano a propósito —la muestra es lisa—, y por eso los paneles de servicio, un
+   punto más oscuros, se despegan del fondo. */
+.section--night { background: #0D0D0B; }
 .section--dark a:hover { color: var(--text-muted); }
 
 /* Con el tema oscuro activo la página entera es tinta: la banda se distingue
@@ -921,7 +917,8 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1);
+  /* En color, a diferencia del resto de la fotografía del sitio: esta sección
+     va sobre blanco y las fotos son el único color de la página. */
 }
 
 /* --------------------------------------------------------------------------
