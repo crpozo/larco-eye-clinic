@@ -46,10 +46,25 @@ body.is-solid.lv-dark .site-header { color: var(--dark-text); }
    header nace en su versión clara: letra marino, logo a color y un filete
    abajo, sin relleno. Las interiores conservan la portada fotográfica y con
    ella el header blanco traslúcido. */
-body[data-page="index"]:not(.is-solid):not(.lv-dark) .site-header {
-  color: var(--text-body);
+/* En la portada el header ya NO flota sobre el banner: el banner dejó de ser
+   una foto oscura a pantalla completa y pasó a un partido con la foto pegada
+   al borde derecho, así que el menú caía encima de ella —"Casos Clínicos" y
+   "Contáctanos" quedaban en marino sobre el instrumental—. Aquí es una barra
+   más, en flujo, con su filete abajo. Las interiores conservan su portada
+   fotográfica y con ella el header flotante. */
+body[data-page="index"] .site-header {
+  /* `relative` y no `static`: en flujo igual, pero sin posicionar el z-index
+     no aplica y el hero pintaba por encima del desplegable, que salía cortado
+     a la altura del filete. */
+  position: relative;
+  z-index: 60;
+  background: var(--surface-page);
   border-bottom: 1px solid var(--border-hairline);
 }
+
+body[data-page="index"]:not(.lv-dark) .site-header { color: var(--text-body); }
+
+body[data-page="index"].lv-dark .site-header { color: var(--text-body); }
 
 
 /* Mismo mecanismo que .u-shell: la sección pone el margen y el interior pone
@@ -213,9 +228,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .menu__inner {
   width: 300px;
   padding: 12px 0;
-  /* Blanco puro, no el papel del resto: el panel flota sobre la foto del hero
-     y en crema se leía sucio. */
-  background: #FFFFFF;
+  /* Token y no #FFFFFF a pelo: en claro resuelve a blanco puro —que es lo que
+     pide un panel flotante— y en oscuro a pizarra. En blanco fijo, el
+     desplegable salía como un rectángulo blanco en mitad del hero oscuro. */
+  background: var(--surface-raised);
   border: 1px solid var(--border-hairline);
   box-shadow: var(--shadow-float);
 }
@@ -293,44 +309,31 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Hero — el banner del board azul
+   Hero — banner partido: texto sobre papel y la foto a sangre por la derecha
 
-   Sin fotografía: papel, dos filetes verticales que enseñan la retícula y un
-   bloque de texto centrado con el titular partido en dos tonos. La foto del
-   ojo que había antes sigue en uso en las portadas de las interiores.
+   Ya no ocupa una pantalla entera: mide lo que pide su contenido con un tope
+   cómodo. La foto va entera y sin velo —a media página el texto no la pisa, así
+   que no hay nada que atenuar— y el filete vertical marca la juntura, que es lo
+   que queda de la retícula del board.
    -------------------------------------------------------------------------- */
 
 .hero {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 44%;
+  align-items: stretch;
+  min-height: clamp(460px, 52vw, 660px);
   overflow: hidden;
   background: var(--surface-page);
 }
 
-/* Los dos filetes del board, simétricos respecto al centro. Van en un
-   pseudo-elemento y no en el fondo de .hero para que no hereden el relleno de
-   la sección: tienen que llegar de borde a borde. */
-.hero__rules {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--border-hairline), var(--border-hairline)) 17% 0 / 1px 100% no-repeat,
-    linear-gradient(var(--border-hairline), var(--border-hairline)) 83% 0 / 1px 100% no-repeat;
-}
-
 .hero__inner {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  padding: calc(var(--header-h, 88px) + 6vh) var(--grid-margin) 8vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(48px, 7vw, 96px) clamp(28px, 4vw, 64px) clamp(48px, 7vw, 96px) var(--grid-margin);
 }
 
-.hero__text { width: min(880px, 100%); }
+.hero__text { width: min(620px, 100%); }
 
 .hero__title {
   margin: 0;
@@ -341,8 +344,8 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 .hero__lede {
-  margin: clamp(20px, 3.4vh, 34px) 0 0;
-  max-width: 46ch;
+  margin: clamp(18px, 2.6vw, 30px) 0 0;
+  max-width: 42ch;
   font-size: var(--text-body-lg);
   line-height: var(--leading-body);
   color: var(--text-muted);
@@ -352,7 +355,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: clamp(26px, 4.4vh, 44px);
+  margin-top: clamp(24px, 3.2vw, 40px);
 }
 
 .hero__actions .btn {
@@ -364,17 +367,17 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   text-transform: uppercase;
 }
 
-/* El relleno del hero es el azul claro, no el marino: en el board el botón
-   principal es el acento y el marino se reserva para la letra. */
+/* La etiqueta usa --accent-ink, no blanco fijo: en oscuro el relleno pasa a
+   azul claro y el blanco encima se quedaba en 2:1. */
 .hero__actions .btn--primary {
-  background: var(--accent);
-  color: #FFFFFF;
+  background: var(--accent-strong);
+  color: var(--accent-ink);
 }
 
-.hero__actions .btn--primary:hover { background: var(--accent-hover); }
+.hero__actions .btn--primary:hover { background: var(--ink); }
 
 .hero__actions .btn--outline {
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-strong);
   color: var(--accent-strong);
 }
 
@@ -383,122 +386,57 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--accent-strong);
 }
 
-@media (max-width: 760px) {
-  .hero__rules { display: none; }
+.hero__media {
+  position: relative;
+  border-left: 1px solid var(--border-hairline);
+  background: var(--paper-2);
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* La cara del cirujano está a la derecha del encuadre; sin esto, el recorte
+     de una columna estrecha se queda con el sillón del fondo. */
+  object-position: 62% 50%;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .hero__media {
+    order: -1;
+    aspect-ratio: 16 / 10;
+    border-left: 0;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .hero__inner { padding: clamp(36px, 8vw, 56px) var(--grid-margin); }
 }
 
 /* --------------------------------------------------------------------------
-   Portada como baraja — scroll-snap de sección en sección
+   Ritmo de la página — scroll normal
 
-   Sólo la portada y sólo en escritorio: en las interiores el snap pelearía con
-   el formulario y los acordeones, y en móvil las secciones son más altas que
-   la pantalla y el imán se siente como arena en el scroll. Las secciones más
-   altas que el viewport se recorren libres por dentro; el imán actúa en los
-   bordes, que es el comportamiento del snap con áreas grandes.
+   Aquí vivía el scroll por pantallas completas: cada sección medía un viewport
+   y el scroll saltaba de una a otra. Se retiró a petición del cliente. Con él
+   se va toda la maquinaria que existía sólo para que el contenido cupiera en
+   una pantalla —topes de alto sobre fotos, formularios apretados, el acordeón
+   partido por altura—: sin la restricción, cada sección mide lo que pide su
+   contenido y el aire vuelve a ser el del ritmo editorial, no el sobrante de
+   una pantalla a medio llenar.
+
+   Lo que SÍ se queda de aquella etapa es lo que mejoraba el diseño por sí
+   mismo: el acordeón a dos columnas y el párrafo del bloque partido centrado
+   contra su foto.
    -------------------------------------------------------------------------- */
 
 @media (min-width: 1025px) {
-  html { scroll-snap-type: y mandatory; }
-
-  main > section,
-  .site-footer { scroll-snap-align: start; }
-
-  /* `always` sólo en la portada, donde cada sección mide exactamente un
-     viewport: obliga a parar en cada una. En las interiores hay secciones más
-     altas que la pantalla —el acordeón de doce exámenes, el formulario— y ahí
-     forzar la parada atraparía al visitante dentro de una sección larga. Sin
-     él, el imán actúa en los bordes y por dentro se recorre libre. */
-  body[data-page="index"] main > section,
-  body[data-page="index"] .site-footer { scroll-snap-stop: always; }
-
-  /* Cada sección llena la pantalla y centra su contenido: si no, la siguiente
-     asoma por abajo y el imán del snap se pelea con lo que ya se ve. `min` y no
-     `height`, para que una sección con más contenido del que cabe crezca y se
-     recorra por dentro en vez de recortarse. */
-
-  /* El `margin: 0 auto` de .u-shell es un margen automático en el eje
-     transversal, y eso ANULA el estirado del ítem flex: la caja se queda al
-     ancho de su contenido y se centra. Con textos largos no se nota —el
-     contenido ya llena—, pero la banda de cifras encogía a 938 de 1344. El
-     ancho explícito lo devuelve al carril, y el max-width de .u-shell sigue
-     poniendo el tope. */
-
-  /* --space-section se mide en ANCHURA, así que en una ventana ancha y baja
-     reservaba 115px arriba y abajo aunque no sobrara alto. Con la sección
-     clavada a un viewport el relleno tiene que ceder con la altura: 8vh por
-     lado, y el valor de siempre como techo para que en pantallas altas el
-     ritmo no cambie. */
-  /* El hero se excluye: ya trae su propio relleno calculado contra la altura y
-     su .hero__inner mide un viewport; sumarle éste lo empujaba 130px fuera. */
-  main > section:not(.hero):not(.page-hero) {
-    padding-block: min(var(--space-section), 7vh);
-  }
-
-  /* Las secciones de las interiores también llenan la pantalla y centran su
-     contenido; las que traen más de lo que cabe crecen y se recorren por
-     dentro, que es justo lo que `min-height` permite y `height` no. */
-  main > section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  main > section > .u-shell { width: 100%; }
-
-  /* La foto es lo único elástico que queda: su alto sale de la relación de
-     aspecto y en pantallas bajas empujaba la sección 130px por debajo del
-     corte. El tope la ata al alto disponible —la pantalla menos el relleno,
-     que ya es proporcional, menos el texto que va debajo— y sólo actúa cuando
-     hace falta: en una pantalla alta el alto natural es menor y manda la
-     relación de aspecto. Las constantes salen de medir el bloque de texto de
-     cada ficha, no de tantear. El suelo evita que una ventana muy baja deje
-     una tira. */
-  /* Las filas de artículo también ceden con la altura: relleno proporcional y
-     el extracto acotado a dos líneas. Sólo aquí — en móvil y en las interiores
-     la fila crece con su texto y se lee entero. */
-
-  /* ------------------------------------------------------------------
-     Que la sección quepa: cede lo elástico, nunca el texto
-
-     Con la sección clavada a un viewport, lo que se sale siempre es lo
-     mismo: una foto que impone su relación de aspecto. El alto que queda
-     para el contenido es la pantalla menos el relleno —que ya es
-     proporcional a la altura—, y de ahí se descuenta la cabecera.
-     ------------------------------------------------------------------ */
-  main > section { --fit: calc(100vh - 2 * min(var(--space-section), 7vh)); }
-
-  /* La foto del bloque partido medía 702px en un viewport de 705 y empujaba
-     la sección 240px por debajo del corte: era la de Catarata saliéndose por
-     abajo. El tope la ata al alto disponible menos la cabecera y su
-     separación (130px medidos, no tanteados). En una pantalla alta el alto
-     natural es menor y sigue mandando la relación de aspecto. */
-  /* Alto explícito y no un tope: la foto lleva `height: 100%` y con el padre
-     en auto un simple max-height dejaba el porcentaje sin contra qué medir —
-     caía al suelo de 320px y la foto quedaba en una tira—. Con el alto fijado
-     aquí, el 100% resuelve y `object-fit: cover` recorta como debe. */
-  .split__media { height: clamp(320px, calc(var(--fit) - 130px), 720px); }
-
-  /* El párrafo del bloque partido son cuatro líneas contra una foto de 535:
-     arriba del todo dejaba medio panel vacío. Centrado contra la foto, la
-     página deja de tener un agujero en la mitad izquierda. */
-  /* `main > section` y no `.split` a secas: pages.css carga después y su
-     `align-items: start` ganaba por orden, no por peso. */
-  main > section .split { align-items: center; }
-
-  /* La fila de fichas de equipo se quedaba en 396px dentro de una pantalla de
-     792 y sobraba medio viewport. Crecen hasta llenar el alto disponible —el
-     mismo valor en las dos paradas, para que las ocho se vean del mismo
-     tamaño— con un techo para que en pantallas altas no se estiren. */
-  #equipos-diagnostico .card--wide,
-  #equipos-diagnostico-2 .card--wide {
-    min-height: min(520px, calc(var(--fit) - 105px));
-  }
-
-  /* Doce exámenes en una columna son 949px y sólo hay 408. En dos columnas
-     que se llenan por vertical —1 a 6 a la izquierda, 7 a 12 a la derecha—
-     son seis filas, y el aire de cada fila baja de 44 a 32 para que entren.
-     El texto no encoge; lo que encoge es el hueco. */
+  /* Doce exámenes en una columna son una lista de casi mil píxeles. A dos
+     columnas que se llenan por vertical —1 a 6 a la izquierda, 7 a 12 a la
+     derecha— se abarcan de un vistazo. */
   #examenes .accordion {
     display: grid;
     grid-auto-flow: column;
@@ -506,75 +444,10 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
     column-gap: var(--space-8);
   }
 
-  #examenes .accordion__trigger { padding-block: clamp(11px, 1.9vh, 16px); }
-
-  /* ------------------------------------------------------------------
-     Los últimos pixeles, sólo en pantallas bajas
-
-     En 1366x700 —613px de alto útil— cuatro secciones se pasaban entre 3 y
-     36px. Todo lo que sigue son huecos, no letras: relleno de fichas, aire
-     entre términos, alto del área de mensaje. Los valores se miden en vh, así
-     que en una pantalla normal devuelven el número de siempre y no cambia
-     nada; sólo ceden cuando el alto aprieta.
-     ------------------------------------------------------------------ */
-  #equipo .person { padding: clamp(14px, 2.6vh, 24px); }
-  #equipo .person__meta dt { margin-top: clamp(5px, 1.1vh, 10px); }
-  #equipo .person__role { margin-bottom: clamp(6px, 1.6vh, 14px); }
-
-  #casos .card__media { height: min(clamp(160px, 18vw, 220px), 11vh); }
-  #casos .card__title { font-size: clamp(17px, 1.4vw, 20px); }
-
-  /* Las dos fichas de doctor se miden contra el alto: su columna de texto es
-     lo que manda y con Space Grotesk el nombre pide más línea que el serif que
-     había, así que la sección se pasaba 85px. El retrato, con object-fit, se
-     recorta solo. */
-  #doctores .doc { height: min(520px, calc(var(--fit) - 190px)); }
-
-  /* La fila de artículo cede su aire —no su texto— cuando la pantalla es
-     baja. */
-  #articulos .article-row { padding-block: clamp(12px, 2.2vh, 30px); }
-
-
-  #formulario .field { gap: clamp(4px, 1.1vh, 8px); }
-  #formulario .field input,
-  #formulario .field select,
-  #formulario .field textarea { padding-block: clamp(7px, 1.6vh, 14px); }
-  /* Alto fijado, no un mínimo: el área de mensaje trae rows="6" y eso es un
-     alto INTRÍNSECO —min-height le pone un suelo, no un techo—. */
-  #formulario .field textarea { min-height: 0; height: min(140px, 10vh); }
-
-  /* La separación bajo la cabecera es un clamp de ANCHURA —4,5vw— y en una
-     ventana ancha y baja se llevaba 65px de un alto que no sobraba. El mismo
-     defecto que ya tenía --space-section. Cede con la altura hasta el suelo
-     que el propio clamp declara aceptable, 40px, y ni un pixel por debajo. */
-  main > section:not(.section--coda) .section-head,
-  main > section:not(.section--coda) .head-split {
-    margin-bottom: min(clamp(40px, 4.5vw, 68px), 4.5vh);
-  }
-
-  /* La foto de la ficha se mide en ANCHURA (18vw), así que en una ventana
-     ancha y baja se llevaba 220px de un alto que no sobraba. El segundo
-     término la hace ceder con la altura. */
-  /* El formulario se pasaba 116px. Sale de tres sitios a la vez, ninguno
-     de ellos el tamaño de letra: el aire entre campos, el relleno de cada
-     control y el alto mínimo del área de texto. */
-  #formulario .form { gap: clamp(9px, 1.8vh, 20px) var(--grid-gutter); }
-  #formulario .form__actions { gap: clamp(10px, 1.6vh, 20px); }
-
-  /* ------------------------------------------------------------------
-     Las secciones de cierre se miden por su contenido
-
-     Una banda de cita mide 284px. Clavada a un viewport quedaba flotando en
-     420px de vacío —el hueco que señaló el cliente—. Estas secciones dejan
-     de forzar la pantalla completa y comparten pantalla con el pie: el imán
-     sigue parando en ellas, pero ya no hay agujero.
-     ------------------------------------------------------------------ */
-  main > section.section--coda {
-    min-height: 0;
-    padding-block: min(var(--space-section), 10vh);
-  }
-
-
+  /* El párrafo del bloque partido son cuatro líneas contra una foto alta:
+     arriba del todo dejaba medio panel vacío. `main > section` y no `.split` a
+     secas porque pages.css carga después y ganaba por orden, no por peso. */
+  main > section .split { align-items: center; }
 }
 
 /* --------------------------------------------------------------------------
@@ -815,7 +688,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   gap: var(--space-6);
   /* Alto elástico: la sección va clavada a un viewport, así que la tarjeta se
      mide contra la altura y no contra un valor fijo. */
-  min-height: max(340px, calc(84vh - 210px));
+  min-height: clamp(380px, 34vw, 520px);
   padding: 0;
   overflow: hidden;
   /* Pizarra plana en reposo, como en el board: las tres tarjetas iguales y sin
@@ -1132,7 +1005,8 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
    -------------------------------------------------------------------------- */
 
 .site-footer {
-  background: #FFFFFF;
+  /* Mismo caso que el desplegable: blanco en claro, pizarra en oscuro. */
+  background: var(--surface-raised);
   border-top: 1px solid var(--border-hairline);
   padding: 0 var(--grid-margin);
 }
@@ -1325,7 +1199,7 @@ body.js [data-rev].is-pending {
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 8px var(--grid-margin) max(28px, env(safe-area-inset-bottom));
-    background: #FFFFFF;
+    background: var(--surface-raised);
     border-bottom: 1px solid var(--border-hairline);
     box-shadow: var(--shadow-float);
     color: var(--text-body);
@@ -2025,7 +1899,7 @@ body.js [data-rev].is-pending {
   display: flex;
   align-items: center;
   scroll-snap-align: start;
-  min-height: min(620px, calc(84vh - 40px));
+  min-height: clamp(420px, 40vw, 600px);
   overflow: hidden;
   background: var(--ink-2);
 }

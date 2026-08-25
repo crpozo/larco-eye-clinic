@@ -107,11 +107,15 @@
   background: var(--tile-empty);
 }
 
+/* Alto acotado y explícito: sin él la foto impone su relación de aspecto y en
+   una columna ancha se va a 700px, más alta que todo el texto que acompaña.
+   Con el alto fijado, `height: 100%` de la imagen resuelve y `cover` recorta. */
+.split__media { height: clamp(320px, 30vw, 480px); }
+
 .split__media img {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 320px;
   object-fit: cover;
 }
 
