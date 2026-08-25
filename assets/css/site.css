@@ -490,7 +490,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   /* El hero se excluye: ya trae su propio relleno calculado contra la altura y
      su .hero__inner mide un viewport; sumarle éste lo empujaba 130px fuera. */
   main > section:not(.hero):not(.page-hero) {
-    padding-block: min(var(--space-section), 8vh);
+    padding-block: min(var(--space-section), 7vh);
   }
 
   /* Las secciones de las interiores también llenan la pantalla y centran su
@@ -531,6 +531,110 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* ------------------------------------------------------------------
+     Que la sección quepa: cede lo elástico, nunca el texto
+
+     Con la sección clavada a un viewport, lo que se sale siempre es lo
+     mismo: una foto que impone su relación de aspecto. El alto que queda
+     para el contenido es la pantalla menos el relleno —que ya es
+     proporcional a la altura—, y de ahí se descuenta la cabecera.
+     ------------------------------------------------------------------ */
+  main > section { --fit: calc(100vh - 2 * min(var(--space-section), 7vh)); }
+
+  /* La foto del bloque partido medía 702px en un viewport de 705 y empujaba
+     la sección 240px por debajo del corte: era la de Catarata saliéndose por
+     abajo. El tope la ata al alto disponible menos la cabecera y su
+     separación (130px medidos, no tanteados). En una pantalla alta el alto
+     natural es menor y sigue mandando la relación de aspecto. */
+  /* Alto explícito y no un tope: la foto lleva `height: 100%` y con el padre
+     en auto un simple max-height dejaba el porcentaje sin contra qué medir —
+     caía al suelo de 320px y la foto quedaba en una tira—. Con el alto fijado
+     aquí, el 100% resuelve y `object-fit: cover` recorta como debe. */
+  .split__media { height: clamp(320px, calc(var(--fit) - 130px), 720px); }
+
+  /* El párrafo del bloque partido son cuatro líneas contra una foto de 535:
+     arriba del todo dejaba medio panel vacío. Centrado contra la foto, la
+     página deja de tener un agujero en la mitad izquierda. */
+  /* `main > section` y no `.split` a secas: pages.css carga después y su
+     `align-items: start` ganaba por orden, no por peso. */
+  main > section .split { align-items: center; }
+
+  /* La fila de fichas de equipo se quedaba en 396px dentro de una pantalla de
+     792 y sobraba medio viewport. Crecen hasta llenar el alto disponible —el
+     mismo valor en las dos paradas, para que las ocho se vean del mismo
+     tamaño— con un techo para que en pantallas altas no se estiren. */
+  #equipos-diagnostico .card--wide,
+  #equipos-diagnostico-2 .card--wide {
+    min-height: min(520px, calc(var(--fit) - 105px));
+  }
+
+  /* Doce exámenes en una columna son 949px y sólo hay 408. En dos columnas
+     que se llenan por vertical —1 a 6 a la izquierda, 7 a 12 a la derecha—
+     son seis filas, y el aire de cada fila baja de 44 a 32 para que entren.
+     El texto no encoge; lo que encoge es el hueco. */
+  #examenes .accordion {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(6, auto);
+    column-gap: var(--space-8);
+  }
+
+  #examenes .accordion__trigger { padding-block: clamp(11px, 1.9vh, 16px); }
+
+  /* ------------------------------------------------------------------
+     Los últimos pixeles, sólo en pantallas bajas
+
+     En 1366x700 —613px de alto útil— cuatro secciones se pasaban entre 3 y
+     36px. Todo lo que sigue son huecos, no letras: relleno de fichas, aire
+     entre términos, alto del área de mensaje. Los valores se miden en vh, así
+     que en una pantalla normal devuelven el número de siempre y no cambia
+     nada; sólo ceden cuando el alto aprieta.
+     ------------------------------------------------------------------ */
+  #equipo .person { padding: clamp(14px, 2.6vh, 24px); }
+  #equipo .person__meta dt { margin-top: clamp(5px, 1.1vh, 10px); }
+  #equipo .person__role { margin-bottom: clamp(6px, 1.6vh, 14px); }
+
+  #casos .card__media { height: min(clamp(160px, 18vw, 220px), 14vh); }
+
+  #formulario .field { gap: clamp(4px, 1.1vh, 8px); }
+  #formulario .field input,
+  #formulario .field select,
+  #formulario .field textarea { padding-block: clamp(7px, 1.6vh, 14px); }
+  /* Alto fijado, no un mínimo: el área de mensaje trae rows="6" y eso es un
+     alto INTRÍNSECO —min-height le pone un suelo, no un techo—. */
+  #formulario .field textarea { min-height: 0; height: min(140px, 10vh); }
+
+  /* La separación bajo la cabecera es un clamp de ANCHURA —4,5vw— y en una
+     ventana ancha y baja se llevaba 65px de un alto que no sobraba. El mismo
+     defecto que ya tenía --space-section. Cede con la altura hasta el suelo
+     que el propio clamp declara aceptable, 40px, y ni un pixel por debajo. */
+  main > section:not(.section--coda) .section-head,
+  main > section:not(.section--coda) .head-split {
+    margin-bottom: min(clamp(40px, 4.5vw, 68px), 4.5vh);
+  }
+
+  /* La foto de la ficha se mide en ANCHURA (18vw), así que en una ventana
+     ancha y baja se llevaba 220px de un alto que no sobraba. El segundo
+     término la hace ceder con la altura. */
+  /* El formulario se pasaba 116px. Sale de tres sitios a la vez, ninguno
+     de ellos el tamaño de letra: el aire entre campos, el relleno de cada
+     control y el alto mínimo del área de texto. */
+  #formulario .form { gap: clamp(9px, 1.8vh, 20px) var(--grid-gutter); }
+  #formulario .form__actions { gap: clamp(10px, 1.6vh, 20px); }
+
+  /* ------------------------------------------------------------------
+     Las secciones de cierre se miden por su contenido
+
+     Una banda de cita mide 284px. Clavada a un viewport quedaba flotando en
+     420px de vacío —el hueco que señaló el cliente—. Estas secciones dejan
+     de forzar la pantalla completa y comparten pantalla con el pie: el imán
+     sigue parando en ellas, pero ya no hay agujero.
+     ------------------------------------------------------------------ */
+  main > section.section--coda {
+    min-height: 0;
+    padding-block: min(var(--space-section), 10vh);
   }
 
 
