@@ -626,7 +626,17 @@ body.nav-open .site-header .btn:hover {
    el degradado de aquélla sea lo único que llama la atención. Sin rejilla ni
    grano a propósito —la muestra es lisa—, y por eso los paneles de servicio, un
    punto más oscuros, se despegan del fondo. */
-.section--night { background: #0D0D0B; }
+/* El mismo grano que la banda de cifras. Sin él la costura seguía viéndose: el
+   grano en modo overlay aclara el borde inferior de la banda unos 15 puntos, y
+   contra un negro liso ese salto se nota. Con la misma textura a los dos lados,
+   los dos bordes se levantan igual y el corte desaparece. */
+.section--night {
+  background-color: #0D0D0B;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  background-blend-mode: overlay;
+}
 .section--dark a:hover { color: var(--text-muted); }
 
 /* Con el tema oscuro activo la página entera es tinta: la banda se distingue
@@ -698,6 +708,10 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
    encima del texto.
    -------------------------------------------------------------------------- */
 
+/* El encabezado cede aire para que las tarjetas ganen alto: es la sección con
+   más contenido por columna de toda la portada. */
+#servicios .head-split { margin-bottom: clamp(20px, 2.4vh, 30px); }
+
 /* Paneles separados por un hueco fino, no columnas a hueso: en la referencia
    el fondo de la sección asoma entre tarjeta y tarjeta. */
 .services__grid {
@@ -714,7 +728,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   gap: var(--space-6);
   /* Alto elástico: la sección va clavada a un viewport, así que la tarjeta se
      mide contra la altura y no contra un valor fijo. */
-  min-height: max(320px, calc(84vh - 300px));
+  min-height: max(340px, calc(84vh - 210px));
   padding: clamp(20px, 2.2vw, 32px);
   overflow: hidden;
   /* Un punto más oscuro que la banda, que es lo que las separa del fondo
@@ -936,26 +950,36 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .case__link:hover { border-bottom-color: var(--mark); }
 
 /* --------------------------------------------------------------------------
-   Footer
+   Pie — cuatro carriles con filete y una barra legal debajo
+
+   Como la referencia: marca y frase en el primer carril, tres columnas de
+   enlaces separadas por filete vertical, y una fila legal abajo dividida en el
+   mismo ritmo. Blanco puro, no el papel del resto.
    -------------------------------------------------------------------------- */
 
 .site-footer {
-  background: var(--surface-page);
+  background: #FFFFFF;
   border-top: 1px solid var(--border-hairline);
-  padding: var(--space-7) var(--grid-margin) var(--space-6);
+  padding: 0 var(--grid-margin);
 }
 
-.footer__top {
+.footer__grid {
   display: grid;
-  grid-template-columns: 4fr 3fr 3fr 3fr;
-  gap: var(--grid-gutter);
-  padding-bottom: var(--space-7);
-  border-bottom: 1px solid var(--border-hairline);
+  grid-template-columns: minmax(0, 3.4fr) repeat(3, minmax(0, 2.866fr));
+  gap: 0;
+  padding: clamp(40px, 5vw, 72px) 0 clamp(48px, 6vw, 88px);
+}
+
+.footer__brand { padding-right: clamp(20px, 3vw, 48px); }
+
+.footer__col {
+  padding: 0 clamp(20px, 2.6vw, 44px);
+  border-left: 1px solid var(--border-hairline);
 }
 
 .footer__brand img {
   display: block;
-  height: 96px;
+  height: 68px;
   width: auto;
 }
 
@@ -963,104 +987,91 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 body.lv-dark .footer__brand .brand__logo--on-dark { display: block; }
 body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
 
+/* La frase de marca va en display, como en la referencia: es lo único del pie
+   que no es una lista. */
 .footer__tag {
-  margin: 16px 0 0;
-  max-width: 280px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-muted);
+  margin: var(--space-6) 0 0;
+  max-width: 16ch;
+  font-family: var(--font-serif-display);
+  font-size: var(--text-h3);
+  line-height: 1.12;
+  color: var(--text-body);
 }
 
 .footer__col-title {
-  margin-bottom: 16px;
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--text-label);
   font-weight: var(--weight-semibold);
-  letter-spacing: .1em;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   color: var(--text-body);
 }
 
 .footer__links {
-  display: grid;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 16px;
+  font-size: var(--text-small);
 }
 
-.footer__links a {
-  font-size: 14px;
-  color: var(--text-body);
-}
+.footer__links a { color: var(--text-muted); }
+.footer__links a:hover { color: var(--text-body); }
 
-.footer__links a:hover { color: var(--accent-strong); }
-
-/* Sin filete inferior: desde que se quitó la fila de copyright esta es la
-   última del pie, y la línea quedaba flotando contra el borde de la página. */
-.footer__mid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-  gap: var(--space-7);
-  align-items: center;
-  padding: 32px 0 0;
-}
-
-/* contactanos.html ya dedica una sección entera a la ubicación, con el mismo
-   mapa y los mismos datos: repetirlos en el pie es decir dos veces lo mismo a
-   media pantalla de distancia. */
-body[data-page="contactanos"] .footer__mid { display: none; }
-
-.footer__map {
-  position: relative;
-  width: 100%;
-  height: clamp(180px, 18vw, 240px);
-  overflow: hidden;
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-tile);
-  background: var(--tile-empty);
-}
-
-.footer__map img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Las teselas de OSM traen sus colores; en una página monocroma el mapa es
-     la única mancha de color y se lleva el ojo. Gris, como todo lo demás. */
-  filter: grayscale(1);
-}
-
-/* Marca el centro de la zona; no es la dirección exacta todavía. */
-.footer__pin {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  border: 3px solid var(--surface-raised);
-  border-radius: var(--radius-pill);
-  background: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(18, 17, 14, .45);
-}
-
-.footer__mapnote {
-  margin: 8px 0 0;
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--text-faint);
-}
-
-.footer__place {
-  flex: 1 1 auto;
-  min-width: 240px;
-}
+.footer__block { margin-top: clamp(32px, 4vw, 56px); }
 
 .footer__address {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.7;
+  margin: 14px 0 0;
+  font-size: var(--text-small);
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
-.footer__mid .btn { margin-left: auto; }
+.footer__address--muted { color: var(--text-faint); }
+.footer__address + .footer__address { margin-top: 4px; }
+
+/* La barra legal repite el ritmo de cuatro carriles del bloque de arriba. */
+.footer__legal {
+  display: grid;
+  grid-template-columns: minmax(0, 3.4fr) repeat(3, minmax(0, 2.866fr));
+  gap: 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--border-hairline);
+  font-size: var(--text-small);
+  color: var(--text-muted);
+}
+
+.footer__legal > * + * {
+  padding-left: clamp(20px, 2.6vw, 44px);
+  border-left: 1px solid var(--border-hairline);
+}
+
+.footer__legal a { color: var(--text-muted); }
+.footer__legal a:hover { color: var(--text-body); }
+
+.footer__note { color: var(--text-faint); }
+
+
+
+@media (max-width: 900px) {
+  .footer__grid,
+  .footer__legal { grid-template-columns: 1fr 1fr; }
+
+  .footer__brand { grid-column: 1 / -1; padding-right: 0; }
+
+  .footer__col,
+  .footer__legal > * + * {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .footer__col { padding-right: 0; margin-top: var(--space-7); }
+  .footer__legal { gap: 10px 24px; }
+}
+
+@media (max-width: 560px) {
+  .footer__grid,
+  .footer__legal { grid-template-columns: 1fr; }
+}
 
 /* --------------------------------------------------------------------------
    WhatsApp floating action
@@ -1308,7 +1319,7 @@ body.js [data-rev].is-pending {
     max-width: 640px;
   }
 
-  .footer__top { grid-template-columns: 1fr 1fr; }
+
 }
 
 @media (max-width: 760px) {
@@ -1379,18 +1390,15 @@ body.js [data-rev].is-pending {
     gap: 28px;
   }
 
-  .footer__mid {
-    flex-wrap: wrap;
-    gap: 20px;
-  }
 
-  .footer__mid .btn { margin-left: 0; }
+
+
 
 }
 
 @media (max-width: 560px) {
 
-  .footer__top { grid-template-columns: 1fr; }
+
   .wa-fab { bottom: 18px; right: 18px; }
 }
 
@@ -1428,8 +1436,12 @@ body.js [data-rev].is-pending {
 /* ---- cifras: sección clara con cuatro tarjetas ------------------------- */
 
 /* El fondo de la referencia, todo en CSS y sin una imagen que descargar: una
-   base verde-oliva desaturada que cae a negro y una luz difusa arriba a la
-   izquierda —blanca y no amarilla, para que el verde no tire a mostaza—, la rejilla de filetes que estructura la banda, y grano de película
+   base verde-oliva desaturada y una luz difusa arriba a la izquierda —blanca y
+   no amarilla, para que el verde no tire a mostaza—. El degradado va en
+   diagonal, así que sus extremos no coinciden con los bordes horizontales de la
+   sección: por eso encima lleva un fundido vertical al negro de las secciones
+   vecinas, que es lo que borra la costura. Sin él, el corte con Doctores era un
+   salto de 56 puntos de luminancia, medido. la rejilla de filetes que estructura la banda, y grano de película
    por encima —una turbulencia SVG en línea, que es lo único que da ruido sin
    pedir un archivo—. El orden importa: el grano va primero en la lista para
    quedar ARRIBA del todo. */
@@ -1441,10 +1453,11 @@ body.js [data-rev].is-pending {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
     linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
+    linear-gradient(180deg, #0D0D0B 0%, rgba(13, 13, 11, 0) 15%, rgba(13, 13, 11, 0) 80%, #0D0D0B 100%),
     radial-gradient(115% 85% at 14% 4%, rgba(234, 240, 228, .15), transparent 60%),
     linear-gradient(158deg, #272D22 0%, #161A12 50%, #080906 100%);
-  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%;
-  background-blend-mode: overlay, normal, normal, screen, normal;
+  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: overlay, normal, normal, normal, screen, normal;
 }
 
 /* La sentencia manda: a todo lo ancho, alineada al carril como el resto de la
@@ -1529,12 +1542,12 @@ body.js [data-rev].is-pending {
 }
 
 /* El pie: la columna de texto necesita cuerpo, si no la fila queda hueca. */
-.footer__place .footer__col-title { margin-bottom: 12px; }
-.footer__place .footer__address + .footer__address { margin-top: 6px; }
+
+
 .footer__address--muted { color: var(--text-faint); }
 
 @media (max-width: 860px) {
-  .footer__mid { grid-template-columns: 1fr; gap: var(--space-5); }
+
 }
 
 /* ==========================================================================
@@ -1550,12 +1563,12 @@ body.js [data-rev].is-pending {
    ratón y teclado, y site.js los esconde si no hay nada que deslizar.
    -------------------------------------------------------------------------- */
 
-.slider { --slider-gap: clamp(24px, 4vw, 64px); }
+.slider { --slider-gap: clamp(14px, 1.8vw, 26px); }
 
 .slider__track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - var(--slider-gap) * 2) / 3);
+  grid-auto-columns: calc((100% - var(--slider-gap) * 3) / 4);
   gap: var(--slider-gap);
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -1656,8 +1669,72 @@ body.js [data-rev].is-pending {
   color: var(--text-body);
 }
 
-/* Las citas ya no son una retícula de tres: el ancho lo fija el carril. */
-.quotes { align-items: start; }
+/* --------------------------------------------------------------------------
+   Testimonios en video
+
+   Fichas verticales en el carril del slider. Todavía no hay video: cada ficha
+   es el marcador de uno, con su relación de aspecto ya reservada, así que
+   cuando lleguen se sustituye el marcador por un <video> con poster y nada se
+   mueve de sitio.
+   -------------------------------------------------------------------------- */
+
+.vquotes { align-items: start; }
+
+.vquote { margin: 0; }
+
+.vquote__media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  aspect-ratio: 3 / 4;
+  max-height: max(200px, calc(84vh - 430px));
+  background: rgba(244, 242, 237, .05);
+  border: 1px solid var(--border-hairline);
+}
+
+.vquote__play {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--dark-text);
+}
+
+.vquote__pending {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.vquote__by {
+  display: block;
+  margin-top: 16px;
+}
+
+.vquote__name {
+  display: block;
+  font-family: var(--font-serif-display);
+  font-size: var(--text-h4);
+  color: var(--dark-text);
+}
+
+.vquote__what {
+  display: block;
+  margin-top: 4px;
+  font-size: var(--text-small);
+  color: var(--text-muted);
+}
+
+.testimonios__cta { margin-top: var(--space-5); }
+
 
 .quote {
   margin: 0;
