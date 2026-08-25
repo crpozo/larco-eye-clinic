@@ -309,31 +309,66 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Hero — banner partido: texto sobre papel y la foto a sangre por la derecha
+   Hero — la composición del board con la foto de fondo
 
-   Ya no ocupa una pantalla entera: mide lo que pide su contenido con un tope
-   cómodo. La foto va entera y sin velo —a media página el texto no la pisa, así
-   que no hay nada que atenuar— y el filete vertical marca la juntura, que es lo
-   que queda de la retícula del board.
+   Vuelve el bloque centrado: titular en dos tonos, entradilla, dos botones y
+   los dos filetes verticales de la retícula. La foto del cirujano va DETRÁS de
+   todo, a sangre, bajo un velo de papel: se insinúa sin disputarle la página al
+   texto, que sigue en marino sobre claro.
    -------------------------------------------------------------------------- */
 
 .hero {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 44%;
-  align-items: stretch;
+  place-items: center;
   min-height: clamp(460px, 52vw, 660px);
   overflow: hidden;
   background: var(--surface-page);
 }
 
-.hero__inner {
-  display: flex;
-  align-items: center;
-  padding: clamp(48px, 7vw, 96px) clamp(28px, 4vw, 64px) clamp(48px, 7vw, 96px) var(--grid-margin);
+.hero__media {
+  position: absolute;
+  inset: 0;
 }
 
-.hero__text { width: min(620px, 100%); }
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 45%;
+}
+
+/* El velo no es de gusto: medido contra el píxel más claro de la foto, por
+   debajo de este nivel la entradilla —15px sobre papel— no llega a 4,5:1. */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(253, 253, 253, .9);
+}
+
+/* Los dos filetes del board, simétricos respecto al centro. Por encima de la
+   foto y por debajo del texto. */
+.hero__rules {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--border-hairline), var(--border-hairline)) 17% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--border-hairline), var(--border-hairline)) 83% 0 / 1px 100% no-repeat;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: clamp(56px, 8vw, 104px) var(--grid-margin);
+}
+
+.hero__text { width: min(880px, 100%); }
 
 .hero__title {
   margin: 0;
@@ -345,7 +380,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 
 .hero__lede {
   margin: clamp(18px, 2.6vw, 30px) 0 0;
-  max-width: 42ch;
+  max-width: 46ch;
   font-size: var(--text-body-lg);
   line-height: var(--leading-body);
   color: var(--text-muted);
@@ -386,35 +421,12 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   color: var(--accent-strong);
 }
 
-.hero__media {
-  position: relative;
-  border-left: 1px solid var(--border-hairline);
-  background: var(--paper-2);
-}
+/* En oscuro el velo es de pizarra, no de papel, o la foto salía como una
+   mancha clara en mitad de una página oscura. */
+body.lv-dark .hero__media::after { background: rgba(20, 26, 40, .9); }
 
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* La cara del cirujano está a la derecha del encuadre; sin esto, el recorte
-     de una columna estrecha se queda con el sillón del fondo. */
-  object-position: 62% 50%;
-}
-
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .hero__media {
-    order: -1;
-    aspect-ratio: 16 / 10;
-    border-left: 0;
-    border-bottom: 1px solid var(--border-hairline);
-  }
-
-  .hero__inner { padding: clamp(36px, 8vw, 56px) var(--grid-margin); }
+@media (max-width: 760px) {
+  .hero__rules { display: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -1597,130 +1609,27 @@ body.js [data-rev].is-pending {
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Slider — carril con scroll-snap
+   Aquí vivía el carril horizontal con scroll-snap y sus flechas
 
-   Sin librería y sin JS obligatorio: el carril es un contenedor con scroll
-   horizontal y snap, así que ya se arrastra con el dedo y con la rueda antes
-   de que corra una línea de JS. Las flechas y los puntos son un añadido para
-   ratón y teclado, y site.js los esconde si no hay nada que deslizar.
+   Se retiró: un contenedor con `scroll-snap-type: x` bajo el puntero secuestra
+   el gesto de la rueda y del trackpad, y era la causa de que el scroll de la
+   página se sintiera raro. Lo que enseñaba ahora se ve entero de una vez.
    -------------------------------------------------------------------------- */
 
-.slider { --slider-gap: clamp(14px, 1.8vw, 26px); }
-
-.slider__track {
+/* Los testimonios en vídeo, en retícula: tres por fila y todos a la vista. */
+.vquotes {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - var(--slider-gap) * 2) / 3);
-  gap: var(--slider-gap);
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  /* El scroll programático de las flechas se suaviza aquí; site.js lo anula
-     cuando el visitante pidió menos movimiento. */
-  scroll-behavior: smooth;
-  scrollbar-width: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 26px);
+  align-items: start;
 }
 
-/* El carril es enfocable porque tiene scroll. El anillo va por dentro: con
-   padding para dejarle sitio, el punto de reposo del scroll deja de ser 0 y
-   la flecha «anterior» nunca llegaba a apagarse. */
-.slider__track:focus-visible { outline-offset: -3px; }
+@media (max-width: 900px) { .vquotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .vquotes { grid-template-columns: 1fr; } }
 
-.slider__track::-webkit-scrollbar { display: none; }
-
-.slider__track > * { scroll-snap-align: start; }
-
-.slider__controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-5);
-  margin-top: var(--space-6);
-}
-
-/* Los controles sobran cuando todo cabe: site.js marca el slider y aquí
-   desaparecen, en vez de dejar flechas que no llevan a ninguna parte. */
-.slider.is-static .slider__controls { display: none; }
-
-.slider__dots {
-  display: flex;
-  gap: 8px;
-}
-
-.slider__dot {
-  position: relative;
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: var(--border-strong);
-  opacity: .35;
-  cursor: pointer;
-  transition: opacity var(--dur-fast), background var(--dur-fast);
-}
-
-.slider__dot.is-active {
-  background: var(--accent);
-  opacity: 1;
-}
-
-/* El punto mide 8px y el área táctil mínima son 44: el ::after la agranda sin
-   engordar el punto ni separar unos de otros. */
-.slider__dot::after {
-  content: "";
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  margin: -18px 0 0 -18px;
-}
-
-.slider__arrows {
-  display: flex;
-  gap: 10px;
-}
-
-.slider__arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-pill);
-  background: var(--surface-raised);
-  color: var(--text-body);
-  cursor: pointer;
-  transition: border-color var(--dur-fast), color var(--dur-fast),
-              opacity var(--dur-fast);
-}
-
-.slider__arrow:hover {
-  border-color: var(--border-strong);
-  color: var(--accent-strong);
-}
-
-.slider__arrow[disabled] {
-  opacity: .3;
-  cursor: default;
-}
-
-.slider__arrow[disabled]:hover {
-  border-color: var(--border-hairline);
-  color: var(--text-body);
-}
-
-/* --------------------------------------------------------------------------
-   Testimonios en video
-
-   Fichas verticales en el carril del slider. Todavía no hay video: cada ficha
-   es el marcador de uno, con su relación de aspecto ya reservada, así que
-   cuando lleguen se sustituye el marcador por un <video> con poster y nada se
-   mueve de sitio.
-   -------------------------------------------------------------------------- */
-
-.vquotes { align-items: start; }
+/* Estas reglas se perdieron al retirar el carril: la cirugía sobre el archivo
+   se llevó por delante el bloque entero de la ficha de vídeo, que sólo era
+   vecino suyo. Restauradas, con el alto ya sin depender del viewport. */
 
 .vquote { margin: 0; }
 
@@ -1731,12 +1640,9 @@ body.js [data-rev].is-pending {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  /* Sin relación de aspecto: la ficha ocupa el carril entero de ancho y el
-     alto sale de lo que deja el viewport. Con aspect-ratio la altura acotada
-     estrechaba la ficha y dejaba medio carril vacío. */
   width: 100%;
-  height: max(200px, calc(84vh - 400px));
-  background: rgba(244, 242, 237, .05);
+  aspect-ratio: 4 / 5;
+  background: rgba(255, 255, 255, .05);
   border: 1px solid var(--border-hairline);
 }
 
@@ -1780,29 +1686,6 @@ body.js [data-rev].is-pending {
 
 .testimonios__cta { margin-top: var(--space-5); }
 
-
-
-/* La marca abre la cita y sustituye al filete de color. Va en el markup y no en
-   un ::before porque NVDA, JAWS y VoiceOver SÍ anuncian el contenido generado:
-   como pseudo-elemento no hay forma de silenciarla y el lector recitaba «double
-   prime» antes de cada testimonio. Como <span aria-hidden> desaparece del árbol
-   de accesibilidad, que es lo que corresponde a un adorno.
-
-   El glifo es U+2033 y no la comilla de cierre: la " " de Montserrat es una coma
-   y en grande se lee como puntuación suelta; la doble prima son dos barras y
-   funciona como marca. Está en el subset latin que servimos, comprobado. La
-   inclinación la pone el skew porque la ″ de Montserrat es vertical. */
-
-
-
-
-@media (max-width: 1024px) {
-  .slider__track { grid-auto-columns: calc((100% - var(--slider-gap)) / 2); }
-}
-
-@media (max-width: 700px) {
-  .slider__track { grid-auto-columns: 100%; }
-}
 
 /* ==========================================================================
    Impresión
@@ -1877,19 +1760,8 @@ body.js [data-rev].is-pending {
    sin material del cliente.
    -------------------------------------------------------------------------- */
 
+/* Una sola pieza fija, sin carril ni flechas. */
 .showcase { position: relative; }
-
-.showcase__track {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.showcase__track::-webkit-scrollbar { display: none; }
 
 .slide {
   /* Misma razón que en .service-col: superficie oscura dentro de banda clara. */
@@ -1963,35 +1835,14 @@ body.js [data-rev].is-pending {
   color: #FFFFFF;
 }
 
-.showcase__arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  transform: translateY(-50%);
-  border: 1px solid rgba(255, 255, 255, .7);
-  border-radius: var(--radius-pill);
-  background: none;
-  color: #FFFFFF;
-  cursor: pointer;
-  transition: background var(--dur-fast), opacity var(--dur-fast);
-}
 
-.showcase__arrow:hover { background: rgba(255, 255, 255, .18); }
-.showcase__arrow[disabled] { opacity: .35; cursor: default; }
-.showcase__arrow--prev { left: clamp(14px, 2vw, 28px); }
-.showcase__arrow--next { right: clamp(14px, 2vw, 28px); }
 
-.showcase__dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: var(--space-5);
-}
+
+
+
+
+
+
 
 @media (max-width: 620px) {
   .slide__body { width: 100%; }

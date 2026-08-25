@@ -205,7 +205,9 @@ body.lv-dark {
 *::after { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* Sin `scroll-behavior: smooth`: el desplazamiento vuelve a ser el del
+     navegador, que es lo que el visitante espera de su rueda y de su trackpad.
+     El salto de un ancla es instantáneo, como en cualquier página. */
   margin: 0;
   padding: 0;
 }

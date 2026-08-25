@@ -19,11 +19,11 @@
 
 <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=182">
-<link rel="stylesheet" href="assets/css/tokens.css?v=182">
-<link rel="stylesheet" href="assets/css/components.css?v=182">
-<link rel="stylesheet" href="assets/css/site.css?v=182">
-<link rel="stylesheet" href="assets/css/pages.css?v=182">
+<link rel="stylesheet" href="assets/css/fonts.css?v=183">
+<link rel="stylesheet" href="assets/css/tokens.css?v=183">
+<link rel="stylesheet" href="assets/css/components.css?v=183">
+<link rel="stylesheet" href="assets/css/site.css?v=183">
+<link rel="stylesheet" href="assets/css/pages.css?v=183">
 <noscript><style>
   /* Sin JS la hamburguesa no puede abrir nada, así que el menú va en línea. */
   @media (max-width: 1024px) {
@@ -141,6 +141,13 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
        1 · Portada
        ==================================================================== -->
   <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <img src="assets/img/photos/hero-cirujano.webp"
+           srcset="assets/img/photos/hero-cirujano-1100.webp 1100w, assets/img/photos/hero-cirujano.webp 2000w"
+           sizes="100vw" alt="" fetchpriority="high" decoding="async" width="2000" height="1116">
+    </div>
+    <div class="hero__rules" aria-hidden="true"></div>
+
     <div class="hero__inner">
       <div class="hero__text">
         <h1 class="hero__title">70 años cuidando <span class="u-accent-phrase">tu visión</span> con tecnología del mañana</h1>
@@ -150,13 +157,6 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
           <a class="btn btn--outline" href="contactanos.html">Contáctanos</a>
         </div>
       </div>
-    </div>
-
-    <div class="hero__media">
-      <img src="assets/img/photos/hero-cirujano.webp"
-           srcset="assets/img/photos/hero-cirujano-1100.webp 1100w, assets/img/photos/hero-cirujano.webp 2000w"
-           sizes="(max-width: 900px) 100vw, 44vw"
-           alt="" fetchpriority="high" decoding="async" width="2000" height="1116">
     </div>
   </section>
 
@@ -334,44 +334,16 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
        ==================================================================== -->
   <section id="equipos" class="section section--white" aria-label="Equipos de la clínica">
     <div class="u-shell">
-      <div class="showcase" data-slider data-rev>
-        <div class="showcase__track slider__track" data-slider-track tabindex="0" role="group" aria-label="Equipos de la clínica">
-          <article class="slide">
-            <img class="slide__photo" src="assets/img/photos/equipo-microscopio-hd.webp" alt="" loading="lazy" decoding="async">
-            <span class="slide__veil" aria-hidden="true"></span>
-            <div class="slide__body">
-              <h3 class="slide__title">Equipos de <span class="u-accent-phrase">última generación</span></h3>
-              <p class="slide__text">Microscopio quirúrgico de alta resolución: la cirugía de catarata, córnea y retina se planifica y se ejecuta con el detalle que un examen convencional no alcanza.</p>
-              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
-            </div>
+      <div class="showcase" data-rev>
+        <article class="slide">
+          <img class="slide__photo" src="assets/img/photos/equipo-microscopio-hd.webp" alt="" loading="lazy" decoding="async">
+          <span class="slide__veil" aria-hidden="true"></span>
+          <div class="slide__body">
+            <h3 class="slide__title">Equipos de <span class="u-accent-phrase">última generación</span></h3>
+            <p class="slide__text">Microscopio quirúrgico de alta resolución: la cirugía de catarata, córnea y retina se planifica y se ejecuta con el detalle que un examen convencional no alcanza.</p>
+            <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
+          </div>
           </article>
-          <article class="slide">
-            <img class="slide__photo" src="assets/img/photos/equipo-laser-pascal.webp" alt="" loading="lazy" decoding="async">
-            <span class="slide__veil" aria-hidden="true"></span>
-            <div class="slide__body">
-              <h3 class="slide__title">Láser <span class="u-accent-phrase">Pascal 577</span></h3>
-              <p class="slide__text">Tratamiento de precisión para enfermedades de la retina, con pulsos cortos que reducen la molestia y el tiempo de cada sesión.</p>
-              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
-            </div>
-          </article>
-          <article class="slide">
-            <img class="slide__photo" src="assets/img/photos/equipo-iol-master.webp" alt="" loading="lazy" decoding="async">
-            <span class="slide__veil" aria-hidden="true"></span>
-            <div class="slide__body">
-              <h3 class="slide__title">IOL <span class="u-accent-phrase">Master 700</span></h3>
-              <p class="slide__text">Última tecnología en Ecuador para calcular con exactitud el lente intraocular antes de una cirugía de catarata.</p>
-              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
-            </div>
-          </article>
-        </div>
-
-        <button class="showcase__arrow showcase__arrow--prev" type="button" data-slider-prev aria-label="Equipo anterior">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="showcase__arrow showcase__arrow--next" type="button" data-slider-next aria-label="Equipo siguiente">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-        <div class="showcase__dots slider__dots" data-slider-dots></div>
       </div>
     </div>
   </section>
@@ -447,6 +419,6 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
 <a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
-<script src="assets/js/site.js?v=182" defer></script>
+<script src="assets/js/site.js?v=183" defer></script>
 </body>
 </html>
