@@ -4,25 +4,15 @@
        1 · Portada
        ==================================================================== -->
   <section class="hero">
-    <div class="hero__media">
-      <img src="assets/img/photos/hero-ojo.webp"
-           srcset="assets/img/photos/hero-ojo-800.webp 800w, assets/img/photos/hero-ojo.webp 1500w"
-           sizes="100vw" alt="" fetchpriority="high" decoding="async" width="1500" height="1000">
-      <div class="hero__media-tint"></div>
-    </div>
-    <div class="hero__scrim"></div>
+    <div class="hero__rules" aria-hidden="true"></div>
 
     <div class="hero__inner">
-      <h1 class="hero__title">
-        <span class="hero__title-line">70 años cuidando</span>
-        <span class="hero__title-line">tu visión con</span>
-        <span class="hero__title-line hero__title-line--end">tecnología del mañana</span>
-      </h1>
-
-      <div class="hero__foot">
-        <p class="hero__lede">Tres generaciones de cirujanos oftalmólogos. <span>Tradición médica familiar con diagnóstico y quirófano de última generación.</span></p>
+      <div class="hero__text">
+        <h1 class="hero__title">70 años cuidando <span class="u-accent-phrase">tu visión</span> con tecnología del mañana</h1>
+        <p class="hero__lede">Tres generaciones de cirujanos oftalmólogos. Tradición médica familiar con diagnóstico y quirófano de última generación.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" data-ondark="always" href="contactanos.html">Agendar Cita</a>
+          <a class="btn btn--primary" href="contactanos.html">Agendar cita</a>
+          <a class="btn btn--outline" href="contactanos.html">Contáctanos</a>
         </div>
       </div>
     </div>
@@ -34,7 +24,7 @@
   <section id="cifras" class="stats-band section--dark">
     <div class="u-shell stats-band__layout">
       <div class="stats-band__head" data-rev>
-        <h2 class="section__title stats-band__title">Setenta años, medidos</h2>
+        <h2 class="section__title stats-band__title">Setenta años, <span class="u-accent-phrase">medidos</span></h2>
       </div>
       <div class="stats-band__grid" data-rev>
         <div class="figure">
@@ -55,43 +45,37 @@
   <!-- ====================================================================
        3 · Doctores socios
        ==================================================================== -->
-  <section id="doctores" class="section section--dark section--night">
+  <section id="doctores" class="section section--white">
     <div class="u-shell">
-      <div class="doctors__layout doctors__layout--a">
-        <div class="doctors__head" data-rev>
-          <h2 class="section__title">Doctores socios</h2>
+      <div class="head-split" data-rev>
+        <div class="head-title">
+          <h2 class="section__title">Doctores <span class="u-accent-phrase">socios</span></h2>
         </div>
-        <p class="doctors__intro" data-rev>La clínica está dirigida por sus propios cirujanos: cada diagnóstico y cada cirugía llevan el nombre de quien la opera.</p>
-        <div class="doctors__gap" aria-hidden="true"></div>
-
-        <a class="doctor-card doctor-card--a" href="sobre-nosotros.html#equipo" data-rev>
-          <span class="doctor-card__name">Dr. Marcelo Larco</span>
-          <span class="doctor-card__note">Pionero de la cirugía de catarata con láser en Quito.</span>
-          <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Córnea, catarata y cirugía refractiva</span>
-          <span class="doctor-card__more">Conócenos <span aria-hidden="true">↗</span></span>
-        </a>
-        <img class="doctor-photo doctor-photo--a" src="assets/img/photos/dr-marcelo-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
-        <div class="doctors__gap doctors__gap--b" aria-hidden="true"></div>
+        <div class="head-split__aside">
+          <p>La clínica está dirigida por sus propios cirujanos: cada diagnóstico y cada cirugía llevan el nombre de quien la opera.</p>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ====================================================================
-       El segundo socio ocupa su propia parada del deslizador vertical.
-       Mismo fondo que la anterior: las dos se leen como un solo lienzo.
-       ==================================================================== -->
-  <section id="doctores-2" class="section section--dark section--night" aria-label="Doctores socios, continuación">
-    <div class="u-shell">
-      <div class="doctors__layout doctors__layout--b">
-        <div class="doctors__gap doctors__gap--top" aria-hidden="true"></div>
-        <div class="doctors__gap doctors__gap--c" aria-hidden="true"></div>
-        <a class="doctor-card doctor-card--b" href="sobre-nosotros.html#equipo" data-rev>
-          <span class="doctor-card__name">Dr. Roberto Larco</span>
-          <span class="doctor-card__note">Más de 20 años de experiencia.</span>
-          <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Retina y vítreo</span>
-          <span class="doctor-card__more">Conócenos <span aria-hidden="true">↗</span></span>
-        </a>
-        <img class="doctor-photo doctor-photo--b" src="assets/img/photos/dr-roberto-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
+      <div class="docs" data-rev>
+        <article class="doc">
+          <div class="doc__body">
+            <h3 class="doc__name">Dr. Marcelo Larco</h3>
+            <p class="doc__note">Pionero de la cirugía de catarata con láser en Quito.</p>
+            <p class="doc__specialty"><span class="doc__tag">Especialidad</span>Córnea, catarata y cirugía refractiva</p>
+            <a class="btn btn--outline doc__cta" href="sobre-nosotros.html#equipo">Conócenos</a>
+          </div>
+          <img class="doc__photo" src="assets/img/photos/dr-marcelo-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
+        </article>
+
+        <article class="doc">
+          <div class="doc__body">
+            <h3 class="doc__name">Dr. Roberto Larco</h3>
+            <p class="doc__note">Más de 20 años de experiencia.</p>
+            <p class="doc__specialty"><span class="doc__tag">Especialidad</span>Retina y vítreo</p>
+            <a class="btn btn--outline doc__cta" href="sobre-nosotros.html#equipo">Conócenos</a>
+          </div>
+          <img class="doc__photo" src="assets/img/photos/dr-roberto-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
+        </article>
       </div>
     </div>
   </section>
@@ -99,11 +83,11 @@
   <!-- ====================================================================
        4 · Servicios
        ==================================================================== -->
-  <section id="servicios" class="section section--dark section--night">
+  <section id="servicios" class="section section--white">
     <div class="u-shell">
       <div class="head-split" data-rev>
         <div class="head-title">
-          <h2 class="section__title">Todo tu cuidado visual, en un solo lugar</h2>
+          <h2 class="section__title">Todo tu <span class="u-accent-phrase">cuidado visual</span>, en un solo lugar</h2>
         </div>
         <div class="head-split__aside">
           <p>Con el respaldo de marcas líderes en oftalmología como ZEISS, diagnosticamos con precisión y ofrecemos tratamientos seguros y exactos.</p>
@@ -158,52 +142,46 @@
     <div class="u-shell">
       <div class="head-split articles__head" data-rev>
         <div class="head-title">
-          <h2 class="section__title">Artículos de nuestros especialistas</h2>
+          <h2 class="section__title">Artículos de nuestros <span class="u-accent-phrase">especialistas</span></h2>
         </div>
         <div class="head-split__aside">
-          <p>Casos reales redactados por el equipo: el motivo de consulta, el procedimiento y el resultado.</p>
+          <p>Ejemplos de redacción mientras la clínica entrega sus casos: el motivo de consulta, el procedimiento y el resultado.</p>
         </div>
       </div>
 
       <div class="articles__list" data-rev>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__aside">
-            <span class="article-row__label">Caso 01 · ejemplo</span>
-            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          <span class="article-row__num">01</span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/hero-casos.webp" alt="" loading="lazy" decoding="async">
           </span>
           <span class="article-row__body">
             <h3 class="article-row__title">Queratocono progresivo en paciente de 24 años</h3>
             <span class="article-row__text">Crosslinking para frenar la progresión y anillos intraestromales seis meses después. La agudeza corregida pasó de 20/80 a 20/25 y se mantiene estable.</span>
           </span>
-          <span class="article-row__media">
-            <img class="article-row__photo" src="assets/img/photos/hero-casos.webp" alt="" loading="lazy" decoding="async">
-          </span>
+          <span class="article-row__more">Leer más</span>
         </a>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__aside">
-            <span class="article-row__label">Caso 02 · ejemplo</span>
-            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          <span class="article-row__num">02</span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/intro-tecnologia.webp" alt="" loading="lazy" decoding="async">
           </span>
           <span class="article-row__body">
             <h3 class="article-row__title">Catarata bilateral con corrección de presbicia</h3>
             <span class="article-row__text">Facoemulsificación asistida por láser con lente trifocal calculado con el IOL Master 700. Alta el mismo día y visión a todas las distancias sin gafas al mes.</span>
           </span>
-          <span class="article-row__media">
-            <img class="article-row__photo" src="assets/img/photos/intro-tecnologia.webp" alt="" loading="lazy" decoding="async">
-          </span>
+          <span class="article-row__more">Leer más</span>
         </a>
         <a class="article-row" href="casos-clinicos.html">
-          <span class="article-row__aside">
-            <span class="article-row__label">Caso 03 · ejemplo</span>
-            <span class="article-row__more">Ver caso <span aria-hidden="true">↗</span></span>
+          <span class="article-row__num">03</span>
+          <span class="article-row__media">
+            <img class="article-row__photo" src="assets/img/photos/hero-contacto.webp" alt="" loading="lazy" decoding="async">
           </span>
           <span class="article-row__body">
             <h3 class="article-row__title">Desprendimiento de retina atendido en 24 horas</h3>
             <span class="article-row__text">Vitrectomía posterior con taponamiento de gas la misma noche de la consulta de urgencia. Retina aplicada en el primer procedimiento y visión central recuperada.</span>
           </span>
-          <span class="article-row__media">
-            <img class="article-row__photo" src="assets/img/photos/hero-contacto.webp" alt="" loading="lazy" decoding="async">
-          </span>
+          <span class="article-row__more">Leer más</span>
         </a>
       </div>
     </div>
@@ -212,99 +190,46 @@
   <!-- ====================================================================
        6 · Testimonios
        ==================================================================== -->
-  <section id="testimonios" class="section section--dark section--night">
+  <section id="equipos" class="section section--white" aria-label="Equipos de la clínica">
     <div class="u-shell">
-      <div class="head-split" data-rev>
-        <div class="head-title">
-          <h2 class="section__title">Lo que dicen nuestros pacientes</h2>
-        </div>
-        <div class="head-split__aside">
-          <p>Testimonios que reflejan el compromiso con el que cuidamos la visión de nuestros pacientes.</p>
-          <a class="btn btn--outline testimonios__cta" data-ondark="always" href="contactanos.html">Agenda tu cita</a>
-        </div>
-      </div>
-
-      <div class="slider" data-slider data-rev>
-        <div class="slider__track vquotes" data-slider-track tabindex="0" role="group"
-             aria-label="Testimonios de pacientes en video">
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Rosa M.</span>
-              <span class="vquote__what">Cirugía de catarata · ejemplo</span>
-            </figcaption>
-          </figure>
-
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Jorge A.</span>
-              <span class="vquote__what">Paciente de la clínica · ejemplo</span>
-            </figcaption>
-          </figure>
-
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Camila R.</span>
-              <span class="vquote__what">Cirugía refractiva · ejemplo</span>
-            </figcaption>
-          </figure>
-
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Luis P.</span>
-              <span class="vquote__what">Glaucoma · ejemplo</span>
-            </figcaption>
-          </figure>
-
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Andrea V.</span>
-              <span class="vquote__what">Queratocono · ejemplo</span>
-            </figcaption>
-          </figure>
-
-          <figure class="vquote">
-            <span class="vquote__media">
-              <span class="vquote__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-              <span class="vquote__pending">Video pendiente</span>
-            </span>
-            <figcaption class="vquote__by">
-              <span class="vquote__name">Fernando C.</span>
-              <span class="vquote__what">Retina y vítreo · ejemplo</span>
-            </figcaption>
-          </figure>
+      <div class="showcase" data-slider data-rev>
+        <div class="showcase__track slider__track" data-slider-track tabindex="0" role="group" aria-label="Equipos de la clínica">
+          <article class="slide">
+            <img class="slide__photo" src="assets/img/photos/equipo-microscopio-hd.webp" alt="" loading="lazy" decoding="async">
+            <span class="slide__veil" aria-hidden="true"></span>
+            <div class="slide__body">
+              <h3 class="slide__title">Equipos de <span class="u-accent-phrase">última generación</span></h3>
+              <p class="slide__text">Microscopio quirúrgico de alta resolución: la cirugía de catarata, córnea y retina se planifica y se ejecuta con el detalle que un examen convencional no alcanza.</p>
+              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
+            </div>
+          </article>
+          <article class="slide">
+            <img class="slide__photo" src="assets/img/photos/equipo-laser-pascal.webp" alt="" loading="lazy" decoding="async">
+            <span class="slide__veil" aria-hidden="true"></span>
+            <div class="slide__body">
+              <h3 class="slide__title">Láser <span class="u-accent-phrase">Pascal 577</span></h3>
+              <p class="slide__text">Tratamiento de precisión para enfermedades de la retina, con pulsos cortos que reducen la molestia y el tiempo de cada sesión.</p>
+              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
+            </div>
+          </article>
+          <article class="slide">
+            <img class="slide__photo" src="assets/img/photos/equipo-iol-master.webp" alt="" loading="lazy" decoding="async">
+            <span class="slide__veil" aria-hidden="true"></span>
+            <div class="slide__body">
+              <h3 class="slide__title">IOL <span class="u-accent-phrase">Master 700</span></h3>
+              <p class="slide__text">Última tecnología en Ecuador para calcular con exactitud el lente intraocular antes de una cirugía de catarata.</p>
+              <a class="btn btn--outline slide__cta" href="sobre-nosotros.html#equipos-diagnostico">Ver más</a>
+            </div>
+          </article>
         </div>
 
-        <div class="slider__controls">
-          <div class="slider__dots" data-slider-dots></div>
-          <div class="slider__arrows">
-            <button class="slider__arrow" type="button" data-slider-prev aria-label="Testimonios anteriores">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="slider__arrow" type="button" data-slider-next aria-label="Testimonios siguientes">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </div>
-        </div>
+        <button class="showcase__arrow showcase__arrow--prev" type="button" data-slider-prev aria-label="Equipo anterior">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="showcase__arrow showcase__arrow--next" type="button" data-slider-next aria-label="Equipo siguiente">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="showcase__dots slider__dots" data-slider-dots></div>
       </div>
     </div>
   </section>

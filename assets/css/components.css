@@ -160,7 +160,7 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
 .doctor-card__name {
   display: block;
   margin-top: var(--space-4);
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-size: var(--text-h4);
   line-height: 1.2;
   color: var(--text-body);

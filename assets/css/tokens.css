@@ -1,76 +1,82 @@
 /* ==========================================================================
    Larco Visión — design tokens
 
-   Enfoque editorial monocromo: negro cálido, papel roto y una retícula de
-   filetes. No hay color de acento; lo que distingue una cosa de otra es el
-   contraste, el filete y el tamaño de la letra. El único color de la página es
-   el logo de la clínica.
+   Enfoque azul: azul marino para los titulares y el texto fuerte, un azul
+   claro como acento —la segunda mitad de cada titular va en él— y papel casi
+   blanco de fondo. Las bandas oscuras son azul pizarra, no negro.
+
+   Tipografía: Space Grotesk para titulares, Montserrat para texto corrido.
    ========================================================================== */
 
 :root {
   /* ---- base --------------------------------------------------------------
-     Todo tira a cálido: el negro lleva algo de amarillo y el blanco es papel,
-     no pantalla. Un gris frío al lado de estos se ve azul.
+     La escala fría entera sale del mismo azul: el marino de los titulares, el
+     pizarra de las bandas y los papeles con una gota de azul. Un gris neutro
+     al lado de estos se ve sucio.
      --------------------------------------------------------------------- */
-  --ink: #12110E;
-  --ink-2: #1A1815;
-  --ink-3: #232019;
-  --paper: #F4F2ED;
-  --paper-2: #EBE8E1;
-  --paper-3: #DFDBD2;
+  --ink: #17265A;
+  --ink-2: #2A3448;
+  --ink-3: #36405A;
+  --paper: #FDFDFD;
+  --paper-2: #F1F4F9;
+  --paper-3: #E2E8F1;
 
-  --gray-1: #FAF9F6;
-  --gray-2: #E3DFD7;
-  --gray-3: #C4BFB4;
-  --gray-4: #8B857A;
-  --gray-5: #57524A;
-  --gray-6: #2B2823;
+  --gray-1: #FAFBFD;
+  --gray-2: #E6EBF2;
+  --gray-3: #C3CCDA;
+  --gray-4: #8B93A3;
+  --gray-5: #565E6E;
+  --gray-6: #2A3140;
 
   /* Rellenos oscuros: botón primario y bandas a sangre. */
   --brand-deep: var(--ink);
-  --brand-deep-2: #000000;
+  --brand-deep-2: #101B41;
 
   /* ---- acento -----------------------------------------------------------
-     Deliberadamente no hay uno. Los tokens siguen existiendo porque medio
-     sitio los nombra, pero todos resuelven a tinta: así ninguna pieza vieja
-     reintroduce color por la puerta de atrás.
+     El azul claro de la referencia. Es lo que lleva la segunda mitad de los
+     titulares, los enlaces de continuar y las cifras de la banda.
      --------------------------------------------------------------------- */
-  --accent: var(--ink);
-  --accent-display: var(--ink);
-  --accent-strong: var(--ink);
-  --accent-hover: var(--ink-3);
-  --accent-light: var(--paper);
-  --accent-ink: var(--paper);
+  /* Dos azules, y la diferencia es de medida, no de gusto. El claro del board
+     —#6E9EC4— da 2,81:1 sobre papel: se queda por debajo del 3:1 que pide el
+     texto grande, así que la mitad en color de cada titular usa uno un punto
+     más oscuro, 3,27:1, indistinguible al lado. Y para texto pequeño sobre
+     papel —las pastillas de continuar, 11px en versalitas— hace falta 4,5:1:
+     ése es --accent-strong, 4,69:1. */
+  --accent: #5E92BC;
+  --accent-display: #5E92BC;
+  --accent-strong: #3576B4;
+  --accent-hover: #8FB6D5;
+  --accent-light: #D7E5F3;
+  --accent-ink: #FFFFFF;
 
-  /* El marcador de los titulares: un filete corto, no un punto de color. */
-  --mark: var(--ink);
-  --mark-soft: rgba(18, 17, 14, .28);
+  /* El marcador de los titulares. */
+  --mark: var(--accent);
+  --mark-soft: rgba(110, 158, 196, .34);
 
   /* ---- bandas oscuras ---------------------------------------------------- */
-  --dark-surface: var(--ink);
-  --dark-surface-deep: #0B0A08;
-  --dark-text: rgba(244, 242, 237, .96);
-  --dark-text-muted: rgba(244, 242, 237, .62);
-  --dark-border: rgba(244, 242, 237, .38);
+  --dark-surface: var(--ink-2);
+  --dark-surface-deep: #222B3D;
+  --dark-text: rgba(255, 255, 255, .96);
+  --dark-text-muted: rgba(255, 255, 255, .70);
+  --dark-border: rgba(255, 255, 255, .38);
 
   /* ---- estados ----------------------------------------------------------- */
-  --success: #4F7C5A;
+  --success: #3F7C5A;
   --warning: #9C7F3F;
   --danger: #9C4F3F;
 
   /* ---- tipografía --------------------------------------------------------
-     Serif de display sobre sans de texto: el contraste entre las dos es lo que
-     sostiene el enfoque, así que el display va grande y muy justo de interlínea
-     y el cuerpo se queda pequeño y suelto.
+     Dos sans, no sans contra serif: la distancia la ponen la forma —Space
+     Grotesk es geométrica, de trazos cuadrados— y el tamaño. Al no haber
+     contraste de estilo, el display necesita más interlínea que el serif que
+     había antes: .94 lo apelotonaba.
      --------------------------------------------------------------------- */
   --font-sans: 'Montserrat', -apple-system, 'Helvetica Neue', sans-serif;
-  --font-serif-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
 
-  /* La referencia lleva el display muy por encima de lo que había. A 1440:
-     104 / 76 / 60 / 30 / 21. */
-  --text-display-xl: clamp(46px, 7.2vw, 104px);  /* hero de la portada */
-  --text-display: clamp(38px, 5.3vw, 76px);      /* portada de interiores */
-  --text-h2: clamp(32px, 4.2vw, 60px);           /* títulos de sección */
+  --text-display-xl: clamp(38px, 4.8vw, 70px);   /* hero de la portada */
+  --text-display: clamp(34px, 4.6vw, 66px);      /* portada de interiores */
+  --text-h2: clamp(30px, 3.8vw, 54px);           /* títulos de sección */
   --text-h3: clamp(22px, 2.1vw, 30px);           /* títulos de tarjeta grande */
   --text-h4: clamp(18px, 1.5vw, 21px);           /* títulos de tarjeta y ficha */
 
@@ -81,16 +87,15 @@
   --text-label: 11px;
   --text-micro: 10px;
 
-  --weight-display: 400;
-  --weight-heading: 400;
+  --weight-display: 500;
+  --weight-heading: 500;
   --weight-body: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* El serif aguanta interlínea muy corta; es parte del carácter. */
-  --leading-display: .94;
-  --leading-heading: 1.02;
+  --leading-display: 1.06;
+  --leading-heading: 1.1;
   --leading-body: 1.65;
   --tracking-display: -.02em;
   --tracking-label: .16em;
@@ -112,10 +117,9 @@
   --grid-gutter: 24px;
   --grid-margin: clamp(20px, 3.4vw, 48px);
 
-  /* Sin esquinas redondeadas: la retícula es de filetes rectos. */
   --radius-none: 0;
-  --radius-sm: 0;
-  --radius-tile: 0;
+  --radius-sm: 6px;
+  --radius-tile: 8px;
   --radius-card: 0;
   --radius-pill: 999px;
 
@@ -126,75 +130,70 @@
 
   /* ---- tema claro -------------------------------------------------------- */
   --surface-page: var(--paper);
-  --surface-raised: #FBFAF7;
+  --surface-raised: #FFFFFF;
   --surface-card: var(--paper-2);
   --surface-sunken: var(--paper-2);
   --text-body: var(--ink);
-  --text-muted: rgba(18, 17, 14, .66);
-  /* .60 es el suelo: por debajo, texto de 11-13px sobre papel no llega a 4,5:1.
-     Medido sobre --surface-page y sobre --surface-card, que es el peor de los
-     dos. El número de sección y las notas al pie viven aquí. */
-  --text-faint: rgba(18, 17, 14, .60);
-  --text-dim: rgba(18, 17, 14, .62);
-  --border-hairline: rgba(18, 17, 14, .16);
-  --border-card: rgba(18, 17, 14, .16);
-  --border-strong: rgba(18, 17, 14, .55);
+  /* El gris del texto corrido de la referencia es pizarra con una gota de
+     azul, no gris neutro. .70 sobre papel da 5,4:1; por debajo de .62 el texto
+     de 13px ya no llega a 4,5:1. Medido sobre --surface-card, que es el peor
+     de los dos fondos. */
+  --text-muted: rgba(30, 38, 58, .70);
+  --text-faint: rgba(30, 38, 58, .64);
+  --text-dim: rgba(30, 38, 58, .66);
+  --border-hairline: rgba(23, 38, 90, .14);
+  --border-card: rgba(23, 38, 90, .14);
+  --border-strong: rgba(23, 38, 90, .45);
 
-  /* Sin sombras: en este enfoque la profundidad la da el filete. */
   --shadow-card: none;
   --shadow-float: none;
 
   --page-bg: var(--paper);
 
   --tile-empty: linear-gradient(160deg, var(--paper-2), var(--paper-3));
-  --tile-empty-ink: rgba(18, 17, 14, .7);
+  --tile-empty-ink: rgba(23, 38, 90, .7);
 
-
-  --nav-scrolled-bg: rgba(244, 242, 237, .94);
-  --nav-scrolled-border: rgba(18, 17, 14, .16);
-  --btn-outline-hover: rgba(18, 17, 14, .06);
+  --nav-scrolled-bg: rgba(253, 253, 253, .94);
+  --nav-scrolled-border: rgba(23, 38, 90, .14);
+  --btn-outline-hover: rgba(23, 38, 90, .06);
 }
 
 /* ---- tema oscuro --------------------------------------------------------
-   Ya no es un tema aparte con otra paleta: es la misma tinta y el mismo papel
-   intercambiados.
+   La misma paleta con el azul pizarra al fondo y el papel arriba.
    ---------------------------------------------------------------------- */
 body.lv-dark {
-  --surface-page: var(--ink);
+  --surface-page: #141A28;
   --surface-raised: var(--ink-2);
   --surface-card: var(--ink-2);
-  --surface-sunken: #0E0D0B;
-  --text-body: rgba(244, 242, 237, .96);
-  --text-muted: rgba(244, 242, 237, .64);
-  --text-faint: rgba(244, 242, 237, .58);
-  --text-dim: rgba(244, 242, 237, .60);
-  --border-hairline: rgba(244, 242, 237, .18);
-  --border-card: rgba(244, 242, 237, .18);
-  --border-strong: rgba(244, 242, 237, .55);
+  --surface-sunken: #10151F;
+  --text-body: rgba(255, 255, 255, .96);
+  --text-muted: rgba(255, 255, 255, .70);
+  --text-faint: rgba(255, 255, 255, .64);
+  --text-dim: rgba(255, 255, 255, .66);
+  --border-hairline: rgba(255, 255, 255, .18);
+  --border-card: rgba(255, 255, 255, .18);
+  --border-strong: rgba(255, 255, 255, .55);
   --shadow-card: none;
   --shadow-float: none;
 
-  --accent: var(--paper);
-  --accent-display: var(--paper);
-  --accent-strong: var(--paper);
-  --accent-hover: var(--paper-2);
-  /* La etiqueta sobre un relleno de acento: el acento en oscuro es papel, así
-     que la etiqueta vuelve a tinta. Sin esto, el FAB de WhatsApp y el hover de
-     los botones primarios quedaban papel sobre papel. */
-  --accent-ink: var(--ink);
-  --mark: var(--paper);
-  --mark-soft: rgba(244, 242, 237, .3);
+  --accent: #8FB6D5;
+  --accent-display: #8FB6D5;
+  --accent-strong: #8FB6D5;
+  --accent-hover: #B4CFE6;
+  --accent-ink: #101B41;
+  --mark: var(--accent);
+  --mark-soft: rgba(143, 182, 213, .34);
 
-  --brand-deep: var(--paper);
+  --brand-deep: var(--accent);
 
-  --page-bg: var(--ink);
+  --page-bg: #141A28;
 
   --tile-empty: linear-gradient(160deg, var(--ink-2), var(--ink-3));
-  --tile-empty-ink: rgba(244, 242, 237, .7);
+  --tile-empty-ink: rgba(255, 255, 255, .7);
 
-  --nav-scrolled-bg: rgba(18, 17, 14, .94);
-  --nav-scrolled-border: rgba(244, 242, 237, .18);
-  --btn-outline-hover: rgba(244, 242, 237, .08);
+  --nav-scrolled-bg: rgba(20, 26, 40, .94);
+  --nav-scrolled-border: rgba(255, 255, 255, .18);
+  --btn-outline-hover: rgba(255, 255, 255, .08);
 }
 
 /* ==========================================================================
@@ -225,21 +224,21 @@ body {
 h1, h2, h3 { overflow-wrap: break-word; }
 
 h1 {
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-weight: var(--weight-display);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
 }
 
 h2 {
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-weight: var(--weight-heading);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-heading);
 }
 
 h3 {
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-weight: var(--weight-heading);
   line-height: 1.14;
 }
@@ -261,9 +260,10 @@ a:hover { color: var(--text-muted); }
 
 /* ---- utilities ---------------------------------------------------------- */
 
-/* El titular es una sola masa uniforme, como en la referencia: sin cursiva
-   —vetada por el cliente—, sin segundo tono y sin atenuación. La jerarquía la
-   ponen el tamaño y el sitio, no un cambio dentro de la frase. */
+/* La segunda mitad de cada titular va en el azul claro. Es un <span> dentro
+   del <h2>, no un elemento aparte: se parte por sentido —"Doctores /socios/",
+   "Artículos de nuestros /especialistas/"— y hereda tamaño e interlínea. */
+.u-accent-phrase { color: var(--accent); }
 
 
 .u-muted { color: var(--text-muted); }

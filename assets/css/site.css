@@ -42,6 +42,16 @@ body.is-solid .site-header {
 
 body.is-solid.lv-dark .site-header { color: var(--dark-text); }
 
+/* El hero de la portada ya no es una foto oscura sino papel, así que ahí el
+   header nace en su versión clara: letra marino, logo a color y un filete
+   abajo, sin relleno. Las interiores conservan la portada fotográfica y con
+   ella el header blanco traslúcido. */
+body[data-page="index"]:not(.is-solid):not(.lv-dark) .site-header {
+  color: var(--text-body);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+
 /* Mismo mecanismo que .u-shell: la sección pone el margen y el interior pone
    el tope. Replicarlo con max() en el padding parecía más corto, pero un
    clamp() anidado dentro de max() no resuelve al mismo valor y el logo se
@@ -88,8 +98,10 @@ body.nav-open { overflow: hidden; }
 
 .brand img.brand__logo--on-light { display: none; }
 
-body.is-solid:not(.lv-dark) .brand img.brand__logo--on-dark { display: none; }
-body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
+body.is-solid:not(.lv-dark) .brand img.brand__logo--on-dark,
+body[data-page="index"]:not(.lv-dark) .brand img.brand__logo--on-dark { display: none; }
+body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light,
+body[data-page="index"]:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
 
 /* ---- nav ---------------------------------------------------------------- */
 
@@ -244,7 +256,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .menu__col + .menu__col { border-left: 1px solid var(--border-hairline); }
 
 .menu__col-title {
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-size: 19px;
   color: var(--text-body);
 }
@@ -281,169 +293,98 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Hero
+   Hero — el banner del board azul
+
+   Sin fotografía: papel, dos filetes verticales que enseñan la retícula y un
+   bloque de texto centrado con el titular partido en dos tonos. La foto del
+   ojo que había antes sigue en uso en las portadas de las interiores.
    -------------------------------------------------------------------------- */
 
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: hidden;
-  background: var(--ink);
+  background: var(--surface-page);
 }
 
-.hero__media {
-  position: absolute;
-  inset: -8% 0;
-  background: linear-gradient(160deg, var(--ink) 0%, var(--ink-3) 55%, var(--gray-5) 100%);
-}
-
-.hero__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* En color, a diferencia del resto de la fotografía: la referencia abre con
-     su hero cálido y esta imagen trae exactamente esa gama; el velo de tinta
-     de abajo la oscurece lo justo para el titular. */
-}
-
-/* El video va encima del póster, sin transición de entrada: su atributo
-   poster es un fotograma del propio video, así que el estado previo a la
-   carga y el primer cuadro son la misma imagen y no hay salto que disimular.
-   Atarlo a una animación sólo añadía una forma más de quedarse invisible. */
-
-.hero__media-tint {
+/* Los dos filetes del board, simétricos respecto al centro. Van en un
+   pseudo-elemento y no en el fondo de .hero para que no hereden el relleno de
+   la sección: tienen que llegar de borde a borde. */
+.hero__rules {
   position: absolute;
   inset: 0;
-  background: rgba(18, 17, 14, .45);
+  pointer-events: none;
+  background:
+    linear-gradient(var(--border-hairline), var(--border-hairline)) 17% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--border-hairline), var(--border-hairline)) 83% 0 / 1px 100% no-repeat;
 }
 
-.hero__note {
-  position: absolute;
-  top: 96px;
-  right: var(--grid-margin);
-  z-index: 2;
-  font-size: 11px;
-  letter-spacing: .12em;
-  color: rgba(244, 242, 237, .55);
-}
-
-.hero__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(11, 10, 8, .2) 30%, rgba(11, 10, 8, .82));
-}
-
-/* El tope y el padding van en el mismo elemento, así que el ancho máximo
-   tiene que incluir los márgenes: si no, se suman al centrado y el hero
-   arranca 40px más adentro que el logo y que todas las demás secciones,
-   donde el padding lo pone la sección y el tope lo pone .u-shell dentro. */
 .hero__inner {
-  /* Las cuatro medidas del hero viven aquí porque cada una la usan dos piezas
-     a la vez, y separadas se desincronizan: el cuerpo del display lo comparten
-     el titular y el desplazamiento del párrafo; el ancho del párrafo, el lede y
-     la sangría de la última línea; el hueco, la separación del bloque y ese
-     mismo desplazamiento. */
-  --hero-title: min(clamp(52px, 8.6vw, 132px), 14vh);
-  --hero-lede: clamp(210px, 21vw, 290px);
-  --hero-encaje: clamp(18px, 2.2vw, 36px);
-  --hero-gap: clamp(24px, 4.5vh, 48px);
   position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
   width: 100%;
-  min-height: 100vh;
-  max-width: calc(var(--grid-max) + var(--grid-margin) * 2);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  /* La referencia ancla toda la masa del titular al tercio inferior: el header
-     flota arriba y el resto del hero es foto. */
-  justify-content: flex-end;
-  gap: var(--hero-gap);
-  padding: clamp(120px, 16vh, 160px) var(--grid-margin) 24px;
+  padding: calc(var(--header-h, 88px) + 6vh) var(--grid-margin) 8vh;
 }
+
+.hero__text { width: min(880px, 100%); }
 
 .hero__title {
   margin: 0;
-  max-width: none;
-  font-size: var(--hero-title);
-  line-height: .96;
-  letter-spacing: -.025em;
-  color: var(--paper);
+  font-size: var(--text-display-xl);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  color: var(--text-body);
 }
 
-/* Los saltos de línea son de diseño, no del ancho: como en la referencia, las
-   dos primeras líneas arrancan en el margen y la última se va a la derecha,
-   dejando a su izquierda el hueco donde se encaja el párrafo. La composición
-   aguanta porque la letra se mide en vw: si cabe a 1440, cabe a 900. En
-   estrecho las líneas vuelven a ser texto corrido. */
-.hero__title-line { display: block; }
-
-/* La última línea no se pega al borde derecho: arranca justo después del
-   párrafo, como en la referencia, y desde ahí llega casi al filo. El corte de
-   línea se eligió midiendo: «tecnología del mañana» es la única partición que
-   entra en el hueco restante en todos los anchos de escritorio. */
-.hero__title-line--end { padding-left: calc(var(--hero-lede) + var(--hero-encaje)); }
-
-.hero__foot {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(24px, 4vh, 40px);
-  margin: 0;
-}
-
-/* El encaje con el titular: el párrafo sube --hero-tuck y se mete en el hueco
-   que deja «tecnología del mañana» a su izquierda. `top` lo desplaza sin tocar
-   el flujo y el margin-bottom, de la misma medida, cierra el hueco que si no
-   dejaría abierto: sin él, el bloque entero del hero flota 122px más arriba de
-   lo que debería. Los dos valores tienen que ir siempre juntos, por eso salen
-   de la misma variable. */
 .hero__lede {
-  --hero-tuck: calc(var(--hero-title) * .62 + var(--hero-gap));
-  position: relative;
-  top: calc(var(--hero-tuck) * -1);
-  margin: 0 0 calc(var(--hero-tuck) * -1);
-  max-width: var(--hero-lede);
-  font-size: var(--text-body-size);
-  line-height: 1.6;
-  color: rgba(244, 242, 237, .86);
+  margin: clamp(20px, 3.4vh, 34px) 0 0;
+  max-width: 46ch;
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-body);
+  color: var(--text-muted);
 }
-
-.hero__lede span { color: inherit; }
 
 .hero__actions {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: clamp(26px, 4.4vh, 44px);
 }
 
-/* La barra de cita de la referencia: una pastilla traslúcida a todo lo ancho,
-   con el punto delante. Pisa al btn--primary de siempre sólo aquí. */
 .hero__actions .btn {
-  flex: 1 1 100%;
-  padding: 20px 24px;
-  background: rgba(244, 242, 237, .24);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  color: var(--paper);
+  padding: 15px 30px;
+  border-radius: var(--radius-pill);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
-.hero__actions .btn::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  margin-right: 12px;
-  border-radius: var(--radius-pill);
-  background: currentColor;
+/* El relleno del hero es el azul claro, no el marino: en el board el botón
+   principal es el acento y el marino se reserva para la letra. */
+.hero__actions .btn--primary {
+  background: var(--accent);
+  color: #FFFFFF;
 }
 
-.hero__actions .btn:hover {
-  background: rgba(244, 242, 237, .28);
-  color: var(--paper);
+.hero__actions .btn--primary:hover { background: var(--accent-hover); }
+
+.hero__actions .btn--outline {
+  border: 1px solid var(--accent);
+  color: var(--accent-strong);
+}
+
+.hero__actions .btn--outline:hover {
+  background: var(--btn-outline-hover);
+  color: var(--accent-strong);
+}
+
+@media (max-width: 760px) {
+  .hero__rules { display: none; }
 }
 
 /* --------------------------------------------------------------------------
@@ -513,25 +454,9 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
      relación de aspecto. Las constantes salen de medir el bloque de texto de
      cada ficha, no de tantear. El suelo evita que una ventana muy baja deje
      una tira. */
-  body[data-page="index"] .doctor-card__photo {
-    max-height: max(200px, calc(84vh - 130px));
-  }
-
   /* Las filas de artículo también ceden con la altura: relleno proporcional y
      el extracto acotado a dos líneas. Sólo aquí — en móvil y en las interiores
      la fila crece con su texto y se lee entero. */
-  body[data-page="index"] .article-row__aside,
-  body[data-page="index"] .article-row__body {
-    padding-top: clamp(10px, 1.8vh, 26px);
-    padding-bottom: clamp(10px, 1.8vh, 26px);
-  }
-
-  body[data-page="index"] .article-row__text {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
 
   /* ------------------------------------------------------------------
      Que la sección quepa: cede lo elástico, nunca el texto
@@ -596,7 +521,19 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   #equipo .person__meta dt { margin-top: clamp(5px, 1.1vh, 10px); }
   #equipo .person__role { margin-bottom: clamp(6px, 1.6vh, 14px); }
 
-  #casos .card__media { height: min(clamp(160px, 18vw, 220px), 14vh); }
+  #casos .card__media { height: min(clamp(160px, 18vw, 220px), 11vh); }
+  #casos .card__title { font-size: clamp(17px, 1.4vw, 20px); }
+
+  /* Las dos fichas de doctor se miden contra el alto: su columna de texto es
+     lo que manda y con Space Grotesk el nombre pide más línea que el serif que
+     había, así que la sección se pasaba 85px. El retrato, con object-fit, se
+     recorta solo. */
+  #doctores .doc { height: min(520px, calc(var(--fit) - 190px)); }
+
+  /* La fila de artículo cede su aire —no su texto— cuando la pantalla es
+     baja. */
+  #articulos .article-row { padding-block: clamp(12px, 2.2vh, 30px); }
+
 
   #formulario .field { gap: clamp(4px, 1.1vh, 8px); }
   #formulario .field input,
@@ -665,15 +602,25 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 body:not(.is-solid) .site-header .btn {
-  background: rgba(244, 242, 237, .22);
+  background: rgba(255, 255, 255, .22);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   color: var(--paper);
 }
 
 body:not(.is-solid) .site-header .btn:hover {
-  background: rgba(244, 242, 237, .34);
+  background: rgba(255, 255, 255, .34);
   color: var(--paper);
+}
+
+body[data-page="index"]:not(.nav-open) .site-header .btn {
+  background: var(--paper-2);
+  color: var(--text-body);
+}
+
+body[data-page="index"]:not(.nav-open) .site-header .btn:hover {
+  background: var(--paper-3);
+  color: var(--text-body);
 }
 
 body.is-solid .site-header .btn,
@@ -716,33 +663,52 @@ body.nav-open .site-header .btn:hover {
    el blanco las deja respirar sin el tinte cálido de --surface-page. */
 .section--white { background: #FFFFFF; }
 
+/* En oscuro la banda "blanca" no puede quedarse blanca: es la superficie de
+   página, y las piezas que viven encima —fichas de doctor, filas de artículo—
+   ya se resuelven con sus tokens. */
+body.lv-dark .section--white { background: var(--surface-page); }
+
+/* El hero de la portada es papel en claro y pizarra en oscuro; el logo blanco
+   vuelve a entrar y el chip deja de ser gris papel. */
+body.lv-dark[data-page="index"] .hero { background: var(--surface-page); }
+
+body.lv-dark[data-page="index"]:not(.nav-open) .site-header .btn {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+body.lv-dark[data-page="index"]:not(.nav-open) .site-header .btn:hover {
+  background: var(--accent-hover);
+  color: var(--accent-ink);
+}
+
 /* Banda a sangre en tinta, como alterna la referencia. Redefine los tokens de
    texto y filete puertas adentro: así el número de sección, los hairlines y
    todo lo que viva aquí se resuelve solo, sin variantes --dark de cada pieza. */
 .section--dark {
-  --mark: var(--paper);
-  --mark-soft: rgba(244, 242, 237, .3);
-  --accent: var(--paper);
-  --border-hairline: rgba(244, 242, 237, .2);
-  --border-strong: rgba(244, 242, 237, .55);
-  --text-muted: rgba(244, 242, 237, .64);
-  --text-faint: rgba(244, 242, 237, .58);
-  --text-dim: rgba(244, 242, 237, .6);
+  /* El acento NO se apaga aquí: en el board azul la banda oscura conserva el
+     azul claro —es el color del nombre de cada servicio y de las cifras—, sólo
+     que un punto más luminoso para que aguante sobre pizarra. */
+  --accent: #8FB6D5;
+  --accent-display: #8FB6D5;
+  --accent-strong: #8FB6D5;
+  --accent-hover: #B4CFE6;
+  --mark: #8FB6D5;
+  --mark-soft: rgba(143, 182, 213, .34);
+  --border-hairline: rgba(255, 255, 255, .2);
+  --border-strong: rgba(255, 255, 255, .55);
+  --text-muted: rgba(255, 255, 255, .70);
+  --text-faint: rgba(255, 255, 255, .64);
+  --text-dim: rgba(255, 255, 255, .66);
   --text-body: var(--dark-text);
-  --surface-raised: var(--ink-2);
-  /* Las piezas de las páginas interiores —tarjetas, acordeones, campos del
-     formulario— se pintan con estos tokens. Sin redefinirlos aquí, una tarjeta
-     dentro de una banda oscura salía clara con texto claro encima. */
-  --surface-card: var(--ink-2);
-  --surface-sunken: #0A0A08;
-  --border-card: rgba(244, 242, 237, .2);
+  --surface-raised: var(--ink-3);
+  --surface-card: var(--ink-3);
+  --surface-sunken: #1D2534;
+  --border-card: rgba(255, 255, 255, .2);
   --tile-empty: linear-gradient(160deg, var(--ink-2), var(--ink-3));
-  --tile-empty-ink: rgba(244, 242, 237, .7);
-  --accent-strong: var(--paper);
-  --accent-display: var(--paper);
-  --accent-hover: var(--paper-2);
-  --btn-outline-hover: rgba(244, 242, 237, .08);
-  background: var(--ink);
+  --tile-empty-ink: rgba(255, 255, 255, .7);
+  --btn-outline-hover: rgba(255, 255, 255, .08);
+  background: var(--ink-2);
   color: var(--dark-text);
 }
 
@@ -757,13 +723,7 @@ body.nav-open .site-header .btn:hover {
    grano en modo overlay aclara el borde inferior de la banda unos 15 puntos, y
    contra un negro liso ese salto se nota. Con la misma textura a los dos lados,
    los dos bordes se levantan igual y el corte desaparece. */
-.section--night {
-  background-color: #0D0D0B;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-  background-blend-mode: overlay;
-}
+.section--night { background: var(--dark-surface-deep); }
 .section--dark a:hover { color: var(--text-muted); }
 
 /* Con el tema oscuro activo la página entera es tinta: la banda se distingue
@@ -856,15 +816,22 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   /* Alto elástico: la sección va clavada a un viewport, así que la tarjeta se
      mide contra la altura y no contra un valor fijo. */
   min-height: max(340px, calc(84vh - 210px));
-  /* Sin relleno propio: lo llevan __top y __foot, porque sus velos tienen que
-     llegar al filo de la tarjeta y no pueden hacerlo desde dentro de un
-     padding. */
   padding: 0;
   overflow: hidden;
-  /* Un punto más oscuro que la banda, que es lo que las separa del fondo
-     cuando no llevan foto. */
-  background: #08080A;
+  /* Pizarra plana en reposo, como en el board: las tres tarjetas iguales y sin
+     foto. La foto es lo que aparece al pasar el puntero. */
+  background: var(--ink-2);
   text-decoration: none;
+  /* La tarjeta es una superficie OSCURA dentro de una banda de papel. Sin
+     redeclarar aquí los tokens, el resumen heredaba --text-muted en su versión
+     de papel —pizarra sobre pizarra, 1,14:1, ilegible— igual que le pasaba a
+     las fichas de equipo. Manda el fondo de la pieza, no el de la sección. */
+  --text-muted: rgba(255, 255, 255, .72);
+  --text-faint: rgba(255, 255, 255, .64);
+  --accent: #8FB6D5;
+  --accent-strong: #8FB6D5;
+  --border-hairline: rgba(255, 255, 255, .2);
+  color: var(--dark-text);
 }
 
 .service-col__photo {
@@ -873,10 +840,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* En reposo la tarjeta se lee plana, como en la referencia, y la foto sólo se
-     insinúa; al pasar el puntero aparece entera. Así la sección conserva el
-     orden del original sin renunciar a ninguna de las tres fotos. */
-  opacity: .16;
+  opacity: 0;
   transition: opacity var(--dur-med) var(--ease-out),
               transform var(--dur-med) var(--ease-out);
 }
@@ -887,67 +851,41 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   transform: scale(1.03);
 }
 
-/* Dos velos en uno: el general asienta la foto y el de abajo protege al
-   titular, que es donde el texto pesa más. */
+/* El velo es AZUL, no negro: en el board la foto de la tarjeta activa se ve
+   entera pero teñida de pizarra, que es lo que la ata a las otras dos. En
+   reposo no hay foto debajo, así que el velo es transparente y no pinta nada;
+   sólo entra con ella. */
 .service-col__scrim {
   position: absolute;
   inset: 0;
-  /* Un solo velo continuo, con las paradas en PÍXELES y no en porcentaje. Dos
-     degradados —uno que baja del borde superior y otro que sube del inferior—
-     cubren exactamente el alto de cada bloque de texto y se desvanecen antes de
-     encontrarse, así que el centro queda limpio y no hay ningún canto: la banda
-     uniforme más fundido que había antes dejaba una costura horizontal visible
-     a media tarjeta. En píxeles porque el texto mide lo mismo mida lo que mida
-     la tarjeta; en porcentaje se desplazaba con ella. */
-  background:
-    linear-gradient(180deg,
-      rgba(0, 0, 12, .88) 0,
-      rgba(0, 0, 12, .84) 132px,
-      rgba(0, 0, 12, .06) 300px),
-    linear-gradient(0deg,
-      rgba(0, 0, 12, .92) 0,
-      rgba(0, 0, 12, .84) 128px,
-      rgba(0, 0, 12, .06) 296px);
-  transition: opacity var(--dur-med) var(--ease-out);
+  background: rgba(28, 40, 68, 0);
+  transition: background var(--dur-med) var(--ease-out);
 }
 
-.service-col:hover .service-col__scrim { background: rgba(0, 0, 12, .3); }
+.service-col:hover .service-col__scrim,
+.service-col:focus-visible .service-col__scrim {
+  /* .78 y no .74: medido contra el pixel más claro de las tres fotos, por
+     debajo de ese nivel el índice —11px en versalitas— no llega a 4,5:1. */
+  background: rgba(24, 34, 58, .84);
+}
 
-/* El oscurecido va en dos piezas y sin un solo porcentaje. Con paradas en
-   porcentaje falla: medido, el bloque de arriba acaba entre el 26% y el 46% de
-   la tarjeta según la altura de la pantalla, y el de abajo empieza entre el 65%
-   y el 80% —no hay un reparto que sirva a las tres alturas, y el titular acababa
-   sobre un reflejo del instrumental en 1,6:1—. Aquí cada bloque lleva un fondo
-   UNIFORME detrás de todo su texto y un fundido de altura fija por fuera, así
-   que la densidad bajo la tinta no depende de cuánto mida la tarjeta. */
 .service-col__top,
 .service-col__foot {
   position: relative;
-  /* Explícito: la foto y el tinte general también van posicionados, y sin esto
-     el orden de pintado depende del orden en el DOM. Con z-index los velos
-     quedan por encima siempre. */
+  /* Explícito: la foto y el velo también van posicionados, y sin esto el orden
+     de pintado dependería del orden en el DOM. */
   z-index: 1;
   display: block;
   padding: clamp(20px, 2.2vw, 32px);
 }
 
-.service-col__top {
-}
-
-
-
-
-
 .service-col__index {
   display: block;
   margin-bottom: 14px;
-  padding-bottom: 12px;
-  position: relative;
-  border-bottom: 1px solid var(--border-hairline);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
-  color: var(--text-faint);
+  color: var(--accent);
 }
 
 .service-col__desc {
@@ -957,164 +895,86 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   color: var(--text-muted);
 }
 
+/* El nombre nace en azul claro y pasa a blanco cuando la tarjeta se abre: es
+   la única señal de estado que necesita, porque la tarjeta entera es enlace. */
 .service-col__name {
   margin: 0;
-  /* El velo del pie hace el trabajo, pero el titular es lo único a 44px sobre
-     foto: la sombra le da el margen que la medición pedía sin oscurecer más la
-     banda entera. */
-  /* Halo cerrado además del velo: es el único texto grande que puede caer sobre
-     un reflejo del instrumental, y la sombra le da el margen sin oscurecer más
-     la banda —que es lo que tapaba la foto—. */
-  text-shadow: 0 0 10px rgba(0, 0, 12, 1), 0 1px 3px rgba(0, 0, 12, 1),
-               0 2px 26px rgba(0, 0, 12, .95);
   font-size: clamp(28px, 3vw, 44px);
   line-height: 1;
   letter-spacing: var(--tracking-display);
-  color: var(--dark-text);
+  color: var(--accent);
+  transition: color var(--dur-med) var(--ease-out);
 }
 
-.service-col__more {
-  display: inline-block;
-  margin-top: var(--space-5);
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--dark-text);
-  transition: color var(--dur-fast) var(--ease-out);
-}
+.service-col:hover .service-col__name,
+.service-col:focus-visible .service-col__name { color: #FFFFFF; }
 
-.service-col:hover .service-col__more { color: var(--text-muted); }
+/* Con la foto detrás, el índice sube a blanco: en azul claro se quedaba en
+   3,3:1 sobre los reflejos del instrumental. */
+.service-col:hover .service-col__index,
+.service-col:focus-visible .service-col__index { color: rgba(255, 255, 255, .92); }
+
+/* El board no lleva enlace de continuar: el nombre de la tarjeta ES el enlace,
+   y la tarjeta entera es el área pulsable. */
+.service-col__more { display: none; }
 
 /* --------------------------------------------------------------------------
-   Doctores — retícula escalonada de cuatro carriles
+   Doctores — dos fichas en una pantalla
 
-   El formato de la referencia: una malla de filetes en la que el titular, el
-   párrafo, cada ficha y cada retrato ocupan una celda, y las dos fichas van
-   escalonadas —la primera arriba a la izquierda, la segunda abajo a la
-   derecha—. Las celdas vacías son parte del diseño, no un descuido.
+   El board las pone una al lado de la otra: panel de texto a la izquierda,
+   retrato a la derecha, filete alrededor. Sustituye a la retícula escalonada
+   de cuatro carriles del enfoque anterior, que repartía a los dos doctores en
+   dos paradas distintas.
    -------------------------------------------------------------------------- */
 
-.doctors__layout {
+.docs {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--border-hairline);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--grid-gutter);
 }
 
-/* Cada socio ocupa su propia parada del deslizador, así que cada malla llena
-   su viewport y la fila del retrato se queda con lo que sobre. La segunda no
-   repite el titular: continúa el escalonado de la primera, y como comparten
-   fondo las dos se leen como un solo lienzo. */
-.doctors__layout--a {
-  /* Alto de fila explícito y el mismo en las dos mallas: con `auto`, la primera
-     gastaba en el titular una fila que la segunda no tenía, y su retrato salía
-     180px más bajo que el de la segunda. */
-  grid-template-rows: clamp(112px, 14vh, 164px) minmax(0, 1fr);
-  /* `height` y no `min-height`: con un mínimo, la fila 1fr no tiene un tope
-     contra el que resolverse y el retrato le impone su alto intrínseco —596px
-     de una imagen 800x1422— que sacaba la sección 164px del viewport. */
-  height: min(600px, calc(84vh - 24px));
+.doc {
+  display: grid;
+  /* El retrato es vertical: algo menos de la mitad basta para que la cara
+     quepa entera sin recortar la barbilla. */
+  grid-template-columns: minmax(0, 1fr) 44%;
+  border: 1px solid var(--border-hairline);
+  background: var(--surface-raised);
+  overflow: hidden;
 }
 
-.doctors__layout--b {
-  grid-template-rows: clamp(112px, 14vh, 164px) minmax(0, 1fr);
-  height: min(600px, calc(84vh - 24px));
-  border-top: 0;
-}
-
-.doctors__layout--b .doctors__gap--top { grid-row: 1; grid-column: 1 / -1; }
-
-.doctors__layout--b .doctors__gap--c { grid-row: 2; grid-column: 1 / 3; }
-.doctors__layout--b .doctor-card--b { grid-column: 3 / 4; grid-row: 2; }
-.doctors__layout--b .doctor-photo--b { grid-column: 4 / 5; grid-row: 2; }
-
-.doctors__layout > * {
-  padding: clamp(20px, 2.2vw, 34px);
-  border-right: 1px solid var(--border-hairline);
-  border-bottom: 1px solid var(--border-hairline);
-}
-
-.doctors__layout > :first-child { border-left: 1px solid var(--border-hairline); }
-
-.doctors__head {
-  grid-column: 1 / 3;
-  grid-row: 1;
-  border-left: 1px solid var(--border-hairline);
-}
-
-.doctors__head .section__title { max-width: 8em; }
-
-.doctors__intro {
-  grid-column: 3 / 4;
-  grid-row: 1;
-  margin: 0;
-  font-size: var(--text-small);
-  line-height: 1.7;
-  color: var(--text-muted);
-}
-
-/* La celda vacía de cada fila se dibuja igual: la malla tiene que cerrar. */
-.doctors__gap { grid-row: 1; grid-column: 4 / 5; }
-.doctors__gap--b { grid-row: 2; grid-column: 3 / 5; }
-
-.doctor-card {
+.doc__body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  font-family: var(--font-sans);
-  text-decoration: none;
+  padding: clamp(24px, 3vw, 46px);
 }
 
-.doctor-card--a { grid-column: 1 / 2; grid-row: 2; border-left: 1px solid var(--border-hairline); }
-.doctor-card--b { grid-column: 3 / 4; grid-row: 1; border-left: 1px solid var(--border-hairline); }
-
-.doctor-photo {
-  display: block;
-  width: 100%;
-  /* Estirada a la celda: el alto lo manda la fila —o sea la ficha de texto de
-     al lado— y el recorte lo resuelve object-fit. Con relación de aspecto y un
-     tope de alto, la foto quedaba más corta que su celda y dejaba un hueco
-     negro debajo. */
-  height: 100%;
-  min-height: 0;
-  align-self: stretch;
-  object-fit: cover;
-  object-position: 50% 22%;
-  background: var(--tile-empty);
-  padding: 0;
+.doc__name {
+  margin: 0;
+  font-size: clamp(24px, 2.4vw, 36px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-display);
+  color: var(--text-body);
 }
 
-.doctor-photo--a { grid-column: 2 / 3; grid-row: 2; }
-.doctor-photo--b { grid-column: 4 / 5; grid-row: 1; }
-
-.doctor-card__name {
-  display: block;
-  font-family: var(--font-serif-display);
-  font-size: var(--text-h3);
-  line-height: 1.06;
-  max-width: 7em;
-  color: var(--dark-text);
-}
-
-.doctor-card__note {
-  display: block;
-  margin-top: 14px;
+.doc__note {
+  margin: clamp(18px, 2.4vh, 32px) 0 0;
   max-width: 26ch;
-  font-size: var(--text-small);
-  line-height: 1.5;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
   color: var(--text-muted);
 }
 
-.doctor-card__specialty {
-  display: block;
-  margin-top: 18px;
-  font-size: var(--text-small);
-  line-height: 1.5;
-  color: var(--dark-text);
+.doc__specialty {
+  margin: clamp(16px, 2.2vh, 28px) 0 0;
+  max-width: 26ch;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
+  color: var(--text-muted);
 }
 
-.doctor-card__tag {
+.doc__tag {
   display: block;
   margin-bottom: 4px;
   font-size: var(--text-label);
@@ -1124,134 +984,144 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   color: var(--text-faint);
 }
 
-.doctor-card__more {
-  display: block;
-  margin-top: clamp(20px, 3vh, 40px);
+/* `auto` arriba empuja la pastilla al pie de la ficha: las dos quedan a la
+   misma altura aunque un doctor tenga una línea más de texto. */
+/* `.doc .doc__cta` y no `.doc__cta` a secas: .btn--outline tiene el mismo peso
+   y ganaba por orden, dejando la pastilla en el azul de titular —3,3:1 sobre
+   blanco, por debajo del mínimo para 11px—. */
+.doc .doc__cta {
+  margin-top: auto;
+  padding: 13px 26px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--dark-text);
-  transition: color var(--dur-fast);
+  color: var(--accent-strong);
 }
 
-.doctor-card:hover .doctor-card__more { color: var(--text-muted); }
+.doc .doc__cta:hover {
+  background: var(--btn-outline-hover);
+  color: var(--accent-strong);
+}
+
+.doc__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
+
+@media (max-width: 1024px) {
+  .docs { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .doc { grid-template-columns: 1fr; }
+  .doc__photo { aspect-ratio: 3 / 2; }
+}
 
 /* --------------------------------------------------------------------------
-   Artículos — filas de tres carriles
+   Artículos — filas con numeral, miniatura y pastilla
 
-   El formato de la referencia: etiqueta y enlace en un carril estrecho a la
-   izquierda, el texto grande en el centro y la foto a la derecha, con filete
-   entre filas y entre carriles.
+   El board: un número dentro de un círculo a la izquierda, una miniatura de
+   esquinas redondeadas, el titular con dos líneas de resumen, y la pastilla de
+   continuar al otro extremo. Filete entre filas y nada más.
    -------------------------------------------------------------------------- */
 
 .articles__head { align-items: start; }
 
-.articles__list {
-  display: block;
-  border-top: 1px solid var(--border-hairline);
-}
+.articles__list { border-top: 1px solid var(--border-hairline); }
 
 .article-row {
   display: grid;
-  grid-template-columns: minmax(0, 2.4fr) minmax(0, 6.6fr) minmax(0, 3fr);
-  align-items: stretch;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(20px, 3vw, 56px);
+  padding: clamp(18px, 2.4vh, 30px) 0;
   border-bottom: 1px solid var(--border-hairline);
   text-decoration: none;
-  transition: background var(--dur-fast) var(--ease-out);
 }
 
-/* La fila entera responde al puntero, no sólo la flecha: es toda ella el
-   enlace. Un tinte de papel, que sobre blanco puro se lee sin cambiar el
-   contraste del texto. */
 .article-row:hover { background: var(--surface-card); }
 
-.article-row__aside {
+/* El numeral va en un círculo de filete, no en una etiqueta: es lo que ordena
+   la lista de un vistazo. */
+.article-row__num {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--space-6);
-  padding: clamp(20px, 2vw, 30px) clamp(16px, 2vw, 32px) clamp(20px, 2vw, 30px) 0;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.article-row__label {
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-
-.article-row__more {
-  font-size: var(--text-label);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--text-body);
-  transition: color var(--dur-fast);
-}
-
-.article-row:hover .article-row__more { color: var(--text-muted); }
-
-.article-row__body {
+.article-row__media {
   display: block;
-  padding: clamp(20px, 2vw, 30px) clamp(20px, 2.4vw, 44px);
-  border-left: 1px solid var(--border-hairline);
+  width: clamp(72px, 7vw, 96px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 14px;
 }
 
-/* El titular es lo que se lee de lejos en esta fila, así que va al escalón de
-   una portada pequeña y no al de una tarjeta. */
+.article-row__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-row__body { display: block; }
+
 .article-row__title {
   margin: 0;
-  font-size: clamp(22px, 2.2vw, 34px);
-  line-height: 1.1;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.15;
   letter-spacing: var(--tracking-display);
   color: var(--text-body);
 }
 
 .article-row__text {
   display: block;
-  margin-top: 14px;
-  max-width: 62ch;
+  margin-top: 6px;
+  max-width: 52ch;
   font-size: var(--text-small);
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--text-muted);
 }
 
-/* La foto sale del flujo: con `height: 100%` en una celda elástica acababa
-   imponiendo su proporción como alto de la fila —269px cuando el texto pedía
-   124— y la sección se salía del viewport. Absoluta dentro de su celda, el alto
-   lo manda el texto y la foto lo llena. */
-.article-row__media {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-left: 1px solid var(--border-hairline);
+.article-row__more {
+  flex: 0 0 auto;
+  padding: 12px 24px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  white-space: nowrap;
+  transition: background var(--dur-fast), color var(--dur-fast);
 }
 
-.article-row__photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* En color, a diferencia del resto de la fotografía del sitio: esta sección
-     va sobre blanco y las fotos son el único color de la página. */
+.article-row:hover .article-row__more {
+  background: var(--accent);
+  color: #FFFFFF;
 }
 
-/* --------------------------------------------------------------------------
-   Enlace de continuar — el filete bajo «Ver todos», «Conócenos» y compañía.
-   Heredó el nombre de las fichas de caso, que ya no existen.
-   -------------------------------------------------------------------------- */
-
-.case__link {
-  margin-top: 6px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--mark-soft);
-  transition: border-color var(--dur-fast) var(--ease-out);
+@media (max-width: 900px) {
+  .article-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 14px;
+  }
+  .article-row__media { display: none; }
+  .article-row__more { grid-column: 2; justify-self: start; }
 }
-
-.case__link:hover { border-bottom-color: var(--mark); }
 
 /* --------------------------------------------------------------------------
    Pie — cuatro carriles con filete y una barra legal debajo
@@ -1296,7 +1166,7 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
 .footer__tag {
   margin: var(--space-6) 0 0;
   max-width: 16ch;
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-size: var(--text-h3);
   line-height: 1.12;
   color: var(--text-body);
@@ -1638,10 +1508,6 @@ body.js [data-rev].is-pending {
   }
 
   /* La fila de artículo pierde el carril de la foto y apila etiqueta y texto. */
-  .article-row { grid-template-columns: 1fr; }
-  .article-row__media { display: none; }
-  .article-row__aside { padding-bottom: 0; flex-direction: row; align-items: baseline; }
-  .article-row__body { padding-left: 0; border-left: 0; }
 
   /* Tres fichas verticales por debajo de 760px dan menos de 220px de ancho: el
      nombre se parte y la especialidad ocupa media foto. En una columna se
@@ -1684,8 +1550,6 @@ body.js [data-rev].is-pending {
   .service-col:first-child { padding-top: 0; border-top: 0; }
 
   /* La fila de artículo apila la etiqueta sobre el título y suelta la flecha. */
-  .article-row { grid-template-columns: minmax(0, 1fr) auto; }
-  .article-row__label { grid-column: 1 / -1; padding-top: 0; }
 
   /* The desktop artboard sizes the display line off viewport height; at phone
      widths that overflows, so cap it against the width instead. */
@@ -1751,42 +1615,26 @@ body.js [data-rev].is-pending {
    Referencia: Vyra Capital, que el sitemap del cliente ya citaba.
    ========================================================================== */
 
-/* ---- cifras: sección clara con cuatro tarjetas ------------------------- */
+/* ---- cifras: la banda azul pizarra --------------------------------------
 
-/* El fondo de la referencia, todo en CSS y sin una imagen que descargar: una
-   base verde-oliva desaturada y una luz difusa arriba a la izquierda —blanca y
-   no amarilla, para que el verde no tire a mostaza—. El degradado va en
-   diagonal, así que sus extremos no coinciden con los bordes horizontales de la
-   sección: por eso encima lleva un fundido vertical al negro de las secciones
-   vecinas, que es lo que borra la costura. Sin él, el corte con Doctores era un
-   salto de 56 puntos de luminancia, medido. la rejilla de filetes que estructura la banda, y grano de película
-   por encima —una turbulencia SVG en línea, que es lo único que da ruido sin
-   pedir un archivo—. El orden importa: el grano va primero en la lista para
-   quedar ARRIBA del todo. */
+   Plana, sin degradado ni grano: en el board azul la banda es un rectángulo de
+   pizarra y lo que la anima son las cifras en azul claro y los filetes que las
+   separan. El fondo de oliva y turbulencia que había aquí era del enfoque
+   monocromo y no sobrevive al cambio de paleta.
+   ------------------------------------------------------------------------ */
 .stats-band {
   position: relative;
   padding: var(--space-section) var(--grid-margin);
-  background-color: #12150E;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"),
-    linear-gradient(to right, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(244, 242, 237, .05) 1px, transparent 1px),
-    linear-gradient(180deg, #0D0D0B 0%, rgba(13, 13, 11, 0) 15%, rgba(13, 13, 11, 0) 80%, #0D0D0B 100%),
-    radial-gradient(115% 85% at 14% 4%, rgba(234, 240, 228, .15), transparent 60%),
-    linear-gradient(158deg, #272D22 0%, #161A12 50%, #080906 100%);
-  background-size: 180px 180px, 25% 100%, 100% 33.34%, 100% 100%, 100% 100%, 100% 100%;
-  background-blend-mode: overlay, normal, normal, normal, screen, normal;
+  background: var(--ink-2);
 }
 
-/* La sentencia manda: a todo lo ancho, alineada al carril como el resto de la
-   página, y las cifras en una fila de filetes debajo. */
 .stats-band__layout { display: block; }
 
 .stats-band__title {
   margin: 0;
   max-width: none;
-  font-size: clamp(40px, 6.6vw, 96px);
-  line-height: .98;
+  font-size: var(--text-h2);
+  line-height: var(--leading-heading);
   letter-spacing: var(--tracking-display);
   /* La separación hasta las cifras la ponía el margen inferior de la nota; sin
      ella la pone el titular. */
@@ -1812,14 +1660,16 @@ body.js [data-rev].is-pending {
 
 .figure__num {
   display: block;
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   /* El numeral manda en la sección: es lo que se lee de lejos y el rótulo lo
      explica debajo. Por eso llega casi al tamaño de un titular de sección. */
-  font-size: clamp(64px, 8.4vw, 132px);
+  font-size: clamp(52px, 6.4vw, 96px);
   font-weight: var(--weight-display);
-  line-height: .9;
+  line-height: .95;
   letter-spacing: -.03em;
-  color: var(--text-body);
+  /* La cifra es lo único en azul claro de la banda: es lo que se lee de lejos
+     y el rótulo, en blanco atenuado, la explica debajo. */
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 
@@ -2042,7 +1892,7 @@ body.js [data-rev].is-pending {
 
 .vquote__name {
   display: block;
-  font-family: var(--font-serif-display);
+  font-family: var(--font-display);
   font-size: var(--text-h4);
   color: var(--dark-text);
 }
@@ -2141,4 +1991,135 @@ body.js [data-rev].is-pending {
   .doctor-card,
   .service-col,
   .article-row { break-inside: avoid; }
+}
+
+
+/* --------------------------------------------------------------------------
+   Escaparate de equipos — la diapositiva a sangre del board
+
+   Foto entera bajo un velo azul, el titular en dos tonos arriba a la
+   izquierda, el resumen y la pastilla debajo, y las flechas sobre la propia
+   foto. Sustituye a los testimonios en video, que seguían siendo marcadores
+   sin material del cliente.
+   -------------------------------------------------------------------------- */
+
+.showcase { position: relative; }
+
+.showcase__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.showcase__track::-webkit-scrollbar { display: none; }
+
+.slide {
+  /* Misma razón que en .service-col: superficie oscura dentro de banda clara. */
+  --accent: #8FB6D5;
+  --text-muted: rgba(255, 255, 255, .82);
+  position: relative;
+  display: flex;
+  align-items: center;
+  scroll-snap-align: start;
+  min-height: min(620px, calc(84vh - 40px));
+  overflow: hidden;
+  background: var(--ink-2);
+}
+
+.slide__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Velo azul y no negro: la foto se ve entera pero teñida de pizarra, que es lo
+   que la ata al resto de la página. El nivel sale de medir el texto contra el
+   pixel más claro de cada foto, no de tantear. */
+.slide__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(20, 30, 52, .92) 0, rgba(20, 30, 52, .78) 42%, rgba(20, 30, 52, .42) 100%);
+}
+
+.slide__body {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 100%);
+  padding: clamp(28px, 4vw, 68px);
+}
+
+.slide__title {
+  margin: 0;
+  font-size: clamp(30px, 3.8vw, 54px);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+  color: #FFFFFF;
+}
+
+.slide__text {
+  margin: clamp(20px, 3vh, 36px) 0 0;
+  max-width: 42ch;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
+  color: rgba(255, 255, 255, .82);
+}
+
+.slide__cta {
+  display: inline-block;
+  margin-top: clamp(24px, 3.4vh, 40px);
+  padding: 13px 28px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.slide__cta:hover {
+  background: rgba(255, 255, 255, .14);
+  color: #FFFFFF;
+}
+
+.showcase__arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background var(--dur-fast), opacity var(--dur-fast);
+}
+
+.showcase__arrow:hover { background: rgba(255, 255, 255, .18); }
+.showcase__arrow[disabled] { opacity: .35; cursor: default; }
+.showcase__arrow--prev { left: clamp(14px, 2vw, 28px); }
+.showcase__arrow--next { right: clamp(14px, 2vw, 28px); }
+
+.showcase__dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 620px) {
+  .slide__body { width: 100%; }
+  .slide__veil { background: linear-gradient(180deg, rgba(20, 30, 52, .72) 0, rgba(20, 30, 52, .92) 100%); }
 }
