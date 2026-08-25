@@ -554,3 +554,78 @@
   .cta-band__actions { align-self: stretch; flex-direction: column; }
   .cta-band__actions .btn { white-space: normal; }
 }
+
+
+/* --------------------------------------------------------------------------
+   Cómo llegar — mapa a sangre
+
+   La sección pierde su relleno y su carril: el mapa ocupa el ancho entero y el
+   titular y la nota se apoyan encima, como en la referencia.
+   -------------------------------------------------------------------------- */
+
+.section--map {
+  padding: 0;
+  overflow: hidden;
+}
+
+.map-full {
+  position: relative;
+  height: clamp(360px, 62vh, 640px);
+}
+
+.map-full img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Las teselas de OSM vienen claras y la sección es oscura: se apagan hasta
+     que el mapa se lea como parte de la banda y no como un recorte pegado. */
+  filter: grayscale(1) brightness(.42) contrast(1.15);
+}
+
+.map-full .map-pin {
+  background: var(--paper);
+  border-color: rgba(13, 13, 11, .8);
+}
+
+.map-full__title {
+  position: absolute;
+  top: clamp(24px, 4vw, 52px);
+  left: var(--grid-margin);
+  margin: 0;
+  color: var(--paper);
+  text-shadow: 0 2px 26px rgba(0, 0, 0, .8);
+}
+
+.map-full__bar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  padding: 18px var(--grid-margin);
+  background: rgba(9, 9, 8, .86);
+}
+
+.map-full .map-note {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: rgba(244, 242, 237, .72);
+}
+
+.map-full__link {
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.map-full__link:hover { color: rgba(244, 242, 237, .7); }

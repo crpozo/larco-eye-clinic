@@ -200,7 +200,9 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .menu__inner {
   width: 300px;
   padding: 12px 0;
-  background: var(--surface-raised);
+  /* Blanco puro, no el papel del resto: el panel flota sobre la foto del hero
+     y en crema se leía sucio. */
+  background: #FFFFFF;
   border: 1px solid var(--border-hairline);
   box-shadow: var(--shadow-float);
 }
@@ -804,7 +806,10 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 }
 
 .service-col__top {
-  background: rgba(0, 0, 12, .86);
+  /* .74 y no .86: a .86 el velo tapaba la foto y la tarjeta parecía cortada en
+     bandas. Éste es el suelo al que el texto tenue sigue por encima de AA sobre
+     el peor píxel de la foto, medido. */
+  background: rgba(0, 0, 12, .74);
 }
 
 .service-col__top::after {
@@ -814,7 +819,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   right: 0;
   left: 0;
   height: 72px;
-  background: linear-gradient(180deg, rgba(0, 0, 12, .86), rgba(0, 0, 12, 0));
+  background: linear-gradient(180deg, rgba(0, 0, 12, .74), rgba(0, 0, 12, 0));
 }
 
 .service-col__foot::before {
@@ -824,10 +829,10 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   bottom: 100%;
   left: 0;
   height: 72px;
-  background: linear-gradient(180deg, rgba(0, 0, 12, 0), rgba(0, 0, 12, .95));
+  background: linear-gradient(180deg, rgba(0, 0, 12, 0), rgba(0, 0, 12, .88));
 }
 
-.service-col__foot { background: rgba(0, 0, 12, .95); }
+.service-col__foot { background: rgba(0, 0, 12, .88); }
 
 .service-col__index {
   display: block;
@@ -853,7 +858,11 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   /* El velo del pie hace el trabajo, pero el titular es lo único a 44px sobre
      foto: la sombra le da el margen que la medición pedía sin oscurecer más la
      banda entera. */
-  text-shadow: 0 1px 2px rgba(0, 0, 12, .95), 0 2px 24px rgba(0, 0, 12, .9);
+  /* Halo cerrado además del velo: es el único texto grande que puede caer sobre
+     un reflejo del instrumental, y la sombra le da el margen sin oscurecer más
+     la banda —que es lo que tapaba la foto—. */
+  text-shadow: 0 0 10px rgba(0, 0, 12, 1), 0 1px 3px rgba(0, 0, 12, 1),
+               0 2px 26px rgba(0, 0, 12, .95);
   font-size: clamp(28px, 3vw, 44px);
   line-height: 1;
   letter-spacing: var(--tracking-display);
@@ -934,14 +943,14 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .doctor-photo {
   display: block;
   width: 100%;
+  /* Estirada a la celda: el alto lo manda la fila —o sea la ficha de texto de
+     al lado— y el recorte lo resuelve object-fit. Con relación de aspecto y un
+     tope de alto, la foto quedaba más corta que su celda y dejaba un hueco
+     negro debajo. */
   height: 100%;
-  /* Dos filas de retrato más la del titular no caben si el alto lo manda la
-     relación de aspecto: a 1440x900 pedían 840px de foto para 683 disponibles.
-     El tope reparte lo que queda entre las dos filas. */
-  max-height: max(150px, calc((84vh - 200px) / 2));
-  aspect-ratio: 4 / 5;
+  align-self: stretch;
   object-fit: cover;
-  object-position: 50% 18%;
+  object-position: 50% 22%;
   background: var(--tile-empty);
   padding: 0;
 }
@@ -1316,7 +1325,7 @@ body.js [data-rev].is-pending {
     overflow-y: auto;
     overscroll-behavior: contain;
     padding: 8px var(--grid-margin) max(28px, env(safe-area-inset-bottom));
-    background: var(--surface-raised);
+    background: #FFFFFF;
     border-bottom: 1px solid var(--border-hairline);
     box-shadow: var(--shadow-float);
     color: var(--text-body);
@@ -1918,9 +1927,6 @@ body.js [data-rev].is-pending {
 .testimonios__cta { margin-top: var(--space-5); }
 
 
-.quote {
-  margin: 0;
-}
 
 /* La marca abre la cita y sustituye al filete de color. Va en el markup y no en
    un ::before porque NVDA, JAWS y VoiceOver SÍ anuncian el contenido generado:
@@ -1932,37 +1938,9 @@ body.js [data-rev].is-pending {
    y en grande se lee como puntuación suelta; la doble prima son dos barras y
    funciona como marca. Está en el subset latin que servimos, comprobado. La
    inclinación la pone el skew porque la ″ de Montserrat es vertical. */
-.quote__mark {
-  display: block;
-  width: fit-content;
-  margin-bottom: 22px;
-  font-family: var(--font-serif-display);
-  font-size: 92px;
-  font-weight: var(--weight-bold);
-  line-height: .42;
-  color: var(--mark);
-  transform: skewX(-14deg);
-  transform-origin: bottom left;
-}
 
-.quote__text {
-  margin: 0 0 22px;
-  font-family: var(--font-serif-display);
-  font-size: var(--text-h4);
-  line-height: 1.55;
-  color: var(--text-body);
-}
 
-.quote__by {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
 
-.quote__by strong {
-  color: var(--text-body);
-  font-weight: var(--weight-semibold);
-}
 
 @media (max-width: 1024px) {
   .slider__track { grid-auto-columns: calc((100% - var(--slider-gap)) / 2); }
