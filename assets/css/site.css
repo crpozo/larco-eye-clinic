@@ -615,6 +615,18 @@ body.nav-open .site-header .btn:hover {
   --text-dim: rgba(244, 242, 237, .6);
   --text-body: var(--dark-text);
   --surface-raised: var(--ink-2);
+  /* Las piezas de las páginas interiores —tarjetas, acordeones, campos del
+     formulario— se pintan con estos tokens. Sin redefinirlos aquí, una tarjeta
+     dentro de una banda oscura salía clara con texto claro encima. */
+  --surface-card: var(--ink-2);
+  --surface-sunken: #0A0A08;
+  --border-card: rgba(244, 242, 237, .2);
+  --tile-empty: linear-gradient(160deg, var(--ink-2), var(--ink-3));
+  --tile-empty-ink: rgba(244, 242, 237, .7);
+  --accent-strong: var(--paper);
+  --accent-display: var(--paper);
+  --accent-hover: var(--paper-2);
+  --btn-outline-hover: rgba(244, 242, 237, .08);
   background: var(--ink);
   color: var(--dark-text);
 }
@@ -746,11 +758,19 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1);
-  transition: transform var(--dur-med) var(--ease-out);
+  /* En reposo la tarjeta se lee plana, como en la referencia, y la foto sólo se
+     insinúa; al pasar el puntero aparece entera. Así la sección conserva el
+     orden del original sin renunciar a ninguna de las tres fotos. */
+  opacity: .16;
+  transition: opacity var(--dur-med) var(--ease-out),
+              transform var(--dur-med) var(--ease-out);
 }
 
-.service-col:hover .service-col__photo { transform: scale(1.04); }
+.service-col:hover .service-col__photo,
+.service-col:focus-visible .service-col__photo {
+  opacity: 1;
+  transform: scale(1.03);
+}
 
 /* Dos velos en uno: el general asienta la foto y el de abajo protege al
    titular, que es donde el texto pesa más. */
@@ -759,8 +779,11 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   inset: 0;
   /* Sólo un tinte parejo que asienta la foto. El oscurecido que hace legible el
      texto lo ponen __top y __foot, cada uno anclado a SU bloque. */
-  background: rgba(0, 0, 12, .2);
+  background: rgba(0, 0, 12, .08);
+  transition: background var(--dur-med) var(--ease-out);
 }
+
+.service-col:hover .service-col__scrim { background: rgba(0, 0, 12, .3); }
 
 /* El oscurecido va en dos piezas y sin un solo porcentaje. Con paradas en
    porcentaje falla: medido, el bloque de arriba acaba entre el 26% y el 46% de
@@ -912,10 +935,13 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   display: block;
   width: 100%;
   height: 100%;
+  /* Dos filas de retrato más la del titular no caben si el alto lo manda la
+     relación de aspecto: a 1440x900 pedían 840px de foto para 683 disponibles.
+     El tope reparte lo que queda entre las dos filas. */
+  max-height: max(150px, calc((84vh - 200px) / 2));
   aspect-ratio: 4 / 5;
   object-fit: cover;
   object-position: 50% 18%;
-  filter: grayscale(1);
   background: var(--tile-empty);
   padding: 0;
 }
@@ -971,7 +997,6 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 }
 
 .doctor-card:hover .doctor-card__more { color: var(--text-muted); }
-.doctor-card:hover ~ .doctor-photo { filter: grayscale(0); }
 
 /* --------------------------------------------------------------------------
    Artículos — filas de tres carriles
@@ -1843,8 +1868,11 @@ body.js [data-rev].is-pending {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  aspect-ratio: 3 / 4;
-  max-height: max(200px, calc(84vh - 400px));
+  /* Sin relación de aspecto: la ficha ocupa el carril entero de ancho y el
+     alto sale de lo que deja el viewport. Con aspect-ratio la altura acotada
+     estrechaba la ficha y dejaba medio carril vacío. */
+  width: 100%;
+  height: max(200px, calc(84vh - 400px));
   background: rgba(244, 242, 237, .05);
   border: 1px solid var(--border-hairline);
 }

@@ -150,14 +150,12 @@ body.lv-dark .btn--outline[data-ondark="nav"]:hover {
   aspect-ratio: 3 / 4;
   object-fit: cover;
   object-position: 50% 18%;
-  filter: grayscale(1);
   background: var(--tile-empty);
   transition: filter var(--dur-med) var(--ease-out);
 }
 
 /* El hover devuelve el color: el mismo gesto que la referencia insinúa con sus
    retratos, y una señal de enlace que no necesita levitar la tarjeta. */
-.doctor-card:hover .doctor-card__photo { filter: grayscale(0); }
 
 .doctor-card__name {
   display: block;
