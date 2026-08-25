@@ -152,6 +152,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* .card lleva `flex-start` y lo heredaba: las cabeceras se encogían a su
+     texto en vez de ocupar la ficha, y el pie no podía separar titular y
+     enlace a los extremos. */
+  align-items: stretch;
   gap: var(--space-8);
   min-height: max(300px, calc(74vh - 240px));
   padding: 0;
@@ -168,14 +172,29 @@
   height: 100%;
   margin: 0;
   object-fit: cover;
-  opacity: .3;
-  transition: opacity var(--dur-med) var(--ease-out);
+  opacity: 1;
 }
 
-.card--wide:hover .card__media { opacity: 1; }
+/* Un velo UNIFORME sobre toda la ficha, no dos bandas arriba y abajo: las
+   bandas cortaban la imagen y el cliente las vetó. Uniforme no deja ningún
+   canto y la foto se ve entera por debajo.
 
-/* Los dos velos cuelgan de su bloque de texto y no de la ficha, con las
-   paradas en píxeles: así la densidad bajo la tinta no cambia con el alto. */
+   El valor no es de gusto: las fotos de equipo son máquinas casi blancas, y
+   para que el texto tenue llegue a 4,5:1 sobre el peor píxel hace falta este
+   nivel de atenuación. Por eso el realce del hover es corto —de .80 a .74—:
+   más luz costaría legibilidad. */
+.card--wide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 12, .8);
+  transition: background var(--dur-med) var(--ease-out);
+}
+
+.card--wide:hover::after { background: rgba(0, 0, 12, .74); }
+
+/* Sin velos: la ficha se lee plana y la legibilidad la da la atenuación de la
+   foto, no una banda encima. */
 .card--wide .card__top,
 .card--wide .card__foot {
   position: relative;
@@ -183,18 +202,11 @@
   padding: clamp(20px, 2.2vw, 30px);
 }
 
-.card--wide .card__top {
-  background: linear-gradient(180deg,
-    rgba(0, 0, 12, .88) 0, rgba(0, 0, 12, .82) 96px, rgba(0, 0, 12, 0) 100%);
-}
-
 .card--wide .card__foot {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--space-6);
-  background: linear-gradient(0deg,
-    rgba(0, 0, 12, .92) 0, rgba(0, 0, 12, .82) 110px, rgba(0, 0, 12, 0) 100%);
 }
 
 .card--wide .card__label {
@@ -205,7 +217,9 @@
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--text-faint);
+  /* --text-muted y no --text-faint: sobre este velo, el tenue se queda en
+     4,36:1 y el rótulo es texto de 11px. Medido. */
+  color: var(--text-muted);
 }
 
 .card--wide .card__text {
@@ -577,12 +591,14 @@
   padding: 0;
   background: none;
   border: 0;
+  /* Centrado, como la referencia: rótulo, titular y pastilla en un solo eje. */
+  text-align: center;
 }
 
+/* El rótulo no repite el titular —seria decir dos veces lo mismo— sino que lo
+   introduce. */
 .cta-band__label {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  display: block;
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
@@ -590,17 +606,9 @@
   color: var(--text-faint);
 }
 
-.cta-band__label::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: var(--radius-pill);
-  background: currentColor;
-}
-
 .cta-band__title {
-  margin: var(--space-5) 0 0;
-  max-width: 11em;
+  margin: var(--space-5) auto 0;
+  max-width: 14em;
   font-size: var(--text-h2);
   line-height: 1.02;
   letter-spacing: var(--tracking-display);
@@ -608,8 +616,8 @@
 }
 
 .cta-band__text {
-  margin: var(--space-5) 0 0;
-  max-width: 48ch;
+  margin: var(--space-5) auto 0;
+  max-width: 46ch;
   font-size: var(--text-body-size);
   line-height: var(--leading-body);
   color: var(--text-muted);
@@ -617,26 +625,17 @@
 
 .cta-band__actions {
   display: flex;
-  margin-top: clamp(32px, 5vh, 64px);
+  justify-content: center;
+  margin-top: clamp(28px, 4.5vh, 48px);
 }
 
-/* La pastilla ancha de la referencia. */
+/* Pastilla compacta, no barra: se dimensiona con su texto. */
 .cta-band__actions .btn {
-  flex: 1 1 100%;
-  padding: 20px 24px;
+  padding: 18px 40px;
   border-radius: var(--radius-pill);
   font-size: var(--text-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-}
-
-.cta-band__actions .btn::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  margin-right: 12px;
-  border-radius: var(--radius-pill);
-  background: currentColor;
 }
 
 /* --------------------------------------------------------------------------
