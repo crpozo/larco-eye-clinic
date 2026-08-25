@@ -19,11 +19,11 @@
 
 <link rel="icon" type="image/webp" href="assets/img/logo.webp">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=140">
-<link rel="stylesheet" href="assets/css/tokens.css?v=140">
-<link rel="stylesheet" href="assets/css/components.css?v=140">
-<link rel="stylesheet" href="assets/css/site.css?v=140">
-<link rel="stylesheet" href="assets/css/pages.css?v=140">
+<link rel="stylesheet" href="assets/css/fonts.css?v=155">
+<link rel="stylesheet" href="assets/css/tokens.css?v=155">
+<link rel="stylesheet" href="assets/css/components.css?v=155">
+<link rel="stylesheet" href="assets/css/site.css?v=155">
+<link rel="stylesheet" href="assets/css/pages.css?v=155">
 <noscript><style>
   /* Sin JS la hamburguesa no puede abrir nada, así que el menú va en línea. */
   @media (max-width: 1024px) {
@@ -197,27 +197,27 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
       <div class="doctors__layout">
         <div class="doctors__head" data-rev>
           <h2 class="section__title">Doctores socios</h2>
-          <a class="btn btn--outline doctors__cta" data-ondark="theme" href="sobre-nosotros.html#equipo">Conócenos</a>
         </div>
+        <p class="doctors__intro" data-rev>La clínica está dirigida por sus propios cirujanos: cada diagnóstico y cada cirugía llevan el nombre de quien la opera.</p>
+        <div class="doctors__gap" aria-hidden="true"></div>
 
-        <div class="doctors__grid">
-        <div class="doctors__slot" data-rev>
-          <a class="doctor-card" href="sobre-nosotros.html#equipo">
-            <img class="doctor-card__photo" src="assets/img/photos/dr-marcelo-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
-            <span class="doctor-card__name">Dr. Marcelo Larco</span>
-            <span class="doctor-card__note">Pionero de la cirugía de catarata con láser en Quito</span>
-            <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Córnea, catarata y cirugía refractiva</span>
-          </a>
-        </div>
-        <div class="doctors__slot" data-rev>
-          <a class="doctor-card" href="sobre-nosotros.html#equipo">
-            <img class="doctor-card__photo" src="assets/img/photos/dr-roberto-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
-            <span class="doctor-card__name">Dr. Roberto Larco</span>
-            <span class="doctor-card__note">Más de 20 años de experiencia</span>
-            <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Retina y vítreo</span>
-          </a>
-        </div>
-        </div>
+        <a class="doctor-card doctor-card--a" href="sobre-nosotros.html#equipo" data-rev>
+          <span class="doctor-card__name">Dr. Marcelo Larco</span>
+          <span class="doctor-card__note">Pionero de la cirugía de catarata con láser en Quito.</span>
+          <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Córnea, catarata y cirugía refractiva</span>
+          <span class="doctor-card__more">Conócenos <span aria-hidden="true">↗</span></span>
+        </a>
+        <img class="doctor-photo doctor-photo--a" src="assets/img/photos/dr-marcelo-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
+        <div class="doctors__gap doctors__gap--b" aria-hidden="true"></div>
+
+        <div class="doctors__gap doctors__gap--c" aria-hidden="true"></div>
+        <a class="doctor-card doctor-card--b" href="sobre-nosotros.html#equipo" data-rev>
+          <span class="doctor-card__name">Dr. Roberto Larco</span>
+          <span class="doctor-card__note">Más de 20 años de experiencia.</span>
+          <span class="doctor-card__specialty"><span class="doctor-card__tag">Especialidad</span>Retina y vítreo</span>
+          <span class="doctor-card__more">Conócenos <span aria-hidden="true">↗</span></span>
+        </a>
+        <img class="doctor-photo doctor-photo--b" src="assets/img/photos/dr-roberto-larco-3.webp" alt="" width="800" height="1422" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -506,6 +506,6 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
 <a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
-<script src="assets/js/site.js?v=140" defer></script>
+<script src="assets/js/site.js?v=155" defer></script>
 </body>
 </html>
