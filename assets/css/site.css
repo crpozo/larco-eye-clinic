@@ -779,10 +779,23 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .service-col__scrim {
   position: absolute;
   inset: 0;
-  /* Sólo un tinte parejo que asienta la foto. El oscurecido que hace legible el
-     texto lo ponen __top y __foot, cada uno anclado a SU bloque. */
-  background: rgba(0, 0, 12, .08);
-  transition: background var(--dur-med) var(--ease-out);
+  /* Un solo velo continuo, con las paradas en PÍXELES y no en porcentaje. Dos
+     degradados —uno que baja del borde superior y otro que sube del inferior—
+     cubren exactamente el alto de cada bloque de texto y se desvanecen antes de
+     encontrarse, así que el centro queda limpio y no hay ningún canto: la banda
+     uniforme más fundido que había antes dejaba una costura horizontal visible
+     a media tarjeta. En píxeles porque el texto mide lo mismo mida lo que mida
+     la tarjeta; en porcentaje se desplazaba con ella. */
+  background:
+    linear-gradient(180deg,
+      rgba(0, 0, 12, .88) 0,
+      rgba(0, 0, 12, .84) 132px,
+      rgba(0, 0, 12, .06) 300px),
+    linear-gradient(0deg,
+      rgba(0, 0, 12, .92) 0,
+      rgba(0, 0, 12, .84) 128px,
+      rgba(0, 0, 12, .06) 296px);
+  transition: opacity var(--dur-med) var(--ease-out);
 }
 
 .service-col:hover .service-col__scrim { background: rgba(0, 0, 12, .3); }
@@ -806,33 +819,11 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 }
 
 .service-col__top {
-  /* .74 y no .86: a .86 el velo tapaba la foto y la tarjeta parecía cortada en
-     bandas. Éste es el suelo al que el texto tenue sigue por encima de AA sobre
-     el peor píxel de la foto, medido. */
-  background: rgba(0, 0, 12, .74);
 }
 
-.service-col__top::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  height: 72px;
-  background: linear-gradient(180deg, rgba(0, 0, 12, .74), rgba(0, 0, 12, 0));
-}
 
-.service-col__foot::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 100%;
-  left: 0;
-  height: 72px;
-  background: linear-gradient(180deg, rgba(0, 0, 12, 0), rgba(0, 0, 12, .88));
-}
 
-.service-col__foot { background: rgba(0, 0, 12, .88); }
+
 
 .service-col__index {
   display: block;
@@ -872,16 +863,15 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .service-col__more {
   display: inline-block;
   margin-top: var(--space-5);
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--border-strong);
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  transition: border-color var(--dur-fast) var(--ease-out);
+  color: var(--dark-text);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
-.service-col:hover .service-col__more { border-bottom-color: var(--dark-text); }
+.service-col:hover .service-col__more { color: var(--text-muted); }
 
 /* --------------------------------------------------------------------------
    Doctores — retícula escalonada de cuatro carriles
