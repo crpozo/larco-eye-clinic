@@ -19,11 +19,11 @@
 
 <link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
 <link rel="preload" href="assets/fonts/montserrat-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css?v=170">
-<link rel="stylesheet" href="assets/css/tokens.css?v=170">
-<link rel="stylesheet" href="assets/css/components.css?v=170">
-<link rel="stylesheet" href="assets/css/site.css?v=170">
-<link rel="stylesheet" href="assets/css/pages.css?v=170">
+<link rel="stylesheet" href="assets/css/fonts.css?v=175">
+<link rel="stylesheet" href="assets/css/tokens.css?v=175">
+<link rel="stylesheet" href="assets/css/components.css?v=175">
+<link rel="stylesheet" href="assets/css/site.css?v=175">
+<link rel="stylesheet" href="assets/css/pages.css?v=175">
 <noscript><style>
   /* Sin JS la hamburguesa no puede abrir nada, así que el menú va en línea. */
   @media (max-width: 1024px) {
@@ -264,20 +264,38 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
       </div>
 
       <div class="cards cards--3" data-rev>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/area-quirofano.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Quirófano</h3>
-          <p class="card__text">Totalmente equipado para cirugía oftalmológica ambulatoria.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Totalmente equipado para cirugía oftalmológica ambulatoria.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Quirófano</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/area-campo-visual.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Sala de campo visual</h3>
-          <p class="card__text">Espacio en oscuridad total para el estudio preciso del campo de visión.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Espacio en oscuridad total para el estudio preciso del campo de visión.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Sala de campo visual</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/area-laser.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Salas láser</h3>
-          <p class="card__text">Dos áreas dedicadas a tratamientos con tecnología láser.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Dos áreas dedicadas a tratamientos con tecnología láser.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Salas láser</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
       </div>
     </div>
@@ -295,45 +313,93 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
       </div>
 
       <div class="cards cards--4" data-rev>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-optica.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Óptica ZEISS</h3>
-          <p class="card__text">Tecnología alemana líder mundial en oftalmología.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Tecnología alemana líder mundial en oftalmología.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Óptica ZEISS</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-iol-master.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">IOL Master 700</h3>
-          <p class="card__text">Última tecnología en Ecuador; calcula con exactitud el lente intraocular antes de una cirugía de catarata.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Última tecnología en Ecuador; calcula con exactitud el lente intraocular antes de una cirugía de catarata.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">IOL Master 700</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-pentacam.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Pentacam OCT</h3>
-          <p class="card__text">Diagnóstico detallado de enfermedades de la córnea.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Diagnóstico detallado de enfermedades de la córnea.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Pentacam OCT</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-oct-triton.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">OCT Triton Plus</h3>
-          <p class="card__text">Estudio de alta resolución de la retina y el nervio óptico.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Estudio de alta resolución de la retina y el nervio óptico.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">OCT Triton Plus</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-camara-retina.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Cámara de retina</h3>
-          <p class="card__text">Registro fotográfico del fondo del ojo para detectar y seguir enfermedades retinianas.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Registro fotográfico del fondo del ojo para detectar y seguir enfermedades retinianas.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Cámara de retina</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-humphrey.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Humphrey Field Analyzer 3</h3>
-          <p class="card__text">Análisis del campo visual, clave en el diagnóstico y seguimiento del glaucoma.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Análisis del campo visual, clave en el diagnóstico y seguimiento del glaucoma.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Humphrey Field Analyzer 3</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-microscopio.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Microscopio especular</h3>
-          <p class="card__text">Evaluación de las células de la córnea.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Evaluación de las células de la córnea.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Microscopio especular</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-ecografia.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Sonomed Escalon</h3>
-          <p class="card__text">Ecografía ocular para explorar el interior del ojo.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Ecografía ocular para explorar el interior del ojo.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Sonomed Escalon</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
       </div>
     </div>
@@ -351,15 +417,27 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
       </div>
 
       <div class="cards cards--2" data-rev>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-laser-pascal.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">Láser Pascal 577 (Iridex)</h3>
-          <p class="card__text">Tratamiento de precisión para enfermedades de la retina.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Tratamiento de precisión para enfermedades de la retina.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">Láser Pascal 577 (Iridex)</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="card card--plain">
+        <article class="card card--wide">
           <img class="card__media" src="assets/img/photos/equipo-visi-laser.webp" alt="" loading="lazy" decoding="async">
-          <h3 class="card__title">VISI Láser (Q-LAS A/c Laser)</h3>
-          <p class="card__text">Procedimientos láser para catarata secundaria y glaucoma.</p>
+          <div class="card__top">
+            <span class="card__label">Equipo</span>
+            <p class="card__text">Procedimientos láser para catarata secundaria y glaucoma.</p>
+          </div>
+          <div class="card__foot">
+            <h3 class="card__title">VISI Láser (Q-LAS A/c Laser)</h3>
+            <a class="card__more" href="contactanos.html">Agendar cita <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
       </div>
     </div>
@@ -371,13 +449,11 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
   <section id="agenda" class="section section--white">
     <div class="u-shell">
       <div class="cta-band" data-rev>
-        <div>
-          <h2 class="cta-band__title">Agenda tu cita</h2>
-          <p class="cta-band__text">Evaluación oftalmológica integral con nuestros especialistas. Dirección, teléfono y horarios por confirmar.</p>
-        </div>
+        <span class="cta-band__label">Agenda tu cita</span>
+        <h2 class="cta-band__title">Agenda tu cita</h2>
+        <p class="cta-band__text">Evaluación oftalmológica integral con nuestros especialistas. Dirección, teléfono y horarios por confirmar.</p>
         <div class="cta-band__actions">
           <a class="btn btn--primary" data-ondark="theme" href="contactanos.html">Agendar cita</a>
-          <a class="btn btn--outline" data-ondark="theme" href="contactanos.html">Contáctanos</a>
         </div>
       </div>
     </div>
@@ -454,6 +530,6 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#12110E
 <a class="wa-fab" href="contactanos.html" data-whatsapp rel="noopener" title="WhatsApp" aria-label="Escríbenos por WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4 0-.5.1-.7l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 1.9 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.2-.2Z"/></svg>
 </a>
-<script src="assets/js/site.js?v=170" defer></script>
+<script src="assets/js/site.js?v=175" defer></script>
 </body>
 </html>

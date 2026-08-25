@@ -129,14 +129,117 @@
 .cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 .card {
+  --card-pad: clamp(20px, 2.2vw, 28px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  padding: 28px;
+  padding: var(--card-pad);
   background: var(--surface-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
+}
+
+/* --------------------------------------------------------------------------
+   Ficha ancha de equipo — el formato de la referencia
+
+   La foto a sangre bajo un velo, el rótulo arriba con su filete, y el titular
+   abajo a la izquierda con el enlace al otro extremo de la misma línea.
+   -------------------------------------------------------------------------- */
+
+.card--wide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-8);
+  min-height: max(300px, calc(74vh - 240px));
+  padding: 0;
+  overflow: hidden;
+  background: #08080A;
+  border: 0;
+  border-radius: 0;
+}
+
+.card--wide .card__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  opacity: .3;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.card--wide:hover .card__media { opacity: 1; }
+
+/* Los dos velos cuelgan de su bloque de texto y no de la ficha, con las
+   paradas en píxeles: así la densidad bajo la tinta no cambia con el alto. */
+.card--wide .card__top,
+.card--wide .card__foot {
+  position: relative;
+  z-index: 1;
+  padding: clamp(20px, 2.2vw, 30px);
+}
+
+.card--wide .card__top {
+  background: linear-gradient(180deg,
+    rgba(0, 0, 12, .88) 0, rgba(0, 0, 12, .82) 96px, rgba(0, 0, 12, 0) 100%);
+}
+
+.card--wide .card__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  background: linear-gradient(0deg,
+    rgba(0, 0, 12, .92) 0, rgba(0, 0, 12, .82) 110px, rgba(0, 0, 12, 0) 100%);
+}
+
+.card--wide .card__label {
+  display: block;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-hairline);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.card--wide .card__text {
+  margin: 12px 0 0;
+  max-width: 42ch;
+  font-size: var(--text-small);
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.card--wide .card__title {
+  margin: 0;
+  max-width: 11em;
+  font-size: clamp(24px, 2.6vw, 40px);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
+  color: var(--dark-text);
+  text-shadow: 0 0 10px rgba(0, 0, 12, 1), 0 1px 3px rgba(0, 0, 12, 1);
+}
+
+.card--wide .card__more {
+  flex: 0 0 auto;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--dark-text);
+  transition: color var(--dur-fast);
+}
+
+.card--wide:hover .card__more { color: var(--text-muted); }
+
+@media (max-width: 760px) {
+  .card--wide .card__foot { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
 }
 
 .card--plain {
@@ -145,12 +248,19 @@
   border: none;
 }
 
+/* A sangre: el ancho se calculaba sumando el relleno en píxeles, y ese número
+   dejó de coincidir cuando el relleno pasó a ser elástico, así que la foto no
+   llegaba a los filos. Con márgenes negativos del MISMO valor que el relleno no
+   hay número que mantener sincronizado. */
 .card__media {
-  width: calc(100% + 56px);
-  margin: -28px -28px 6px;
-  height: 200px;
+  /* `auto` no estira un <img>: se queda en su ancho intrínseco y dejaba 57px de
+     tarjeta a la derecha. El ancho se calcula del MISMO relleno que los
+     márgenes negativos, así que no hay dos números que mantener a la par. */
+  width: calc(100% + var(--card-pad) * 2);
+  max-width: none;
+  margin: calc(var(--card-pad) * -1) calc(var(--card-pad) * -1) 8px;
+  height: clamp(160px, 18vw, 220px);
   object-fit: cover;
-  border-radius: var(--radius-card) var(--radius-card) 0 0;
 }
 
 .card--plain .card__media {
@@ -196,7 +306,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
   gap: var(--grid-gutter);
-  align-items: start;
+  /* `start` dejaba cada ficha al alto de su propio texto, y Marcelo tiene una
+     línea de publicaciones que Roberto no: una salía 160px más alta que la
+     otra. Con `stretch` las dos llenan la fila. */
+  align-items: stretch;
 }
 
 .person {
@@ -457,34 +570,73 @@
    Banda de cierre con la llamada a la acción
    -------------------------------------------------------------------------- */
 
+/* Banda de cita — el formato de la referencia, sin formulario: rótulo, titular
+   grande, descripción y un solo botón a todo lo ancho. */
 .cta-band {
+  display: block;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.cta-band__label {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-7);
-  flex-wrap: wrap;
-  padding: var(--space-8);
-  background: var(--surface-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-card);
+  gap: 9px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.cta-band__label::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
 }
 
 .cta-band__title {
-  margin: 0;
-  font-size: var(--text-h3);
+  margin: var(--space-5) 0 0;
+  max-width: 11em;
+  font-size: var(--text-h2);
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
   color: var(--text-body);
 }
 
 .cta-band__text {
-  margin: 10px 0 0;
-  max-width: 44ch;
+  margin: var(--space-5) 0 0;
+  max-width: 48ch;
+  font-size: var(--text-body-size);
+  line-height: var(--leading-body);
   color: var(--text-muted);
 }
 
 .cta-band__actions {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  margin-top: clamp(32px, 5vh, 64px);
+}
+
+/* La pastilla ancha de la referencia. */
+.cta-band__actions .btn {
+  flex: 1 1 100%;
+  padding: 20px 24px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.cta-band__actions .btn::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  margin-right: 12px;
+  border-radius: var(--radius-pill);
+  background: currentColor;
 }
 
 /* --------------------------------------------------------------------------
