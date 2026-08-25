@@ -46,25 +46,6 @@ body.is-solid.lv-dark .site-header { color: var(--dark-text); }
    header nace en su versión clara: letra marino, logo a color y un filete
    abajo, sin relleno. Las interiores conservan la portada fotográfica y con
    ella el header blanco traslúcido. */
-/* En la portada el header ya NO flota sobre el banner: el banner dejó de ser
-   una foto oscura a pantalla completa y pasó a un partido con la foto pegada
-   al borde derecho, así que el menú caía encima de ella —"Casos Clínicos" y
-   "Contáctanos" quedaban en marino sobre el instrumental—. Aquí es una barra
-   más, en flujo, con su filete abajo. Las interiores conservan su portada
-   fotográfica y con ella el header flotante. */
-body[data-page="index"] .site-header {
-  /* `relative` y no `static`: en flujo igual, pero sin posicionar el z-index
-     no aplica y el hero pintaba por encima del desplegable, que salía cortado
-     a la altura del filete. */
-  position: relative;
-  z-index: 60;
-  background: var(--surface-page);
-  border-bottom: 1px solid var(--border-hairline);
-}
-
-body[data-page="index"]:not(.lv-dark) .site-header { color: var(--text-body); }
-
-body[data-page="index"].lv-dark .site-header { color: var(--text-body); }
 
 
 /* Mismo mecanismo que .u-shell: la sección pone el margen y el interior pone
@@ -113,10 +94,8 @@ body.nav-open { overflow: hidden; }
 
 .brand img.brand__logo--on-light { display: none; }
 
-body.is-solid:not(.lv-dark) .brand img.brand__logo--on-dark,
-body[data-page="index"]:not(.lv-dark) .brand img.brand__logo--on-dark { display: none; }
-body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light,
-body[data-page="index"]:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
+body.is-solid:not(.lv-dark) .brand img.brand__logo--on-dark { display: none; }
+body.is-solid:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
 
 /* ---- nav ---------------------------------------------------------------- */
 
@@ -126,7 +105,10 @@ body[data-page="index"]:not(.lv-dark) .brand img.brand__logo--on-light { display
   align-items: center;
 }
 
+/* Versalitas con separación, como el board. */
 .nav__link {
+  text-transform: uppercase;
+  letter-spacing: .08em;
   font-size: 14px;
   font-weight: 500;
   color: inherit;
@@ -309,21 +291,21 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 /* --------------------------------------------------------------------------
-   Hero — la composición del board con la foto de fondo
+   Hero — la foto manda
 
-   Vuelve el bloque centrado: titular en dos tonos, entradilla, dos botones y
-   los dos filetes verticales de la retícula. La foto del cirujano va DETRÁS de
-   todo, a sangre, bajo un velo de papel: se insinúa sin disputarle la página al
-   texto, que sigue en marino sobre claro.
+   La fotografía va entera, sin lavarla: el texto se pone en blanco encima y a
+   la izquierda, donde el encuadre es más tranquilo. Lo único que se le añade
+   es un degradado de tinta que entra por la izquierda y se disuelve antes de
+   la mitad; a la derecha, donde está el instrumental, la foto queda intacta.
    -------------------------------------------------------------------------- */
 
 .hero {
   position: relative;
-  display: grid;
-  place-items: center;
-  min-height: clamp(460px, 52vw, 660px);
+  display: flex;
+  align-items: center;
+  min-height: clamp(520px, 47vw, 760px);
   overflow: hidden;
-  background: var(--surface-page);
+  background: var(--ink);
 }
 
 .hero__media {
@@ -335,55 +317,61 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 60% 45%;
+  object-position: 58% 45%;
 }
 
-/* El velo no es de gusto: medido contra el píxel más claro de la foto, por
-   debajo de este nivel la entradilla —15px sobre papel— no llega a 4,5:1. */
+/* Las paradas salen de medir el texto contra el píxel más claro que queda
+   debajo de cada bloque, no de tantear: el respaldo del sillón del fondo tiene
+   zonas a 160 de luminancia y la entradilla es de 15px. */
 .hero__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(253, 253, 253, .9);
-}
-
-/* Los dos filetes del board, simétricos respecto al centro. Por encima de la
-   foto y por debajo del texto. */
-.hero__rules {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
+  /* Dos capas: la diagonal que asienta el texto, y una banda corta arriba que
+     le da suelo al menú. Sin la de arriba, "Casos Clínicos" y "Contáctanos"
+     caían sobre el instrumental, que es la zona más clara de la foto. */
   background:
-    linear-gradient(var(--border-hairline), var(--border-hairline)) 17% 0 / 1px 100% no-repeat,
-    linear-gradient(var(--border-hairline), var(--border-hairline)) 83% 0 / 1px 100% no-repeat;
+    linear-gradient(180deg,
+      rgba(12, 20, 36, .58) 0,
+      rgba(12, 20, 36, .28) 90px,
+      rgba(12, 20, 36, 0) 190px),
+    linear-gradient(97deg,
+      rgba(12, 20, 36, .86) 0,
+      rgba(12, 20, 36, .80) 30%,
+      rgba(12, 20, 36, .62) 46%,
+      rgba(12, 20, 36, .22) 62%,
+      rgba(12, 20, 36, 0) 78%);
 }
 
 .hero__inner {
   position: relative;
   z-index: 2;
-  display: grid;
-  place-items: center;
   width: 100%;
-  padding: clamp(56px, 8vw, 104px) var(--grid-margin);
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: calc(var(--header-h, 92px) + clamp(40px, 6vw, 80px)) var(--grid-margin) clamp(48px, 7vw, 96px);
 }
 
-.hero__text { width: min(880px, 100%); }
+.hero__text { width: min(640px, 100%); }
 
 .hero__title {
   margin: 0;
   font-size: var(--text-display-xl);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
-  color: var(--text-body);
+  color: #FFFFFF;
 }
+
+/* Sobre la foto el acento sube de tono: el azul de papel se apaga contra la
+   tinta del degradado. */
+.hero .u-accent-phrase { color: #8FC3E8; }
 
 .hero__lede {
   margin: clamp(18px, 2.6vw, 30px) 0 0;
-  max-width: 46ch;
+  max-width: 40ch;
   font-size: var(--text-body-lg);
   line-height: var(--leading-body);
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, .88);
 }
 
 .hero__actions {
@@ -402,31 +390,33 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   text-transform: uppercase;
 }
 
-/* La etiqueta usa --accent-ink, no blanco fijo: en oscuro el relleno pasa a
-   azul claro y el blanco encima se quedaba en 2:1. */
+/* Azul claro con la letra en marino. El tono es el CLARO de la escala y no el
+   de papel: sobre #5E92BC el marino se queda en 4,2:1 y la etiqueta es de
+   11px; sobre #8FB6D5 sube a 6,4:1. Blanco encima, que es lo que insinúa el
+   board, daría 2:1. */
 .hero__actions .btn--primary {
-  background: var(--accent-strong);
-  color: var(--accent-ink);
+  background: #8FB6D5;
+  color: var(--ink);
 }
 
-.hero__actions .btn--primary:hover { background: var(--ink); }
+.hero__actions .btn--primary:hover { background: #B4CFE6; }
 
 .hero__actions .btn--outline {
-  border: 1px solid var(--accent-strong);
-  color: var(--accent-strong);
+  border: 1px solid rgba(255, 255, 255, .85);
+  color: #FFFFFF;
 }
 
 .hero__actions .btn--outline:hover {
-  background: var(--btn-outline-hover);
-  color: var(--accent-strong);
+  background: rgba(255, 255, 255, .16);
+  color: #FFFFFF;
 }
 
-/* En oscuro el velo es de pizarra, no de papel, o la foto salía como una
-   mancha clara en mitad de una página oscura. */
-body.lv-dark .hero__media::after { background: rgba(20, 26, 40, .9); }
-
 @media (max-width: 760px) {
-  .hero__rules { display: none; }
+  .hero__media::after {
+    background: linear-gradient(180deg,
+      rgba(12, 20, 36, .62) 0,
+      rgba(12, 20, 36, .78) 100%);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -498,15 +488,21 @@ body:not(.is-solid) .site-header .btn:hover {
   color: var(--paper);
 }
 
-body[data-page="index"]:not(.nav-open) .site-header .btn {
-  background: var(--paper-2);
-  color: var(--text-body);
+/* Sobre la foto, la pastilla es blanca con la letra en marino: traslúcida se
+   perdía contra el instrumental claro del banner. */
+body[data-page="index"]:not(.is-solid):not(.nav-open) .site-header .btn {
+  background: #FFFFFF;
+  color: var(--ink);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
-body[data-page="index"]:not(.nav-open) .site-header .btn:hover {
-  background: var(--paper-3);
-  color: var(--text-body);
+body[data-page="index"]:not(.is-solid):not(.nav-open) .site-header .btn:hover {
+  background: var(--paper-2);
+  color: var(--ink);
 }
+
+body[data-page="index"] .site-header .btn::before { display: none; }
 
 body.is-solid .site-header .btn,
 body.nav-open .site-header .btn {
@@ -555,17 +551,7 @@ body.lv-dark .section--white { background: var(--surface-page); }
 
 /* El hero de la portada es papel en claro y pizarra en oscuro; el logo blanco
    vuelve a entrar y el chip deja de ser gris papel. */
-body.lv-dark[data-page="index"] .hero { background: var(--surface-page); }
 
-body.lv-dark[data-page="index"]:not(.nav-open) .site-header .btn {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-
-body.lv-dark[data-page="index"]:not(.nav-open) .site-header .btn:hover {
-  background: var(--accent-hover);
-  color: var(--accent-ink);
-}
 
 /* Banda a sangre en tinta, como alterna la referencia. Redefine los tokens de
    texto y filete puertas adentro: así el número de sección, los hairlines y
