@@ -589,6 +589,11 @@
 }
 
 .map-full__title {
+  /* Interlínea con sitio para el descendente: el titular vive dentro de un
+     contenedor que recorta, y con la interlínea apretada del display la «g» de
+     «llegar» sobresalía 4px de su caja. */
+  line-height: 1.14;
+  padding-bottom: 6px;
   position: absolute;
   top: clamp(24px, 4vw, 52px);
   left: var(--grid-margin);
