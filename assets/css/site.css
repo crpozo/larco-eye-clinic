@@ -79,9 +79,10 @@ body.nav-open { overflow: hidden; }
 
 .brand img {
   display: block;
-  /* Escala con el ancho pero con techo: el header es delgado y el logo no
-     puede empujarlo. */
-  height: clamp(64px, 5.6vw, 84px);
+  /* El lockup nuevo es apaisado —748x418, casi 1.8:1, frente al 1.26 del
+     anterior— así que a la misma altura ocupa mucho más ancho. Se baja el alto
+     para que la marca pese lo mismo en la fila sin empujar al menú. */
+  height: clamp(46px, 3.9vw, 60px);
   width: auto;
 }
 
@@ -1165,7 +1166,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 
 .footer__brand img {
   display: block;
-  height: 68px;
+  height: 76px;
   width: auto;
 }
 

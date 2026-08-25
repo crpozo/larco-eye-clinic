@@ -58,3 +58,9 @@ negro de origen, con saturación cero, así que no había forma de darles color.
 volver a una foto distinta por página. Igual `dra-ana-larco.webp`, de la ficha
 que se retiró, y `cirugias.webp` y `consultas.webp`: la sección de servicios
 sigue la referencia del cliente, donde sólo una de las tarjetas lleva foto.
+
+## Marca
+
+`assets/img/logo.svg` (color, para fondo claro) y `assets/img/logo-white.svg`
+(blanco, para fondo oscuro) son los artboards finales que entregó el cliente,
+en vector. Sustituyen a los dos WebP anteriores, que se retiraron.
