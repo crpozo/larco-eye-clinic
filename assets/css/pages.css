@@ -182,7 +182,9 @@
   min-height: max(300px, calc(74vh - 240px));
   padding: 0;
   overflow: hidden;
-  background: #08080A;
+  /* Pizarra, no negro: #08080A era del enfoque monocromo y con la foto encima
+     daba un pardo sucio. */
+  background: var(--ink-2);
   border: 0;
   border-radius: 0;
 }
@@ -194,9 +196,9 @@
    bien, y por eso el defecto pasó desapercibido. Los tokens de superficie
    oscura se declaran aquí, en la ficha, que es donde manda el fondo. */
 .card--wide {
-  --text-muted: rgba(244, 242, 237, .72);
-  --text-faint: rgba(244, 242, 237, .64);
-  --border-hairline: rgba(244, 242, 237, .2);
+  --text-muted: rgba(255, 255, 255, .72);
+  --text-faint: rgba(255, 255, 255, .64);
+  --border-hairline: rgba(255, 255, 255, .2);
   color: var(--dark-text);
 }
 
@@ -208,6 +210,12 @@
   margin: 0;
   object-fit: cover;
   opacity: 1;
+  /* La foto se lleva a alta clave: sin color y subida de luz, el aparato —que
+     ya es blanco— queda en blanco y el fondo del gabinete desaparece. Debajo
+     del velo azul se lee como un dibujo del equipo, no como una fotografía
+     apagada. De paso el fondo deja de ser irregular: antes el peor pixel
+     variaba de una foto a otra y el velo tenía que cubrir el caso más claro. */
+  filter: grayscale(1) brightness(1.45) contrast(.82);
 }
 
 /* Un velo UNIFORME sobre toda la ficha, no dos bandas arriba y abajo: las
@@ -222,11 +230,15 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 12, .8);
+  /* Velo AZUL: el casi negro de antes ensuciaba la foto. El nivel sale de
+     medir el texto tenue —13px— contra la foto ya en alta clave. */
+  background: rgba(24, 34, 58, .80);
   transition: background var(--dur-med) var(--ease-out);
 }
 
-.card--wide:hover::after { background: rgba(0, 0, 12, .74); }
+/* .74 y no .72: a .72 el texto tenue se quedaba en 4,52:1, justo en el filo
+   del mínimo. Dos centésimas de velo compran medio punto de margen. */
+.card--wide:hover::after { background: rgba(24, 34, 58, .74); }
 
 /* Sin velos: la ficha se lee plana y la legibilidad la da la atenuación de la
    foto, no una banda encima. */
@@ -277,7 +289,7 @@
   line-height: 1.04;
   letter-spacing: var(--tracking-display);
   color: var(--dark-text);
-  text-shadow: 0 0 10px rgba(0, 0, 12, 1), 0 1px 3px rgba(0, 0, 12, 1);
+  text-shadow: 0 0 10px rgba(24, 34, 58, .9), 0 1px 3px rgba(24, 34, 58, .9);
 }
 
 .card--wide .card__more {
