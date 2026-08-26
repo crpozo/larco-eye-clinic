@@ -510,20 +510,22 @@ body:not(.is-solid) .site-header .btn:hover {
 }
 
 /* Sobre la foto, la pastilla es blanca con la letra en marino: traslúcida se
-   perdía contra el instrumental claro del banner. */
-body[data-page="index"]:not(.is-solid):not(.nav-open) .site-header .btn {
+   perdía contra las zonas claras del banner. Vale para TODAS las páginas: las
+   interiores llevan la misma portada fotográfica. */
+body:not(.is-solid):not(.nav-open) .site-header .btn {
   background: #FFFFFF;
   color: var(--ink);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
-body[data-page="index"]:not(.is-solid):not(.nav-open) .site-header .btn:hover {
+body:not(.is-solid):not(.nav-open) .site-header .btn:hover {
   background: var(--paper-2);
   color: var(--ink);
 }
 
-body[data-page="index"] .site-header .btn::before { display: none; }
+/* El punto delante desapareció con el board. */
+.site-header .btn::before { display: none; }
 
 body.is-solid .site-header .btn,
 body.nav-open .site-header .btn {

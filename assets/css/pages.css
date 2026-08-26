@@ -15,10 +15,11 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  /* La misma portada que la home pero corta: la mitad de pantalla en vez de
-     entera, para que el contenido de la página asome sin bajar. */
-  min-height: 56vh;
-  padding: clamp(150px, 20vh, 190px) var(--grid-margin) clamp(32px, 5vh, 56px);
+  /* La misma portada que la home pero corta: no llega a pantalla completa,
+     para que el contenido de la página asome sin bajar. */
+  min-height: 62vh;
+  min-height: 62svh;
+  padding: clamp(150px, 20vh, 190px) var(--grid-margin) clamp(36px, 6vh, 64px);
   overflow: hidden;
   background: var(--ink);
 }
@@ -34,18 +35,28 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* En color, igual que la portada: es la misma imagen y el mismo velo. */
 }
 
-/* Dos capas, las mismas que el hero de la home: un tinte plano que asienta la
-   foto y un degradado que la cierra hacia abajo. */
+/* El mismo velo que la portada, y por las mismas razones: una banda corta
+   arriba que le da suelo al menú, y una diagonal de TINTA AZUL que entra por la
+   izquierda y se disuelve antes de la mitad, así que la derecha de la foto
+   queda intacta. El velo que había aquí era del enfoque monocromo —tinta
+   cálida plana al 45%— y dejaba las fotos pardas y sin fondo. */
 .page-hero__media::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(11, 10, 8, .2) 30%, rgba(11, 10, 8, .82)),
-    rgba(18, 17, 14, .45);
+    linear-gradient(180deg,
+      rgba(12, 20, 36, .58) 0,
+      rgba(12, 20, 36, .28) 90px,
+      rgba(12, 20, 36, 0) 190px),
+    linear-gradient(97deg,
+      rgba(12, 20, 36, .86) 0,
+      rgba(12, 20, 36, .80) 30%,
+      rgba(12, 20, 36, .76) 46%,
+      rgba(12, 20, 36, .40) 62%,
+      rgba(12, 20, 36, 0) 82%);
 }
 
 .page-hero__inner {
@@ -55,24 +66,28 @@
   margin: 0 auto;
 }
 
-
 .page-hero__title {
   margin: 0;
-  max-width: 13em;
+  /* 10em y no 13: a 13 el titular llegaba al 60% del ancho, donde la diagonal
+     ya casi no cubre, y en Contáctanos la primera línea caía sobre la parte
+     clara de la foto —2,43:1, por debajo del 3:1 del texto grande—. */
+  max-width: 10em;
   font-size: min(var(--text-display), 13vh);
-  line-height: .98;
+  line-height: var(--leading-heading);
   letter-spacing: var(--tracking-display);
-  color: var(--paper);
-  text-shadow: 0 2px 28px rgba(11, 10, 8, .6);
+  color: #FFFFFF;
 }
+
+/* Sobre la foto el acento sube de tono, igual que en la portada: el azul de
+   papel se apaga contra la tinta del degradado. */
+.page-hero .u-accent-phrase { color: #8FC3E8; }
 
 .page-hero__lede {
   margin: 20px 0 0;
   max-width: 44ch;
   font-size: var(--text-body-size);
   line-height: 1.6;
-  color: rgba(244, 242, 237, .86);
-  text-shadow: 0 2px 28px rgba(11, 10, 8, .6);
+  color: rgba(255, 255, 255, .88);
 }
 
 /* --------------------------------------------------------------------------
@@ -139,7 +154,10 @@
   align-items: flex-start;
   gap: 10px;
   padding: var(--card-pad);
-  background: var(--surface-card);
+  /* Superficie elevada y filete, como las fichas de doctor de la portada. Con
+     --surface-card la tarjeta era una caja azul pálida: la pieza equivalente
+     de la home no tiene relleno, sólo filete. */
+  background: var(--surface-raised);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
 }
