@@ -528,7 +528,7 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--accent-strong);
-  box-shadow: 0 0 0 3px rgba(18, 17, 14, .22);
+  box-shadow: 0 0 0 3px rgba(23, 38, 90, .22);
 }
 
 .form__actions {
@@ -606,7 +606,7 @@
   border: 3px solid var(--surface-raised);
   border-radius: var(--radius-pill);
   background: var(--accent-hover);
-  box-shadow: 0 2px 8px rgba(18, 17, 14, .45);
+  box-shadow: 0 2px 8px rgba(23, 38, 90, .18);
 }
 
 .map-note {

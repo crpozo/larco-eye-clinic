@@ -1741,13 +1741,13 @@ body.js [data-rev].is-pending {
      añada a una banda oscura mañana imprime bien sin tocar este bloque. */
   .section--dark {
     --text-body: var(--ink);
-    --text-muted: rgba(18, 17, 14, .66);
-    --text-faint: rgba(18, 17, 14, .6);
-    --text-dim: rgba(18, 17, 14, .62);
-    --border-hairline: rgba(18, 17, 14, .16);
-    --border-strong: rgba(18, 17, 14, .55);
+    --text-muted: rgba(30, 38, 58, .70);
+    --text-faint: rgba(30, 38, 58, .64);
+    --text-dim: rgba(30, 38, 58, .66);
+    --border-hairline: rgba(23, 38, 90, .14);
+    --border-strong: rgba(23, 38, 90, .45);
     --dark-text: var(--ink);
-    --dark-text-muted: rgba(18, 17, 14, .66);
+    --dark-text-muted: rgba(30, 38, 58, .70);
     --mark: var(--ink);
     --accent: var(--ink);
     color: var(--ink);
