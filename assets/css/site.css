@@ -303,7 +303,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   position: relative;
   display: flex;
   align-items: center;
-  min-height: clamp(520px, 47vw, 760px);
+  /* Pantalla completa. `svh` además de `vh`: en el móvil, 100vh mide la
+     ventana con la barra del navegador RETRAÍDA, así que al abrir la página
+     —con la barra desplegada— el banner queda más alto que lo que se ve y los
+     botones caen por debajo del corte. `svh` mide la ventana pequeña, que es
+     el estado en el que aterriza el visitante. El `vh` de antes se queda como
+     alternativa para navegadores sin unidades dinámicas. */
+  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   background: var(--ink);
 }
@@ -338,8 +345,8 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
     linear-gradient(97deg,
       rgba(12, 20, 36, .86) 0,
       rgba(12, 20, 36, .80) 30%,
-      rgba(12, 20, 36, .62) 46%,
-      rgba(12, 20, 36, .22) 62%,
+      rgba(12, 20, 36, .70) 46%,
+      rgba(12, 20, 36, .30) 62%,
       rgba(12, 20, 36, 0) 78%);
 }
 
@@ -349,14 +356,20 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   width: 100%;
   max-width: var(--grid-max);
   margin: 0 auto;
-  padding: calc(var(--header-h, 92px) + clamp(40px, 6vw, 80px)) var(--grid-margin) clamp(48px, 7vw, 96px);
+  /* El relleno se mide contra la ALTURA, no contra la anchura: con `vw`, una
+     ventana ancha y baja reservaba 80px arriba y 96 abajo que no había, y el
+     banner se pasaba 133px del corte en 1366x700. */
+  padding: calc(var(--header-h, 92px) + clamp(24px, 6vh, 80px)) var(--grid-margin) clamp(32px, 7vh, 96px);
 }
 
 .hero__text { width: min(640px, 100%); }
 
 .hero__title {
   margin: 0;
-  font-size: var(--text-display-xl);
+  /* El segundo término ata el titular al alto disponible: son cuatro líneas y
+     a cuerpo fijo no caben en una pantalla baja. En una pantalla alta manda el
+     primero y el tamaño no cambia. */
+  font-size: min(var(--text-display-xl), 9.4vh);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
   color: #FFFFFF;
@@ -367,7 +380,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 .hero .u-accent-phrase { color: #8FC3E8; }
 
 .hero__lede {
-  margin: clamp(18px, 2.6vw, 30px) 0 0;
+  margin: clamp(14px, 2.6vh, 30px) 0 0;
   max-width: 40ch;
   font-size: var(--text-body-lg);
   line-height: var(--leading-body);
@@ -378,7 +391,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: clamp(24px, 3.2vw, 40px);
+  margin-top: clamp(18px, 3.2vh, 40px);
 }
 
 .hero__actions .btn {
@@ -412,6 +425,14 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
 }
 
 @media (max-width: 760px) {
+  /* En una pantalla estrecha el titular ocupa más líneas y el relleno vertical
+     es lo único que puede ceder: 10px de más dejaban el segundo botón medio
+     píxel por debajo del corte. */
+  .hero__inner {
+    padding-top: calc(var(--header-h, 92px) + clamp(16px, 4vh, 48px));
+    padding-bottom: clamp(24px, 5vh, 64px);
+  }
+
   .hero__media::after {
     background: linear-gradient(180deg,
       rgba(12, 20, 36, .62) 0,
@@ -1496,7 +1517,10 @@ body.js [data-rev].is-pending {
    ------------------------------------------------------------------------ */
 .stats-band {
   position: relative;
-  padding: var(--space-section) var(--grid-margin);
+  /* Relleno propio y no --space-section: la banda son tres cifras y un
+     titular, 223px de contenido, y con el relleno general de sección se iba a
+     549px de alto. Aquí manda lo que hay dentro. */
+  padding: clamp(48px, 5vw, 76px) var(--grid-margin);
   background: var(--ink-2);
 }
 
@@ -1508,9 +1532,8 @@ body.js [data-rev].is-pending {
   font-size: var(--text-h2);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-display);
-  /* La separación hasta las cifras la ponía el margen inferior de la nota; sin
-     ella la pone el titular. */
-  margin-bottom: clamp(48px, 6vw, 88px);
+  /* La separación hasta las cifras la pone el titular. */
+  margin-bottom: clamp(28px, 3.2vw, 48px);
 }
 
 .stats-band__grid {
@@ -1535,7 +1558,7 @@ body.js [data-rev].is-pending {
   font-family: var(--font-display);
   /* El numeral manda en la sección: es lo que se lee de lejos y el rótulo lo
      explica debajo. Por eso llega casi al tamaño de un titular de sección. */
-  font-size: clamp(52px, 6.4vw, 96px);
+  font-size: clamp(44px, 5.2vw, 76px);
   font-weight: var(--weight-display);
   line-height: .95;
   letter-spacing: -.03em;
@@ -1556,7 +1579,7 @@ body.js [data-rev].is-pending {
 
 .figure__label {
   display: block;
-  margin-top: clamp(18px, 2vw, 28px);
+  margin-top: clamp(8px, 1vw, 14px);
   max-width: 22ch;
   font-size: var(--text-body-size);
   line-height: 1.5;
