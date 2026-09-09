@@ -47,10 +47,13 @@
   position: absolute;
   inset: 0;
   background:
+    /* La banda de arriba es más honda que en la home: las fotos reales de las
+       interiores traen paredes blancas y cristal justo detrás del menú, y a
+       .58 "Casos Clínicos" se quedaba en 4,37:1 sobre Nosotros. Medido. */
     linear-gradient(180deg,
-      rgba(12, 20, 36, .58) 0,
-      rgba(12, 20, 36, .28) 90px,
-      rgba(12, 20, 36, 0) 190px),
+      rgba(12, 20, 36, .72) 0,
+      rgba(12, 20, 36, .42) 100px,
+      rgba(12, 20, 36, 0) 210px),
     linear-gradient(97deg,
       rgba(12, 20, 36, .86) 0,
       rgba(12, 20, 36, .80) 30%,

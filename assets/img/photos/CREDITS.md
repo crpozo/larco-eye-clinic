@@ -1,26 +1,40 @@
-# Fotografía — provisional
+# Fotografía
 
-Todas estas imágenes son **placeholders de Unsplash**, elegidas para igualar el
-board de referencia aprobado (macro de iris en oscuro, óptica sobre fondo claro,
-equipo oftalmológico en gris azulado, macro de ojo cálido). Se reemplazan por
-fotografía propia de la clínica antes de publicar.
+Desde el 2026-09-08 la mayor parte es **fotografía propia de la clínica**
+(carpeta `~/Downloads/Fotos/` del cliente). Lo que sigue siendo stock está
+marcado como tal y se reemplaza en cuanto llegue la foto real.
+
+## Aportadas por el cliente (2026-09-08)
+
+| Archivo | Original | Uso |
+| --- | --- | --- |
+| `hero-cirujano.webp`, `-1100` | `Male_ophthalmologist_close_up_po….png` | Fondo del banner de la portada |
+| `hero-sobre.webp`, `-800` | `un legado que recorre tres generaciones.png` | Portada de Sobre Nosotros |
+| `hero-consultas.webp`, `-800` | `el primer paso a una mejor visión.png` | Portada de Consultas y Exámenes |
+| `equipo-microscopio-hd.webp` | `equipos de última generación.png` | Escaparate de equipos en la portada |
+| `cirugias.webp` / `examenes.webp` / `consultas.webp` | `cirugías.png` / `exámenes.png` / `consultas.png` | Tarjetas de servicio 01·02·03 (foto al pasar el puntero) |
+| `dr-marcelo-larco-4.webp` | `marcelo larco.png` | Retrato Dr. Marcelo Larco. Recorte a busto 3:4 (caja 1150,560–3000,3027 del original 3606×4608) |
+| `dra-gabriela-larco.webp` | `gabriela larco.png` | Retrato Dra. Gabriela Larco. Recorte a busto 3:4 (caja 800,520–2650,2987 del original 3072×4608) |
+| `equipo-optica.webp` | `óptica zeiss.png` | Ficha Óptica ZEISS |
+| `equipo-iol-master.webp` | `IOL MASTER 700.png` | Ficha IOL Master 700 |
+| `equipo-oct-triton.webp` | `OCT Triton Plus_.png` | Ficha OCT Triton Plus |
+| `equipo-camara-retina.webp` | `cámara retinal.png` | Ficha Cámara de retina |
+| `area-quirofano.webp` | `quirófano.png` | Instalaciones · Quirófano |
+| `area-sala-examenes.webp` | `sala de exámenes.png` | Instalaciones · Sala de exámenes |
+
+Todas se exportaron con `cwebp -q 82/84` y reducidas a 1200–2000 px de ancho.
+
+## Stock que sigue en uso
 
 Licencia Unsplash: uso comercial permitido, sin atribución obligatoria. Aun así
 se deja el registro para poder dar crédito y para reponer el original.
 
 | Archivo | Unsplash ID | Uso en la página |
 | --- | --- | --- |
-| `hero-ojo.webp`, `hero-ojo-800.webp` | — (aportada por el cliente) | Fondo del hero, en color |
-| `cirugias.webp` | `Nanf8oLglmg` | Tarjeta de servicio 01 · Cirugías |
-| `examenes.webp` | `fiHQ3-D45zo` | Tarjeta de servicio 02 · Exámenes |
-| `consultas.webp` | `3r0Mv2Muvyk` | Tarjeta de servicio 03 · Consultas |
-| `dr-marcelo-larco-3.webp` | Pexels `8460090` | Retrato Dr. Marcelo Larco. Recorte 9:16 de 800×1422 (x≈48%, alto completo). |
+| `hero-ojo.webp`, `hero-ojo-800.webp` | — (aportada por el cliente, antes) | Portadas de Especialidades, Casos Clínicos y Contáctanos |
 | `dr-roberto-larco-3.webp` | Pexels `8460094` | Retrato Dr. Roberto Larco. Recorte 9:16 (x≈48%, 78% del alto) para igualar el tamaño de cabeza del anterior. |
 | `dra-ana-larco.webp` | Pexels `8459997` | Retrato Dra. Ana Larco. Recorte 9:16 (x≈70%, 86% del alto). |
-| `equipo-optica.webp` | `C6sxSzPUjss` | Ficha de instalaciones en sobre-nosotros |
-| `equipo-iol-master.webp` | `D74jLvxv6yo` | Ficha de equipos (IOL Master 700) en sobre-nosotros |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Ficha de equipos (Pentacam OCT) en sobre-nosotros |
-| `equipo-oct-triton.webp` | `mDCuzdHh_bw` | Ficha de equipos (OCT Triton Plus) en sobre-nosotros |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Ficha de equipos (Humphrey FA3) en sobre-nosotros |
 | `equipo-laser-pascal.webp` | `IzvQ1R5I_Gw` | Ficha de equipos (Láser Pascal 577) en sobre-nosotros |
 | `intro-tecnologia.webp` | `aMmDIsdnUro` | Sin uso desde el rediseño editorial (la intro salió de la portada); se conserva por si vuelve |
@@ -28,7 +42,7 @@ se deja el registro para poder dar crédito y para reponer el original.
 
 Página de origen: `https://unsplash.com/photos/<ID>`
 
-Los tres retratos son de **Pexels**, los tres de la misma serie de *Los Muertos
+El retrato de Roberto y el de Ana son de **Pexels**, de la misma serie de *Los Muertos
 Crew*: tres personas distintas con el mismo tratamiento de luz, que es lo que
 hace que la fila se lea pareja. Antes eran dos fotos de Unsplash del **mismo
 modelo de stock**, que era justo lo que se notaba.
