@@ -2678,6 +2678,6 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
   .story__label, .story__headline, .story__photo, .story__body { grid-column: 1; grid-row: auto; }
 }
 
-/* ---- La consulta: la foto a la mitad de alto (petición del cliente): formato
-   apaisado corto, recortada por el centro, para que la sección no crezca. ---- */
-.consult__photo { aspect-ratio: 16 / 6; object-position: 50% 60%; }
+/* ---- La consulta: la foto con su formato original (16:10), al ancho exacto
+   del texto y alineada con él. El recorte a 16:6 se probó y se descartó. ---- */
+.consult__photo { aspect-ratio: 16 / 10; object-position: 50% 50%; }
