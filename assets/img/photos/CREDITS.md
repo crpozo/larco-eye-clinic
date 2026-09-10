@@ -34,7 +34,7 @@ se deja el registro para poder dar crédito y para reponer el original.
 | Archivo | Unsplash ID | Uso en la página |
 | --- | --- | --- |
 | `hero-ojo.webp`, `hero-ojo-800.webp` | — (aportada por el cliente, antes) | Portadas de Especialidades, Casos Clínicos y Contáctanos |
-| `dr-roberto-larco-3.webp` | Pexels `8460094` | Retrato Dr. Roberto Larco. Recorte 9:16 (x≈48%, 78% del alto) para igualar el tamaño de cabeza del anterior. |
+| `dr-roberto-larco-4.webp` | entregado por el cliente el 2026-09-10 (`ChatGPT Image 10 sept 2026, 11_54_40 a.m..png`, imagen generada) | Retrato Dr. Roberto Larco. OJO: el bordado de la bata dice "Dr. Marcelo". |
 | `dra-ana-larco.webp` | Pexels `8459997` | Retrato Dra. Ana Larco. Recorte 9:16 (x≈70%, 86% del alto). |
 | `equipo-pentacam.webp` | `-OpWKFHA_yQ` | Ficha de equipos (Pentacam OCT) en sobre-nosotros |
 | `equipo-humphrey.webp` | `aWiUrTr16S4` | Ficha de equipos (Humphrey FA3) en sobre-nosotros |

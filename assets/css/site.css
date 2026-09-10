@@ -2624,3 +2624,28 @@ body:not(.lv-dark) .vquote__by { background: #E2E8F1; }
   background: linear-gradient(0deg, rgba(24, 34, 58, .96) 0, rgba(24, 34, 58, .82) 22%, rgba(24, 34, 58, .35) 40%, rgba(24, 34, 58, 0) 52%);
 }
 .card--wide.card--flip .flip__front { justify-content: flex-end; cursor: pointer; }
+
+/* ---- Páginas sin portada fotográfica (Contacto): en modo claro la primera
+   banda es papel y el header blanco desaparecía encima. Aquí el header sigue
+   al tema: letra marino y logo a color mientras no haya scroll. ---- */
+body.no-hero:not(.lv-dark):not(.is-solid) .site-header { color: var(--text-body); }
+body.no-hero:not(.lv-dark) .brand img.brand__logo--on-dark { display: none; }
+body.no-hero:not(.lv-dark) .brand img.brand__logo--on-light { display: block; }
+body.no-hero:not(.lv-dark):not(.is-solid):not(.nav-open) .site-header .btn {
+  background: var(--ink);
+  color: #FFFFFF;
+}
+
+/* ---- Fichas del equipo: sin relleno, solo el trazo. ---- */
+.doc--bio {
+  background: none;
+  border: 1px solid var(--border-strong);
+}
+
+/* Los enlaces del menú fijan su propio color; sin esto la regla del header
+   no les llegaba y en Contacto seguían blancos sobre papel (1,9:1 medido). */
+body.no-hero:not(.lv-dark):not(.is-solid) .nav__link,
+body.no-hero:not(.lv-dark):not(.is-solid) .nav__tool,
+body.no-hero:not(.lv-dark):not(.is-solid) .menu__toggle,
+body.no-hero:not(.lv-dark):not(.is-solid) .nav-toggle { color: var(--text-body); }
+body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: var(--accent-strong); }

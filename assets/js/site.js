@@ -573,6 +573,8 @@
 
   window.addEventListener('load', sweepReveals);
 
+  /* Sin portada fotográfica, el header tiene que seguir al tema (CSS). */
+  if (document.querySelector('main > section:first-child.section--first')) body.classList.add('no-hero');
   syncHeader();
   measureHeader();
   wireMenus();
