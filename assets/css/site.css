@@ -1884,20 +1884,6 @@ body.js [data-rev].is-pending {
    altura que el titular, no colgada arriba mientras el titular baja al pie. */
 #doctores .head-split { align-items: start; }
 
-/* Escaparate: la foto adjunta del tablero va como recuadro sobre el fondo, tal
-   cual la maqueta —el microscopio quirúrgico detrás, el especular delante—. */
-.slide__inset {
-  position: absolute;
-  right: clamp(24px, 9vw, 160px);
-  top: 50%;
-  z-index: 1;
-  width: clamp(200px, 26vw, 380px);
-  height: auto;
-  transform: translateY(-50%);
-  box-shadow: 0 18px 48px rgba(8, 14, 28, .55);
-}
-
-@media (max-width: 760px) { .slide__inset { display: none; } }
 
 
 /* ==========================================================================
@@ -2039,33 +2025,33 @@ body.js [data-rev].is-pending {
   .topic__text { grid-column: 1 / -1; }
 }
 
-/* ---- Fichas que se revelan: opacas en reposo, la foto ENTERA al pasar el
-   puntero. El tablero lo pide así para instalaciones y equipos: "usar color
-   opaco y cuando pasa el cursor se revela la imagen" y "la foto se debe
-   visualizar muy bien". La descripción vive en el pop-up, así que al pasar el
-   puntero se retira y sólo queda el titular sobre un degradado bajo. ---- */
+/* ---- Fichas con foto: la foto SIEMPRE visible, sin hover. El cliente lo
+   pidió así tras ver la versión que la revelaba al pasar el puntero. Encima
+   va un velo azul uniforme calibrado para el texto de 11–13px; el titular
+   lleva además un degradado bajo. Sin el filtro de alta clave: "la foto se
+   debe visualizar muy bien". ---- */
 .card--wide.card--reveal { background: var(--ink-3); }
 
 .card--wide.card--reveal .card__media {
   filter: none;
-  opacity: 0;
-  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+  opacity: 1;
+  transition: transform var(--dur-med) var(--ease-out);
 }
 
 .card--wide.card--reveal::after {
-  background: linear-gradient(0deg, rgba(24, 34, 58, .94) 0, rgba(24, 34, 58, .6) 42%, rgba(24, 34, 58, 0) 72%);
-  opacity: 0;
-  transition: opacity var(--dur-med) var(--ease-out);
+  opacity: 1;
+  /* Tres capas: un degradado ARRIBA para el rótulo y el resumen, otro ABAJO
+     para el titular, y un velo uniforme suave en medio para que la foto se
+     vea. Medido: con sólo el uniforme al .66 el resumen se quedaba en 3,65:1
+     sobre las paredes claras de las fotos. */
+  background:
+    linear-gradient(180deg, rgba(24, 34, 58, .90) 0, rgba(24, 34, 58, .72) 34%, rgba(24, 34, 58, 0) 52%),
+    linear-gradient(0deg, rgba(24, 34, 58, .92) 0, rgba(24, 34, 58, .55) 36%, rgba(24, 34, 58, 0) 56%),
+    rgba(24, 34, 58, .5);
 }
 
-.card--wide.card--reveal .card__top { transition: opacity var(--dur-med) var(--ease-out); }
-
 .card--wide.card--reveal:hover .card__media,
-.card--wide.card--reveal:focus-within .card__media { opacity: 1; transform: scale(1.03); }
-.card--wide.card--reveal:hover::after,
-.card--wide.card--reveal:focus-within::after { opacity: 1; }
-.card--wide.card--reveal:hover .card__top,
-.card--wide.card--reveal:focus-within .card__top { opacity: 0; }
+.card--wide.card--reveal:focus-within .card__media { transform: scale(1.03); }
 
 .card--wide.card--reveal .card__more {
   background: none;
@@ -2211,3 +2197,51 @@ body.js [data-rev].is-pending {
 
 /* Exámenes: la cabecera se alinea con el párrafo, como pide el tablero. */
 #examenes .head-split { align-items: start; }
+
+/* ---- La consulta (maqueta del cliente): titular arriba a la izquierda, los
+   dos botones abajo a la izquierda; a la derecha el texto y, debajo, la foto. */
+.consult {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 96px);
+}
+
+.consult__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-7);
+}
+
+.consult__left .section__title { margin: 0; }
+
+.consult__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.consult__actions .btn {
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.consult__right .prose { max-width: none; }
+.consult__right .prose p { color: var(--text-muted); }
+
+.consult__photo {
+  display: block;
+  width: 100%;
+  margin-top: clamp(24px, 3vw, 44px);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+@media (max-width: 860px) {
+  .consult { grid-template-columns: 1fr; }
+  .consult__left { gap: var(--space-5); }
+}

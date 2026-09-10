@@ -14,12 +14,16 @@
 .page-hero {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   /* La misma portada que la home pero corta: no llega a pantalla completa,
      para que el contenido de la página asome sin bajar. */
-  min-height: 62vh;
-  min-height: 62svh;
-  padding: clamp(150px, 20vh, 190px) var(--grid-margin) clamp(36px, 6vh, 64px);
+  /* Pantalla completa, como el banner de la portada: el cliente lo pidió así
+     para todas las páginas. `svh` por lo mismo que en la home: en el móvil,
+     100vh mide con la barra del navegador retraída y los botones caían por
+     debajo del corte. */
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(150px, 20vh, 190px) var(--grid-margin) clamp(48px, 8vh, 96px);
   overflow: hidden;
   background: var(--ink);
 }
