@@ -2554,3 +2554,7 @@ body:not(.lv-dark) .stats-band .figure__num { color: #3576B4; }
 }
 
 .vquote__by { text-align: center; }
+
+/* ---- Contacto: el panel de datos arranca a la altura del formulario, no
+   centrado en vertical. ---- */
+#formulario .split { align-items: start; }
