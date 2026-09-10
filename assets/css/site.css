@@ -2657,8 +2657,11 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 /* ---- Reverso de la ficha: el botón "Agendar cita" con letra marino sobre
    blanco, explícito. Heredaba --dark-text (blanco) de .card--wide y salía
    blanco sobre blanco. ---- */
-.flip__back .btn,
-.flip__back .btn:hover { background: #FFFFFF; color: #17265A; }
+/* Peso 0,4,0: en claro, `body:not(.lv-dark) .section--dark a { color: inherit }`
+   (0,2,1) ganaba y la etiqueta heredaba el blanco del reverso: blanco sobre
+   blanco, que es lo que vio el cliente. */
+.card--wide.card--flip .flip__back .btn,
+.card--wide.card--flip .flip__back .btn:hover { background: #FFFFFF; color: #17265A; }
 
 /* ---- La consulta: la columna de la foto más angosta, para que el hueco
    entre las dos columnas no sea tan ancho. ---- */
