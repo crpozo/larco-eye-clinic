@@ -82,6 +82,6 @@ en vector. Sustituyen a los dos WebP anteriores, que se retiraron.
 ## Mapa
 
 `assets/img/mapa-cumbaya.webp`: teselas de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL) a zoom 17, centradas en
--0.2030, -78.4335 —Av. Oswaldo Guayasamín y Calle 1, Cumbayá, 170157 Quito, la dirección oficial que dio el cliente—.
+-0.2058, -78.4338 —Av. Oswaldo Guayasamín y Calle 1, Cumbayá, 170157 Quito, la dirección oficial que dio el cliente—.
 Se genera una vez y se sirve desde el repo. Sustituye al de La Pradera (v=196–203), que salió de un marcador de
 Google Maps que no era la sede.
