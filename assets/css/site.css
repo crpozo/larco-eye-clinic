@@ -2558,3 +2558,15 @@ body:not(.lv-dark) .stats-band .figure__num { color: #3576B4; }
 /* ---- Contacto: el panel de datos arranca a la altura del formulario, no
    centrado en vertical. ---- */
 #formulario .split { align-items: start; }
+
+/* ---- Frase del pie: contraste de grosor para que no se lea plana. Fina de
+   base, y "70 años" y "tu visión" en negrita. ---- */
+.footer__tag {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(20px, 1.7vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+.footer__tag strong { font-weight: 700; }
