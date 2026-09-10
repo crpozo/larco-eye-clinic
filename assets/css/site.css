@@ -1543,7 +1543,7 @@ body.js [data-rev].is-pending {
      titular, 223px de contenido, y con el relleno general de sección se iba a
      549px de alto. Aquí manda lo que hay dentro. */
   padding: clamp(48px, 5vw, 76px) var(--grid-margin);
-  background: #2B3547; /* el hex que pide el tablero para esta banda */
+  background: #2C3547; /* el hex que pide el tablero: 2C, no 2B */
 }
 
 .stats-band__layout { display: block; }
@@ -1593,7 +1593,7 @@ body.js [data-rev].is-pending {
 /* El afijo no compite con la cifra: la mitad de cuerpo y en tono secundario. */
 .figure__prefix,
 .figure__suffix {
-  font-size: .46em;
+  font-size: .62em; /* tablero: "que no sean tan pequeños" */
   color: var(--text-muted);
 }
 
@@ -1603,7 +1603,7 @@ body.js [data-rev].is-pending {
   display: block;
   margin-top: 6px; /* pegado a la cifra, como la referencia del tablero */
   max-width: 22ch;
-  font-size: var(--text-body-size);
+  font-size: var(--text-body-lg); /* tablero: texto complementario más grande */
   line-height: 1.5;
   color: var(--text-muted);
 }
@@ -1883,3 +1883,18 @@ body.js [data-rev].is-pending {
 /* Tablero, sección Doctores: "alinear" — la entradilla arranca a la misma
    altura que el titular, no colgada arriba mientras el titular baja al pie. */
 #doctores .head-split { align-items: start; }
+
+/* Escaparate: la foto adjunta del tablero va como recuadro sobre el fondo, tal
+   cual la maqueta —el microscopio quirúrgico detrás, el especular delante—. */
+.slide__inset {
+  position: absolute;
+  right: clamp(24px, 9vw, 160px);
+  top: 50%;
+  z-index: 1;
+  width: clamp(200px, 26vw, 380px);
+  height: auto;
+  transform: translateY(-50%);
+  box-shadow: 0 18px 48px rgba(8, 14, 28, .55);
+}
+
+@media (max-width: 760px) { .slide__inset { display: none; } }
