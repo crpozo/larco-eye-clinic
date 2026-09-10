@@ -58,12 +58,15 @@
       rgba(12, 20, 36, .72) 0,
       rgba(12, 20, 36, .42) 100px,
       rgba(12, 20, 36, 0) 210px),
+    /* Más corta que antes: se disuelve antes de la mitad. A 82% tapaba a los
+       doctores de la foto de Sobre Nosotros; el titular está acotado a 10em y
+       no pasa del 44% del ancho, así que no necesita más. */
     linear-gradient(97deg,
       rgba(12, 20, 36, .86) 0,
-      rgba(12, 20, 36, .80) 30%,
-      rgba(12, 20, 36, .76) 46%,
-      rgba(12, 20, 36, .40) 62%,
-      rgba(12, 20, 36, 0) 82%);
+      rgba(12, 20, 36, .82) 26%,
+      rgba(12, 20, 36, .60) 40%,
+      rgba(12, 20, 36, .20) 50%,
+      rgba(12, 20, 36, 0) 58%);
 }
 
 .page-hero__inner {

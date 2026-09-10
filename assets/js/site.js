@@ -501,6 +501,19 @@
     }
   }
 
+  /* Fichas que se giran: "Ver más" y "Volver" alternan la vuelta. En escritorio
+     el hover ya la gira; el botón existe para el tacto y el teclado. */
+  function wireFlips() {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-flip]');
+      if (!b) return;
+      var card = b.closest('.card--flip');
+      if (!card) return;
+      var on = card.classList.toggle('is-flipped');
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+  }
+
   function wirePrint() {
     window.addEventListener('beforeprint', settleForPrint);
 
@@ -545,7 +558,7 @@
   wireReveals();
   wireCounters();
   wirePrint();
-  wireDialogs();
+  wireFlips();
   wireCarousels();
   sweepReveals();
 })();

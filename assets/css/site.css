@@ -324,7 +324,7 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 58% 45%;
+  object-position: 62% 40%;
 }
 
 /* Las paradas salen de medir el texto contra el píxel más claro que queda
@@ -342,6 +342,12 @@ body.is-solid .nav__link--current { color: var(--accent-strong); }
       rgba(12, 20, 36, .58) 0,
       rgba(12, 20, 36, .28) 90px,
       rgba(12, 20, 36, 0) 190px),
+    /* Tercera capa, desde el pie: la foto del edificio es clara abajo a la
+       izquierda —la casa blanca— y el botón de contorno se quedaba en 1,02:1. */
+    linear-gradient(0deg,
+      rgba(12, 20, 36, .88) 0,
+      rgba(12, 20, 36, .55) 26%,
+      rgba(12, 20, 36, 0) 50%),
     linear-gradient(97deg,
       rgba(12, 20, 36, .86) 0,
       rgba(12, 20, 36, .80) 30%,
@@ -552,7 +558,7 @@ body.nav-open .site-header .btn:hover {
 
 .section,
 .stats-band {
-  border-top: 1px solid var(--border-hairline);
+  border-top: 0;
 }
 
 .section {
@@ -1063,7 +1069,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 
 .footer__col {
   padding: 0 clamp(20px, 2.6vw, 44px);
-  border-left: 1px solid var(--border-hairline);
+  border-left: 0;
 }
 
 .footer__brand img {
@@ -1124,14 +1130,14 @@ body.lv-dark .footer__brand .brand__logo--on-light { display: none; }
   grid-template-columns: minmax(0, 3.4fr) repeat(3, minmax(0, 2.866fr));
   gap: 0;
   padding: 20px 0;
-  border-top: 1px solid var(--border-hairline);
+  border-top: 0;
   font-size: var(--text-small);
   color: var(--text-muted);
 }
 
 .footer__legal > * + * {
   padding-left: clamp(20px, 2.6vw, 44px);
-  border-left: 1px solid var(--border-hairline);
+  border-left: 0;
 }
 
 .footer__legal a { color: var(--text-muted); }
@@ -1567,7 +1573,7 @@ body.js [data-rev].is-pending {
 .figure {
   display: block;
   padding: 0 clamp(20px, 2.4vw, 34px);
-  border-left: 1px solid var(--border-hairline);
+  border-left: 0;
 }
 
 .figure:first-child {
@@ -1901,6 +1907,7 @@ body.js [data-rev].is-pending {
 
 .story__label {
   grid-column: 1;
+  grid-row: 1;
   align-self: end;
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
@@ -1911,16 +1918,29 @@ body.js [data-rev].is-pending {
 
 .story__headline {
   grid-column: 1 / -1;
+  grid-row: 2;
   margin: 0;
-  font-size: clamp(28px, 3.6vw, 52px);
+  /* Un punto menor, a petición del cliente. */
+  font-size: clamp(24px, 3vw, 44px);
   line-height: 1.12;
   letter-spacing: var(--tracking-display);
   text-align: right;
   color: var(--text-body);
 }
 
+/* La foto va en la columna izquierda, a la altura del cuerpo de texto. */
+.story__photo {
+  grid-column: 1;
+  grid-row: 3;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  align-self: start;
+}
+
 .story__body {
   grid-column: 2;
+  grid-row: 3;
   font-size: var(--text-body-size);
   line-height: 1.75;
   color: var(--text-muted);
@@ -1932,7 +1952,8 @@ body.js [data-rev].is-pending {
 @media (max-width: 760px) {
   .story { grid-template-columns: 1fr; }
   .story__headline { text-align: left; }
-  .story__body { grid-column: 1; }
+  .story__photo { grid-row: auto; }
+  .story__body { grid-column: 1; grid-row: auto; }
 }
 
 /* ---- Misión y Visión: dos columnas de texto con rótulo pequeño ---- */
@@ -1940,6 +1961,9 @@ body.js [data-rev].is-pending {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(32px, 5vw, 80px);
+  /* Las columnas van metidas respecto al titular, como la maqueta: margen
+     lateral generoso y más aire arriba. */
+  padding: clamp(8px, 2vw, 32px) clamp(16px, 7vw, 140px) 0;
 }
 
 .mv__label {
@@ -2244,4 +2268,165 @@ body.js [data-rev].is-pending {
 @media (max-width: 860px) {
   .consult { grid-template-columns: 1fr; }
   .consult__left { gap: var(--space-5); }
+}
+
+/* ---- Sección a sangre: sin relleno ni carril, la pieza llega de borde a
+   borde. El cliente lo pidió para el escaparate de equipos. ---- */
+.section--bleed { padding: 0; }
+.section--bleed > .u-shell { max-width: none; margin: 0; }
+
+/* ---- Testimonios: titular y párrafo alineados arriba, a la misma altura. ---- */
+#testimonios .head-split { align-items: start; }
+
+/* ---- Tarjetas de servicio: la foto se ve, el texto aparece al pasar.
+   En reposo un velo suave y un degradado bajo que sostiene el nombre; al pasar
+   el puntero el velo sube y entra el índice con la descripción. El cliente
+   pidió ver más la imagen y que los textos aparezcan con el hover. ---- */
+.service-col .service-col__scrim {
+  background:
+    linear-gradient(0deg, rgba(24, 34, 58, .92) 0, rgba(24, 34, 58, .5) 34%, rgba(24, 34, 58, 0) 58%),
+    rgba(24, 34, 58, .34);
+  transition: background var(--dur-med) var(--ease-out);
+}
+
+.service-col .service-col__top {
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.service-col:hover .service-col__scrim,
+.service-col:focus-visible .service-col__scrim {
+  background:
+    linear-gradient(0deg, rgba(24, 34, 58, .92) 0, rgba(24, 34, 58, .5) 34%, rgba(24, 34, 58, 0) 58%),
+    rgba(24, 34, 58, .80);
+}
+
+.service-col:hover .service-col__top,
+.service-col:focus-visible .service-col__top { opacity: 1; }
+
+/* ---- Equipo: carrusel de dos fichas por vista, formato de la portada ---- */
+.carousel--2 .carousel__track > * { flex-basis: calc((100% - var(--carousel-gap)) / 2); }
+@media (max-width: 860px) { .carousel--2 .carousel__track > * { flex-basis: 100%; } }
+
+.doc--bio { grid-template-columns: minmax(0, 1fr) 42%; }
+.doc--bio .doc__body { padding: clamp(22px, 2.6vw, 40px); }
+.doc--bio .doc__note { margin-top: 8px; max-width: none; }
+.doc--bio .person__meta { margin-top: clamp(16px, 2vh, 24px); font-size: var(--text-small); line-height: 1.6; }
+.doc--bio .person__meta dt { margin-top: 12px; font-weight: var(--weight-semibold); color: var(--text-body); }
+.doc--bio .person__meta dt:first-child { margin-top: 0; }
+.doc--bio .person__meta dd { margin: 3px 0 0; color: var(--text-muted); }
+.doc--bio .doc__photo { object-position: 50% 18%; }
+/* En el carrusel, el alto lo pone la ficha más larga: las tres se estiran igual
+   y el retrato cubre su columna entera. */
+.carousel--2 .carousel__track { align-items: stretch; }
+
+/* ---- Ficha que se gira: la foto delante, la información detrás. Sustituye al
+   pop-up a petición del cliente: al pasar el puntero —o al tocar "Ver más"—
+   la ficha rota y enseña su reverso. ---- */
+.card--wide.card--flip {
+  perspective: 1400px;
+  overflow: visible;
+  background: none;
+  height: max(320px, calc(74vh - 240px));
+  min-height: 0;
+}
+
+.card--wide.card--compact.card--flip { height: clamp(220px, 24vw, 300px); }
+
+.card--wide.card--flip::after { display: none; }
+
+.flip__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform .7s var(--ease-out);
+}
+
+.card--flip:hover .flip__inner,
+.card--flip.is-flipped .flip__inner,
+.card--flip:focus-within .flip__inner { transform: rotateY(180deg); }
+
+.flip__front,
+.flip__back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Cara delantera: la foto entera con el velo en tres capas y el titular abajo. */
+.flip__front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--ink-3);
+}
+
+.flip__front::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(24, 34, 58, .90) 0, rgba(24, 34, 58, .72) 34%, rgba(24, 34, 58, 0) 52%),
+    linear-gradient(0deg, rgba(24, 34, 58, .92) 0, rgba(24, 34, 58, .55) 36%, rgba(24, 34, 58, 0) 56%),
+    rgba(24, 34, 58, .5);
+}
+
+.flip__front .card__top,
+.flip__front .card__foot { position: relative; z-index: 1; }
+
+/* Reverso: pizarra plana con la información. */
+.flip__back {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: clamp(18px, 2.2vw, 30px);
+  background: var(--ink-2);
+  transform: rotateY(180deg);
+}
+
+.flip__back .card__label { padding-bottom: 0; border-bottom: 0; }
+
+.flip__title {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.1;
+  color: #FFFFFF;
+}
+
+.flip__text {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .78);
+}
+
+.flip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.flip__close {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .72);
+}
+
+.card--wide.card--compact.card--flip .flip__text { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flip__inner { transition: none; }
 }
