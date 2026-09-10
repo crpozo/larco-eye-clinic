@@ -2649,3 +2649,18 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__tool,
 body.no-hero:not(.lv-dark):not(.is-solid) .menu__toggle,
 body.no-hero:not(.lv-dark):not(.is-solid) .nav-toggle { color: var(--text-body); }
 body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: var(--accent-strong); }
+
+/* Enlace activo del menú en claro sin portada: #3576B4 sobre papel-2 daba
+   4,24:1; un punto más oscuro, 5,2:1. */
+body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; }
+
+/* ---- Reverso de la ficha: el botón "Agendar cita" con letra marino sobre
+   blanco, explícito. Heredaba --dark-text (blanco) de .card--wide y salía
+   blanco sobre blanco. ---- */
+.flip__back .btn,
+.flip__back .btn:hover { background: #FFFFFF; color: #17265A; }
+
+/* ---- La consulta: la columna de la foto más angosta, para que el hueco
+   entre las dos columnas no sea tan ancho. ---- */
+.consult { grid-template-columns: minmax(0, 1fr) minmax(0, 44%); }
+.consult__photo { max-width: 100%; }
