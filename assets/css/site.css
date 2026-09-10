@@ -2677,3 +2677,7 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 @media (max-width: 760px) {
   .story__label, .story__headline, .story__photo, .story__body { grid-column: 1; grid-row: auto; }
 }
+
+/* ---- La consulta: la foto a la mitad de alto (petición del cliente): formato
+   apaisado corto, recortada por el centro, para que la sección no crezca. ---- */
+.consult__photo { aspect-ratio: 16 / 6; object-position: 50% 60%; }
