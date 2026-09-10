@@ -734,16 +734,15 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity var(--dur-med) var(--ease-out),
-              transform var(--dur-med) var(--ease-out);
+  /* Visible en reposo: el tablero del cliente enseña las tres con foto. El
+     puntero sólo la acerca un poco; el velo NO cambia, porque es lo que
+     sostiene el contraste del índice de 11px (4,80:1 medido a .84). */
+  opacity: 1;
+  transition: transform var(--dur-med) var(--ease-out);
 }
 
 .service-col:hover .service-col__photo,
-.service-col:focus-visible .service-col__photo {
-  opacity: 1;
-  transform: scale(1.03);
-}
+.service-col:focus-visible .service-col__photo { transform: scale(1.03); }
 
 /* El velo es AZUL, no negro: en el board la foto de la tarjeta activa se ve
    entera pero teñida de pizarra, que es lo que la ata a las otras dos. En
@@ -752,14 +751,6 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 .service-col__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(28, 40, 68, 0);
-  transition: background var(--dur-med) var(--ease-out);
-}
-
-.service-col:hover .service-col__scrim,
-.service-col:focus-visible .service-col__scrim {
-  /* .78 y no .74: medido contra el pixel más claro de las tres fotos, por
-     debajo de ese nivel el índice —11px en versalitas— no llega a 4,5:1. */
   background: rgba(24, 34, 58, .84);
 }
 
@@ -779,7 +770,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   font-size: var(--text-label);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
-  color: var(--accent);
+  color: rgba(255, 255, 255, .92);
 }
 
 .service-col__desc {
@@ -796,17 +787,8 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   font-size: clamp(28px, 3vw, 44px);
   line-height: 1;
   letter-spacing: var(--tracking-display);
-  color: var(--accent);
-  transition: color var(--dur-med) var(--ease-out);
+  color: #FFFFFF;
 }
-
-.service-col:hover .service-col__name,
-.service-col:focus-visible .service-col__name { color: #FFFFFF; }
-
-/* Con la foto detrás, el índice sube a blanco: en azul claro se quedaba en
-   3,3:1 sobre los reflejos del instrumental. */
-.service-col:hover .service-col__index,
-.service-col:focus-visible .service-col__index { color: rgba(255, 255, 255, .92); }
 
 /* El board no lleva enlace de continuar: el nombre de la tarjeta ES el enlace,
    y la tarjeta entera es el área pulsable. */
@@ -933,7 +915,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
   grid-template-columns: auto auto minmax(0, 1fr) auto;
   align-items: center;
   gap: clamp(20px, 3vw, 56px);
-  padding: clamp(18px, 2.4vh, 30px) 0;
+  padding: clamp(18px, 2.4vh, 30px) clamp(16px, 2.4vw, 40px); /* aire a los costados, tablero */
   border-bottom: 1px solid var(--border-hairline);
   text-decoration: none;
 }
@@ -1561,7 +1543,7 @@ body.js [data-rev].is-pending {
      titular, 223px de contenido, y con el relleno general de sección se iba a
      549px de alto. Aquí manda lo que hay dentro. */
   padding: clamp(48px, 5vw, 76px) var(--grid-margin);
-  background: var(--ink-2);
+  background: #2B3547; /* el hex que pide el tablero para esta banda */
 }
 
 .stats-band__layout { display: block; }
@@ -1619,7 +1601,7 @@ body.js [data-rev].is-pending {
 
 .figure__label {
   display: block;
-  margin-top: clamp(8px, 1vw, 14px);
+  margin-top: 6px; /* pegado a la cifra, como la referencia del tablero */
   max-width: 22ch;
   font-size: var(--text-body-size);
   line-height: 1.5;
@@ -1897,3 +1879,7 @@ body.js [data-rev].is-pending {
   .slide__body { width: 100%; }
   .slide__veil { background: linear-gradient(180deg, rgba(20, 30, 52, .72) 0, rgba(20, 30, 52, .92) 100%); }
 }
+
+/* Tablero, sección Doctores: "alinear" — la entradilla arranca a la misma
+   altura que el titular, no colgada arriba mientras el titular baja al pie. */
+#doctores .head-split { align-items: start; }
