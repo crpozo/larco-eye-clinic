@@ -244,7 +244,7 @@
     }
 
     // Otherwise the mobile address bar stays paper-white around a dark page.
-    if (themeColor) themeColor.setAttribute('content', next ? '#12110E' : '#F4F2ED');
+    if (themeColor) themeColor.setAttribute('content', next ? '#1E2535' : '#FDFDFD');
 
     if (persist) store(STORAGE_DARK, next ? '1' : '0');
   }
@@ -554,7 +554,9 @@
   body.classList.add('js');
 
   applyWhatsApp();
-  applyDark(read(STORAGE_DARK) === '1', false);
+  /* Oscuro por defecto: es el aspecto aprobado por el cliente. El claro es la
+     elección explícita del visitante y se recuerda. */
+  applyDark(read(STORAGE_DARK) !== '0', false);
   applyZoom(parseInt(read(STORAGE_ZOOM) || '0', 10) || 0, false);
 
   if (darkToggle) {

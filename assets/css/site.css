@@ -708,6 +708,7 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 }
 
 .service-col {
+  --dark-text: rgba(255, 255, 255, .96); /* fondo propio: el texto no sigue a la banda */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1801,6 +1802,7 @@ body.js [data-rev].is-pending {
 .showcase { position: relative; }
 
 .slide {
+  --dark-text: rgba(255, 255, 255, .96); /* fondo propio: el texto no sigue a la banda */
   /* Misma razón que en .service-col: superficie oscura dentro de banda clara. */
   --accent: #8FB6D5;
   --text-muted: rgba(255, 255, 255, .82);
@@ -2483,3 +2485,51 @@ body.lv-zoom-2 .nav { gap: 12px; }
 body.lv-zoom-1 .nav__link { font-size: 13px; letter-spacing: .05em; }
 body.lv-zoom-2 .nav__link { font-size: 12px; letter-spacing: .03em; }
 body.lv-zoom-2 .site-header .btn { padding: 10px 16px; }
+
+/* ==========================================================================
+   Modo claro de verdad
+
+   El aspecto aprobado —bandas azul pizarra— es el modo OSCURO y es el que se
+   carga por defecto. Cuando el visitante elige el modo claro, las bandas
+   pasan a papel y sus tokens vuelven a los valores de papel: antes ambos
+   modos eran oscuros y "no se notaba la diferencia".
+   ========================================================================== */
+body:not(.lv-dark) .section--dark,
+body:not(.lv-dark) .section--night {
+  /* Sobre el papel-2 de estas bandas el azul claro de siempre se queda en
+     2,96:1; un punto más oscuro da 3,7:1 para el texto grande, y el fuerte
+     4,8:1 para el pequeño. Medido. */
+  --accent: #4A82AE;
+  --accent-display: #4A82AE;
+  --accent-strong: #2F6EAA;
+  --accent-hover: #8FB6D5;
+  --accent-ink: #FFFFFF;
+  --mark: #5E92BC;
+  --mark-soft: rgba(94, 146, 188, .34);
+  --border-hairline: rgba(23, 38, 90, .14);
+  --border-strong: rgba(23, 38, 90, .45);
+  --border-card: rgba(23, 38, 90, .14);
+  --text-body: #17265A;
+  --text-muted: rgba(30, 38, 58, .72);
+  --text-faint: rgba(30, 38, 58, .70);
+  --text-dim: rgba(30, 38, 58, .70);
+  --dark-text: #17265A;
+  --surface-raised: #FFFFFF;
+  --surface-card: #F1F4F9;
+  --surface-sunken: #E2E8F1;
+  --tile-empty: linear-gradient(160deg, #F1F4F9, #E2E8F1);
+  --btn-outline-hover: rgba(23, 38, 90, .06);
+  background: #EEF2F7;
+  color: #17265A;
+}
+
+body:not(.lv-dark) .section--dark a { color: inherit; }
+body:not(.lv-dark) main > section.section--alt.section--night,
+body:not(.lv-dark) main > section.section--alt.section--dark { background: #FFFFFF; }
+body:not(.lv-dark) .vquote__media { background: rgba(23, 38, 90, .04); }
+body:not(.lv-dark) .vquote__play { color: #17265A; }
+body:not(.lv-dark) .stats-band { background: #EEF2F7; }
+body:not(.lv-dark) .stats-band .figure__num { color: #3576B4; }
+
+/* Texto PEQUEÑO en acento usa el acento fuerte: 15 y 11px necesitan 4,5:1. */
+.topic__name, .mv__label { color: var(--accent-strong); }
