@@ -2613,3 +2613,14 @@ body:not(.lv-dark) .stats-band .figure__num { color: #3576B4; }
 }
 
 body:not(.lv-dark) .vquote__by { background: #E2E8F1; }
+
+/* ---- Fichas que giran, sin velo: la foto entera y limpia. Sólo un degradado
+   corto bajo el titular para que se lea; el resto de la foto, intacta. La
+   ficha entera es pulsable para girarla en pantallas táctiles. ---- */
+.card--wide.card--flip .flip__front::after {
+  /* Medido contra la pared blanca de la sala de exámenes: con .88→.45 el
+     titular se quedaba en 2,0:1. Sigue siendo un degradado corto bajo el
+     titular, no un velo sobre la foto. */
+  background: linear-gradient(0deg, rgba(24, 34, 58, .96) 0, rgba(24, 34, 58, .82) 22%, rgba(24, 34, 58, .35) 40%, rgba(24, 34, 58, 0) 52%);
+}
+.card--wide.card--flip .flip__front { justify-content: flex-end; cursor: pointer; }

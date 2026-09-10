@@ -510,12 +510,11 @@
      el hover ya la gira; el botón existe para el tacto y el teclado. */
   function wireFlips() {
     document.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-flip]');
-      if (!b) return;
-      var card = b.closest('.card--flip');
+      var card = e.target.closest('.card--flip');
       if (!card) return;
-      var on = card.classList.toggle('is-flipped');
-      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      /* Un enlace del reverso navega; todo lo demás dentro de la ficha la gira. */
+      if (e.target.closest('a')) return;
+      card.classList.toggle('is-flipped');
     });
   }
 
