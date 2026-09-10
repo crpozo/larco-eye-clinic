@@ -2671,7 +2671,7 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 /* ---- Historia: el titular a todo el ancho (petición del cliente), alineado a
    la izquierda; debajo, la foto y el cuerpo en dos columnas. ---- */
 .story__label { grid-column: 1 / -1; grid-row: 1; }
-.story__headline { grid-column: 1 / -1; grid-row: 2; text-align: left; font-size: clamp(24px, 3vw, 44px); max-width: 30ch; }
+.story__headline { grid-column: 1 / -1; grid-row: 2; text-align: left; font-size: clamp(26px, 3.2vw, 48px); max-width: none; }
 .story__photo { grid-column: 1; grid-row: 3; }
 .story__body { grid-column: 2; grid-row: 3; }
 @media (max-width: 760px) {
