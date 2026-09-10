@@ -2681,3 +2681,7 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 /* ---- La consulta: la foto con su formato original (16:10), al ancho exacto
    del texto y alineada con él. El recorte a 16:6 se probó y se descartó. ---- */
 .consult__photo { aspect-ratio: 16 / 10; object-position: 50% 50%; }
+
+/* ---- La consulta: la foto centrada respecto al texto, algo más estrecha que
+   la columna, con el mismo aire a los dos lados. ---- */
+.consult__photo { width: 84%; margin-left: auto; margin-right: auto; }
