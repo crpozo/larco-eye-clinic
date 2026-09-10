@@ -514,6 +514,23 @@
     });
   }
 
+  /* Bandas alternas: dos secciones seguidas con el mismo fondo calculado se
+     leen como un bloque. La segunda recibe .section--alt y el CSS le da el
+     tono alterno de su familia. Se decide por el color CALCULADO, así que
+     vale para cualquier página sin conocer sus clases. */
+  function wireAltBands() {
+    var secs = document.querySelectorAll('main > section');
+    var prev = null;
+    for (var i = 0; i < secs.length; i++) {
+      var bg = getComputedStyle(secs[i]).backgroundColor;
+      if (prev !== null && bg === prev) {
+        secs[i].classList.add('section--alt');
+        bg = getComputedStyle(secs[i]).backgroundColor;
+      }
+      prev = bg;
+    }
+  }
+
   function wirePrint() {
     window.addEventListener('beforeprint', settleForPrint);
 
@@ -559,6 +576,7 @@
   wireCounters();
   wirePrint();
   wireFlips();
+  wireAltBands();
   wireCarousels();
   sweepReveals();
 })();

@@ -111,7 +111,9 @@
   --space-8: 64px;
   --space-9: 96px;
   --space-10: 128px;
-  --space-section: clamp(72px, 8vw, 118px);
+  /* Más corto que antes: entre dos secciones se sumaban hasta 236px y el
+     cliente lo vio como demasiado espacio. */
+  --space-section: clamp(44px, 5.2vw, 80px);
 
   --grid-max: 1440px;
   --grid-gutter: 24px;

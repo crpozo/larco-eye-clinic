@@ -2016,9 +2016,9 @@ body.js [data-rev].is-pending {
 .topic__name {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: var(--text-label);
+  font-size: 15px; /* un punto más grande, a petición del cliente */
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-label);
+  letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -2430,3 +2430,12 @@ body.js [data-rev].is-pending {
 @media (prefers-reduced-motion: reduce) {
   .flip__inner { transition: none; }
 }
+
+/* ---- Dos secciones seguidas nunca comparten fondo: se leían como un solo
+   bloque. site.js recorre las secciones en orden y, cuando el fondo calculado
+   se repite, marca la segunda con .section--alt; aquí va el tono alterno de
+   cada familia. El oscuro alterno es el que adjuntó el cliente. ---- */
+main > section.section--alt.section--night,
+main > section.section--alt.section--dark { background: #2C3547; }
+main > section.section--alt:not(.section--dark):not(.section--night) { background: var(--paper-2); }
+body.lv-dark main > section.section--alt:not(.section--dark):not(.section--night) { background: var(--surface-raised); }
