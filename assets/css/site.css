@@ -2533,3 +2533,24 @@ body:not(.lv-dark) .stats-band .figure__num { color: #3576B4; }
 
 /* Texto PEQUEÑO en acento usa el acento fuerte: 15 y 11px necesitan 4,5:1. */
 .topic__name, .mv__label { color: var(--accent-strong); }
+
+/* ---- Testimonios en vídeo: reels verticales (9:16), acotados en ancho para
+   que tres quepan en fila sin ocupar media pantalla de alto. Controles
+   nativos: teclado, subtítulos y pantalla completa vienen de serie. ---- */
+.vquote__media:has(.vquote__video) {
+  aspect-ratio: 9 / 16;
+  max-width: 340px;
+  margin: 0 auto;
+  background: #0B0F19;
+  border: 0;
+}
+
+.vquote__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #0B0F19;
+}
+
+.vquote__by { text-align: center; }
