@@ -268,6 +268,11 @@
       body.style.zoom = zoom;
       if (window.scrollY !== y) window.scrollTo(0, y);
     }
+    /* Clase por nivel: el CSS compacta el menú cuando el texto crece, porque
+       `zoom` no cambia el ancho que ven las media queries y el menú se partía
+       en dos líneas con A++. */
+    body.classList.remove('lv-zoom-1', 'lv-zoom-2');
+    if (zoomIndex > 0) body.classList.add('lv-zoom-' + zoomIndex);
 
     if (zoomToggle) {
       zoomToggle.textContent = ZOOM_LABELS[zoomIndex];

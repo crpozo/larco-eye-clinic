@@ -2439,3 +2439,47 @@ main > section.section--alt.section--night,
 main > section.section--alt.section--dark { background: #2C3547; }
 main > section.section--alt:not(.section--dark):not(.section--night) { background: var(--paper-2); }
 body.lv-dark main > section.section--alt:not(.section--dark):not(.section--night) { background: var(--surface-raised); }
+
+/* ---- Secciones en espejo: la primera a la izquierda, la segunda a la
+   derecha, y así. Titular alineado a la derecha y las filas invertidas:
+   texto, nombre, miniatura. ---- */
+.section--mirror .section-head { justify-content: flex-end; text-align: right; }
+.section--mirror .topic { grid-template-columns: minmax(0, 1fr) minmax(0, 220px) 96px; }
+.section--mirror .topic__thumb { order: 3; justify-self: end; }
+.section--mirror .topic__head { order: 2; text-align: right; }
+.section--mirror .topic__text { order: 1; text-align: right; margin-left: auto; }
+
+@media (max-width: 760px) {
+  .section--mirror .section-head { justify-content: flex-start; text-align: left; }
+  .section--mirror .topic { grid-template-columns: 72px minmax(0, 1fr); }
+  .section--mirror .topic__thumb { order: 0; justify-self: start; }
+  .section--mirror .topic__head { order: 0; text-align: left; }
+  .section--mirror .topic__text { order: 0; text-align: left; margin-left: 0; }
+}
+
+/* ---- Página sin portada: la primera sección deja sitio al header flotante. ---- */
+.section--first { padding-top: calc(var(--header-h, 92px) + clamp(32px, 6vh, 64px)); }
+
+.section-head__lede {
+  margin: 12px 0 0;
+  font-size: var(--text-body-lg);
+  color: var(--text-muted);
+}
+
+/* ---- Sección compacta: la mitad de aire y el titular a la escala de tarjeta. ---- */
+.section--compact { padding-block: clamp(28px, 3.2vw, 48px); }
+.section--compact .section__title { font-size: var(--text-h3); }
+.section--compact .head-split { margin-bottom: 0; align-items: center; }
+
+/* ---- Cifras centradas en su columna, a petición del cliente. ---- */
+.figure { text-align: center; }
+.figure__label { margin-left: auto; margin-right: auto; }
+
+/* ---- Menú con el texto ampliado (A+ / A++): nunca en dos líneas ---- */
+.nav__link { white-space: nowrap; }
+.nav__caret { display: inline-block; }
+body.lv-zoom-1 .nav { gap: 18px; }
+body.lv-zoom-2 .nav { gap: 12px; }
+body.lv-zoom-1 .nav__link { font-size: 13px; letter-spacing: .05em; }
+body.lv-zoom-2 .nav__link { font-size: 12px; letter-spacing: .03em; }
+body.lv-zoom-2 .site-header .btn { padding: 10px 16px; }
