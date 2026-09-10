@@ -21,6 +21,8 @@ marcado como tal y se reemplaza en cuanto llegue la foto real.
 | `equipo-camara-retina.webp` | `cámara retinal.png` | Ficha Cámara de retina |
 | `area-quirofano.webp` | `quirófano.png` | Instalaciones · Quirófano |
 | `area-sala-examenes.webp` | `sala de exámenes.png` | Instalaciones · Sala de exámenes |
+| `area-recepcion.webp` | `recepcion.png` (2026-09-10) | Historia, en Sobre Nosotros |
+| `area-laser.webp` | `cuarto laser.png` (2026-09-10) | Instalaciones · Cuarto láser (sustituye al stock) |
 
 Todas se exportaron con `cwebp -q 82/84` y reducidas a 1200–2000 px de ancho.
 
