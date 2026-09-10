@@ -414,6 +414,93 @@
     }
   }
 
+
+  /* ------------------------------------------------------------------
+     Pop-ups de ficha: <dialog> nativo. Botón [data-dialog="id"] abre,
+     [data-dialog-close] cierra, y un clic en el fondo también cierra.
+     Escape lo cierra el navegador.
+     ------------------------------------------------------------------ */
+  function wireDialogs() {
+    if (!('HTMLDialogElement' in window)) return;
+    document.addEventListener('click', function (e) {
+      var opener = e.target.closest('[data-dialog]');
+      if (opener) {
+        var dlg = document.getElementById(opener.getAttribute('data-dialog'));
+        if (dlg && typeof dlg.showModal === 'function') { dlg.showModal(); e.preventDefault(); }
+        return;
+      }
+      var closer = e.target.closest('[data-dialog-close]');
+      if (closer) { closer.closest('dialog').close(); return; }
+      if (e.target.tagName === 'DIALOG' && e.target.open) e.target.close();
+    });
+    /* Escape lo cierra el navegador por su cuenta; esto lo hace explícito para
+       los entornos donde el evento no dispara la acción por defecto. */
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var open = document.querySelector('dialog[open]');
+      if (open) open.close();
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     Carrusel por transform. Sin scroll nativo: un carril con scroll-snap
+     horizontal secuestra la rueda y el trackpad cuando el puntero pasa por
+     encima, y eso es lo que hacía que la página se sintiera rara.
+     ------------------------------------------------------------------ */
+  function wireCarousels() {
+    var roots = document.querySelectorAll('[data-carousel]');
+    for (var i = 0; i < roots.length; i++) {
+      (function (root) {
+        var track = root.querySelector('[data-carousel-track]');
+        var prev = root.querySelector('[data-carousel-prev]');
+        var next = root.querySelector('[data-carousel-next]');
+        var dotBox = root.querySelector('[data-carousel-dots]');
+        if (!track || track.children.length < 2) return;
+        var page = 0, dots = [];
+
+        function step() { var it = track.children; return it[1].offsetLeft - it[0].offsetLeft; }
+        function perView() { return Math.max(1, Math.round(track.parentNode.clientWidth / step())); }
+        function pages() { return Math.max(1, Math.ceil(track.children.length / perView())); }
+
+        function render() {
+          var n = pages();
+          if (page > n - 1) page = n - 1;
+          var idx = Math.min(page * perView(), track.children.length - perView());
+          track.style.transform = 'translateX(' + (-idx * step()) + 'px)';
+          if (prev) prev.disabled = page === 0;
+          if (next) next.disabled = page >= n - 1;
+          if (dotBox) {
+            if (dots.length !== n) {
+              dotBox.textContent = ''; dots = [];
+              for (var d = 0; d < n; d++) {
+                (function (k) {
+                  var b = document.createElement('button');
+                  b.type = 'button'; b.className = 'carousel__dot';
+                  b.setAttribute('aria-label', 'Ir al grupo ' + (k + 1) + ' de ' + n);
+                  b.addEventListener('click', function () { page = k; render(); });
+                  dotBox.appendChild(b); dots.push(b);
+                })(d);
+              }
+            }
+            for (var m = 0; m < dots.length; m++) {
+              dots[m].classList.toggle('is-active', m === page);
+              if (m === page) dots[m].setAttribute('aria-current', 'true'); else dots[m].removeAttribute('aria-current');
+            }
+          }
+        }
+        if (prev) prev.addEventListener('click', function () { if (page > 0) { page--; render(); } });
+        if (next) next.addEventListener('click', function () { if (page < pages() - 1) { page++; render(); } });
+        root.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft' && page > 0) { page--; render(); }
+          if (e.key === 'ArrowRight' && page < pages() - 1) { page++; render(); }
+        });
+        if (reduceMotion) track.style.transition = 'none';
+        window.addEventListener('resize', render);
+        render();
+      })(roots[i]);
+    }
+  }
+
   function wirePrint() {
     window.addEventListener('beforeprint', settleForPrint);
 
@@ -458,5 +545,7 @@
   wireReveals();
   wireCounters();
   wirePrint();
+  wireDialogs();
+  wireCarousels();
   sweepReveals();
 })();

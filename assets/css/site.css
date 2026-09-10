@@ -1898,3 +1898,316 @@ body.js [data-rev].is-pending {
 }
 
 @media (max-width: 760px) { .slide__inset { display: none; } }
+
+
+/* ==========================================================================
+   Tablero del 8 de septiembre — piezas nuevas de las interiores
+   ========================================================================== */
+
+/* ---- Nuestra historia: rótulo, titular grande a dos tonos y el cuerpo en
+   la columna derecha, como la maqueta. ---- */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 56%);
+  column-gap: var(--grid-gutter);
+  row-gap: clamp(28px, 4vw, 56px);
+}
+
+.story__label {
+  grid-column: 1;
+  align-self: end;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.story__headline {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  text-align: right;
+  color: var(--text-body);
+}
+
+.story__body {
+  grid-column: 2;
+  font-size: var(--text-body-size);
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.story__body p { margin: 0 0 1em; }
+.story__body p:last-child { margin-bottom: 0; }
+
+@media (max-width: 760px) {
+  .story { grid-template-columns: 1fr; }
+  .story__headline { text-align: left; }
+  .story__body { grid-column: 1; }
+}
+
+/* ---- Misión y Visión: dos columnas de texto con rótulo pequeño ---- */
+.mv {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 80px);
+}
+
+.mv__label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mv__col p {
+  margin: 0;
+  max-width: 52ch;
+  font-size: var(--text-body-size);
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+@media (max-width: 700px) { .mv { grid-template-columns: 1fr; } }
+
+/* ---- Equipo: la trayectoria en viñetas, no en una frase con punto y coma ---- */
+.person__list {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.person__list li { margin: 0 0 4px; }
+
+/* ---- Especialidades: filas con miniatura, nombre y texto (tablero) ---- */
+.topics { border-top: 1px solid var(--border-hairline); }
+
+.topic {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 220px) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 56px);
+  align-items: center;
+  padding: clamp(20px, 2.6vw, 34px) clamp(12px, 2vw, 32px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.topic__thumb {
+  width: 96px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.topic__name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.topic__cta {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.topic__cta:hover { color: var(--text-body); }
+
+.topic__text {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--text-body-size);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+@media (max-width: 760px) {
+  .topic { grid-template-columns: 72px minmax(0, 1fr); }
+  .topic__thumb { width: 72px; }
+  .topic__text { grid-column: 1 / -1; }
+}
+
+/* ---- Fichas que se revelan: opacas en reposo, la foto ENTERA al pasar el
+   puntero. El tablero lo pide así para instalaciones y equipos: "usar color
+   opaco y cuando pasa el cursor se revela la imagen" y "la foto se debe
+   visualizar muy bien". La descripción vive en el pop-up, así que al pasar el
+   puntero se retira y sólo queda el titular sobre un degradado bajo. ---- */
+.card--wide.card--reveal { background: var(--ink-3); }
+
+.card--wide.card--reveal .card__media {
+  filter: none;
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+
+.card--wide.card--reveal::after {
+  background: linear-gradient(0deg, rgba(24, 34, 58, .94) 0, rgba(24, 34, 58, .6) 42%, rgba(24, 34, 58, 0) 72%);
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.card--wide.card--reveal .card__top { transition: opacity var(--dur-med) var(--ease-out); }
+
+.card--wide.card--reveal:hover .card__media,
+.card--wide.card--reveal:focus-within .card__media { opacity: 1; transform: scale(1.03); }
+.card--wide.card--reveal:hover::after,
+.card--wide.card--reveal:focus-within::after { opacity: 1; }
+.card--wide.card--reveal:hover .card__top,
+.card--wide.card--reveal:focus-within .card__top { opacity: 0; }
+
+.card--wide.card--reveal .card__more {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Fichas compactas del carrusel */
+.card--wide.card--compact {
+  min-height: 0;
+  height: clamp(220px, 24vw, 300px);
+  gap: var(--space-5);
+}
+
+.card--wide.card--compact .card__title { font-size: clamp(18px, 1.6vw, 24px); max-width: none; }
+.card--wide.card--compact .card__text { display: none; }
+.card--wide.card--compact .card__top,
+.card--wide.card--compact .card__foot { padding: clamp(16px, 1.6vw, 22px); }
+
+/* ---- Carrusel por transform: sin scroll nativo, no secuestra la rueda ---- */
+.carousel { --carousel-gap: clamp(14px, 1.6vw, 24px); }
+
+.carousel__viewport { overflow: hidden; }
+
+.carousel__track {
+  display: flex;
+  gap: var(--carousel-gap);
+  transition: transform .55s var(--ease-out);
+  will-change: transform;
+}
+
+.carousel__track > * {
+  flex: 0 0 calc((100% - var(--carousel-gap) * 3) / 4);
+}
+
+@media (max-width: 1100px) { .carousel__track > * { flex-basis: calc((100% - var(--carousel-gap) * 2) / 3); } }
+@media (max-width: 760px)  { .carousel__track > * { flex-basis: calc((100% - var(--carousel-gap)) / 2); } }
+@media (max-width: 480px)  { .carousel__track > * { flex-basis: 100%; } }
+
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.carousel__dots { display: flex; gap: 8px; }
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .28);
+  cursor: pointer;
+}
+
+.carousel__dot.is-active { background: var(--accent); }
+
+.carousel__arrows { display: flex; gap: 10px; }
+
+.carousel__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--text-body);
+  cursor: pointer;
+}
+
+.carousel__arrow:hover { background: var(--btn-outline-hover); }
+.carousel__arrow[disabled] { opacity: .35; cursor: default; }
+
+/* ---- Pop-up de ficha (dialog nativo) ---- */
+.modal {
+  width: min(760px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  background: var(--ink-2);
+  color: var(--dark-text);
+}
+
+.modal::backdrop { background: rgba(10, 16, 30, .72); }
+
+.modal__inner { position: relative; }
+
+.modal__media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.modal__body { padding: clamp(22px, 3vw, 36px); }
+
+.modal__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: #8FB6D5;
+}
+
+.modal__title {
+  margin: 0 0 14px;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.1;
+  color: #FFFFFF;
+}
+
+.modal__body p {
+  margin: 0 0 22px;
+  max-width: 60ch;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .78);
+}
+
+.modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(10, 16, 30, .7);
+  color: #FFFFFF;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* Exámenes: la cabecera se alinea con el párrafo, como pide el tablero. */
+#examenes .head-split { align-items: start; }
