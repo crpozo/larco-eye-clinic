@@ -1041,6 +1041,44 @@ body.lv-dark .section--dark { background: var(--surface-raised); }
 
 .footer__brand { padding-right: clamp(20px, 3vw, 48px); }
 
+/* Mapa del pie: banda a todo el carril, encima de las cuatro columnas. La
+   tarjeta va superpuesta abajo a la izquierda, sobre superficie elevada, para
+   que la dirección no dependa del contraste contra las teselas. */
+.footer__map {
+  height: clamp(220px, 24vw, 320px);
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.footer__map-card {
+  position: absolute;
+  left: clamp(14px, 2vw, 24px);
+  bottom: clamp(14px, 2vw, 24px);
+  max-width: 300px;
+  padding: 16px 20px 18px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-hairline);
+}
+
+.footer__map-card .footer__col-title { margin-bottom: 8px; }
+.footer__map-card .footer__address { margin: 0; }
+
+.footer__map-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: var(--text-label);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.footer__map-link:hover { color: var(--text-body); }
+
+@media (max-width: 560px) {
+  .footer__map { height: 260px; }
+  .footer__map-card { left: 10px; right: 10px; bottom: 10px; max-width: none; }
+}
+
 .footer__col {
   padding: 0 clamp(20px, 2.6vw, 44px);
   border-left: 1px solid var(--border-hairline);
