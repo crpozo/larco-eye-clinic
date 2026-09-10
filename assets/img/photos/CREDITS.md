@@ -81,8 +81,7 @@ en vector. Sustituyen a los dos WebP anteriores, que se retiraron.
 
 ## Mapa
 
-`assets/img/mapa-pradera.webp`: teselas de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL) a zoom 17, centradas en
--0.1946, -78.4890 —Av. 10 de Agosto, entre la estación La Pradera del Metro y el Colegio Militar Eloy Alfaro, donde el
-cliente sitúa la clínica en Google Maps—. Se genera una vez y se sirve desde el repo: ninguna petición a terceros al cargar.
-Sustituye al de Cumbayá, que era una ubicación equivocada. La chincheta marca el centro del sector; el número exacto sigue
-por confirmar.
+`assets/img/mapa-cumbaya.webp`: teselas de OpenStreetMap (© colaboradores de OpenStreetMap, ODbL) a zoom 17, centradas en
+-0.2030, -78.4335 —Av. Oswaldo Guayasamín y Calle 1, Cumbayá, 170157 Quito, la dirección oficial que dio el cliente—.
+Se genera una vez y se sirve desde el repo. Sustituye al de La Pradera (v=196–203), que salió de un marcador de
+Google Maps que no era la sede.
