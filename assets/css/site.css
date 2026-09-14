@@ -2737,3 +2737,20 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 
 /* Historia: cuerpo de texto y foto centrados entre sí en su fila. */
 .story__body { align-self: center; }
+
+/* ---- Giro más suave: más lento, con una curva que arranca y frena sin golpe,
+   y el reverso entra en fundido mientras rota, para que no haya un salto seco
+   a mitad de vuelta. ---- */
+.flip__inner { transition: transform 1.05s cubic-bezier(.4, 0, .2, 1); }
+.flip__front, .flip__back { transition: opacity .55s ease; }
+.flip__back { opacity: 0; }
+.card--flip:hover .flip__back,
+.card--flip.is-flipped .flip__back,
+.card--flip:focus-within .flip__back { opacity: 1; transition-delay: .3s; }
+.card--flip:hover .flip__front,
+.card--flip.is-flipped .flip__front,
+.card--flip:focus-within .flip__front { opacity: 0; transition-delay: .25s; }
+@media (prefers-reduced-motion: reduce) {
+  .flip__inner { transition: none; }
+  .flip__front, .flip__back { transition: none; }
+}
