@@ -2699,11 +2699,13 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 /* Home · escaparate: el degradado era demasiado fuerte y cubría casi toda la
    imagen; la máquina perdía protagonismo. Ahora se disuelve antes de la mitad. */
 .slide__veil {
+  /* Denso bajo el bloque de texto (que mide 560px como mucho) y corto: se
+     disuelve antes de la mitad para que la máquina siga entera. */
   background: linear-gradient(90deg,
-    rgba(20, 30, 52, .90) 0,
-    rgba(20, 30, 52, .74) 30%,
-    rgba(20, 30, 52, .18) 52%,
-    rgba(20, 30, 52, 0) 66%);
+    rgba(20, 30, 52, .94) 0,
+    rgba(20, 30, 52, .90) 38%,
+    rgba(20, 30, 52, .45) 50%,
+    rgba(20, 30, 52, 0) 60%);
 }
 
 /* Home · testimonios: el nombre un punto más grueso. */
