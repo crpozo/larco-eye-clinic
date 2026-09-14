@@ -2685,3 +2685,50 @@ body.no-hero:not(.lv-dark):not(.is-solid) .nav__link--current { color: #2A67A2; 
 /* ---- La consulta: la foto centrada respecto al texto, algo más estrecha que
    la columna, con el mismo aire a los dos lados. ---- */
 .consult__photo { width: 84%; margin-left: auto; margin-right: auto; }
+
+/* ==========================================================================
+   Tablero del 14 de septiembre
+   ========================================================================== */
+
+/* General: la flecha del botón de cita, separada del texto. */
+.btn > span[aria-hidden="true"] { margin-left: .55em; }
+
+/* Home · cifras: sin titular y con la banda más estrecha. */
+.stats-band { padding-block: clamp(36px, 4.2vw, 60px); }
+
+/* Home · escaparate: el degradado era demasiado fuerte y cubría casi toda la
+   imagen; la máquina perdía protagonismo. Ahora se disuelve antes de la mitad. */
+.slide__veil {
+  background: linear-gradient(90deg,
+    rgba(20, 30, 52, .90) 0,
+    rgba(20, 30, 52, .74) 30%,
+    rgba(20, 30, 52, .18) 52%,
+    rgba(20, 30, 52, 0) 66%);
+}
+
+/* Home · testimonios: el nombre un punto más grueso. */
+.vquote__name { font-weight: 600; }
+
+/* Sobre Nosotros · Historia: se mantiene la disposición de la primera
+   imagen (titular en la columna derecha sobre el cuerpo) y la foto queda
+   centrada en vertical respecto al texto. */
+.story__label { grid-column: 1; grid-row: 1; }
+.story__headline { grid-column: 2; grid-row: 1; text-align: left; max-width: none; font-size: clamp(22px, 2.5vw, 38px); }
+.story__photo { grid-column: 1; grid-row: 2; align-self: center; }
+.story__body { grid-column: 2; grid-row: 2; }
+
+/* Sobre Nosotros · Instalaciones: el texto de la derecha alineado con el
+   borde inferior del titular. */
+#instalaciones .head-split { align-items: end; }
+#instalaciones .head-split__aside p { margin-bottom: 0; }
+
+/* Consultas · La consulta: la foto al lado izquierdo, bajo el titular; los
+   botones siguen abajo a la izquierda; el texto, a la derecha. */
+.consult { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.consult__left .consult__photo {
+  width: 100%;
+  max-width: 560px;
+  margin: clamp(20px, 2.6vw, 36px) 0 clamp(20px, 2.6vw, 36px);
+  aspect-ratio: 16 / 10;
+}
+.consult__actions { margin-top: auto; }
